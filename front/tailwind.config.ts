@@ -1,3 +1,4 @@
+import { defaultConfig } from "next/dist/server/config-shared"
 import type { Config } from "tailwindcss"
 
 const config = {
@@ -18,6 +19,9 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ['var(--font-poppins)']
+      },
       backgroundImage: {
         "register": "url('../images/casa-1.jpg')",
       },
