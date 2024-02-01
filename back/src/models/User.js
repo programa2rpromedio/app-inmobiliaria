@@ -2,7 +2,42 @@ import mongoose from "mongoose";
 
 const userSchema = mongoose.Schema(
   {
-    full_name: {
+    first_name: {
+      type: String,
+    },
+    last_name: {
+      type: String,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    profile_picture: {
+      type: String,
+    },
+    role: {
+      type: String,
+      required: true,
+      enum: ["admin", "tenant", "owner"],
+      default: "tenant",
+    },
+    location: {
+      country: {
+        type: String,
+      },
+      city: {
+        type: String,
+      },
+      address: {
+        type: String,
+      },
+    },
+    phone: {
       type: String,
     },
   },
