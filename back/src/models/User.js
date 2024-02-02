@@ -29,6 +29,7 @@ const userSchema = mongoose.Schema(
     location: {
       country: {
         type: String,
+        default: "Argentina",
       },
       city: {
         type: String,

@@ -18,6 +18,8 @@ const propertySchema = mongoose.Schema(
       term: {
         type: String,
         enum: ["day", "week", "month"],
+        required: true,
+        default: "month",
       },
     },
     description: {
