@@ -1,3 +1,4 @@
+import { CreateUserDTO, GetUserDTO } from "../dtos/user.dto.js";
 import UsersService from "../services/user.service.js";
 
 const userService = new UsersService();
@@ -16,7 +17,8 @@ class UsersController {
     const { uid } = req.params;
     try {
       const user = await userService.getUserById(uid);
-      res.status(200).send(user);
+      const userDTO = new GetUserDTO(user);
+      res.status(200).send(userDTO);
     } catch (error) {
       next(error);
     }
@@ -25,7 +27,8 @@ class UsersController {
   static async createOne(req, res, next) {
     const payload = req.body;
     try {
-      const user = await userService.createUser(payload);
+      const userDTO = new CreateUserDTO(payload);
+      const user = await userService.createUser(userDTO);
       res.status(201).send(user);
     } catch (error) {
       next(error);

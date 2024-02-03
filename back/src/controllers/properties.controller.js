@@ -1,3 +1,4 @@
+import { CreatePropertyDTO, GetPropertyDTO } from "../dtos/property.dto.js";
 import PropertiesService from "../services/properties.service.js";
 
 const propertyService = new PropertiesService();
@@ -6,7 +7,54 @@ class PropertiesController {
   static async getAll(req, res, next) {
     try {
       const properties = await propertyService.getAllProperties();
-      res.status(200).send(properties);
+      const propertiesDTO = [];
+      properties.forEach((property) => {
+        propertiesDTO.push(new GetPropertyDTO(property));
+      });
+      res.status(200).send(propertiesDTO);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async getById(req, res, next) {
+    const { pid } = req.params;
+    try {
+      const property = await propertyService.getPropertyById(pid);
+      const propertyDTO = new GetPropertyDTO(property);
+      res.status(200).send(propertyDTO);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async createOne(req, res, next) {
+    const payload = req.body;
+    try {
+      const propertyDTO = new CreatePropertyDTO(payload);
+      const property = await propertyService.createProperty(propertyDTO);
+      res.status(201).send(property);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async updateOne(req, res, next) {
+    const { pid } = req.params;
+    const payload = req.body;
+    try {
+      const property = await propertyService.updateProperty(pid, payload);
+      res.status(200).send(property);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async deleteOne(req, res, next) {
+    const { pid } = req.params;
+    try {
+      const property = await propertyService.deleteProperty(pid);
+      res.status(200).send(property);
     } catch (error) {
       next(error);
     }
