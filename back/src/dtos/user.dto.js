@@ -26,3 +26,20 @@ export class CreateUserDTO {
     this.phone = payload.phone;
   }
 }
+
+export class UpdateUserDTO {
+  constructor(payload) {
+    this.first_name = payload.firstName;
+    this.last_name = payload.lastName;
+    this.email = payload.email;
+    this.password = payload.password;
+    this.profile_picture = payload.profilePicture;
+    this.role = payload.role;
+    if (payload.address || payload.city) {
+      this.location = {};
+      this.location.address = payload.address;
+      this.location.city = payload.city;
+    }
+    this.phone = payload.phone;
+  }
+}

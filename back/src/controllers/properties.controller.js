@@ -44,7 +44,8 @@ class PropertiesController {
     const { pid } = req.params;
     const payload = req.body;
     try {
-      const property = await propertyService.updateProperty(pid, payload);
+      const propertyDTO = new CreatePropertyDTO(payload);
+      const property = await propertyService.updateProperty(pid, propertyDTO);
       res.status(200).send(property);
     } catch (error) {
       next(error);
