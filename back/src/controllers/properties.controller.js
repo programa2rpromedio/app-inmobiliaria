@@ -5,8 +5,9 @@ const propertyService = new PropertiesService();
 
 class PropertiesController {
   static async getAll(req, res, next) {
+    const options = req.query;
     try {
-      const properties = await propertyService.getAllProperties();
+      const properties = await propertyService.getAllProperties(options);
       const propertiesDTO = [];
       properties.forEach((property) => {
         propertiesDTO.push(new GetPropertyDTO(property));

@@ -7,7 +7,11 @@ class UsersController {
   static async getAll(req, res, next) {
     try {
       const users = await userService.getAllUsers();
-      res.status(200).send(users);
+      const usersDTO = [];
+      users.forEach((user) => {
+        usersDTO.push(new GetUserDTO(user));
+      });
+      res.status(200).send(usersDTO);
     } catch (error) {
       next(error);
     }
