@@ -15,3 +15,5 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api", apiRouter);
 
 app.listen(PORT, () => console.log("Server up an running on port ", PORT));
+
+// console.log(require('crypto').randomBytes(64).toString('hex'))

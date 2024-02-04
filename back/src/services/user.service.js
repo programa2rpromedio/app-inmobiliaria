@@ -1,5 +1,4 @@
 import Users from "../models/User.js";
-import jwt from "jsonwebtoken"
 import HttpError from "../utils/HttpError.util.js";
 import { createHash } from "../utils/bcrypt.util.js";
 import { NOT_FOUND } from "../utils/constants.util.js";

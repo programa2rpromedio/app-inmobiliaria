@@ -2,6 +2,7 @@ import { CreateUserDTO, GetUserDTO } from "../dtos/user.dto.js";
 import UsersService from "../services/user.service.js";
 import HttpError from "../utils/HttpError.util.js";
 import { isValidPassword } from "../utils/bcrypt.util.js";
+import { generateAccessToken } from "../utils/jwt.util.js";
 
 const userService = new UsersService();
 
@@ -24,13 +25,10 @@ class AuthController {
       if (!isValidPassword(user, payload.password)) {
         throw new HttpError("User or password wrong", 401);
       }
-
-      // const token = jwt.sign({ userId: user._id }, 'MY_SECRET_KEY', {
-      //   expiresIn: '2h'
-      // })
-
       const userDTO = new GetUserDTO(user);
-      res.status(200).send(userDTO);
+      const token = generateAccessToken(userDTO._id)
+
+      res.status(200).json([userDTO, token]);
     } catch (error) {
       next(error);
     }
