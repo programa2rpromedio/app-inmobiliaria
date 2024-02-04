@@ -27,9 +27,6 @@ const userSchema = mongoose.Schema(
       default: "tenant",
     },
     location: {
-      country: {
-        type: String,
-      },
       city: {
         type: String,
       },

@@ -4,7 +4,8 @@ const propertySchema = mongoose.Schema(
   {
     user_id: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "users",
+      ref: "Users",
+      required: true,
     },
     title: {
       type: String,
@@ -18,21 +19,39 @@ const propertySchema = mongoose.Schema(
       term: {
         type: String,
         enum: ["day", "week", "month"],
+        required: true,
+        default: "month",
       },
     },
     description: {
       type: String,
       required: true,
     },
-    location: {
-      country: {
-        type: String,
+    property_pictures: [
+      {
+        url: {
+          type: String,
+          trim: true,
+          required: true,
+        },
+        public_id: {
+          type: String,
+          required: true,
+        },
       },
+    ],
+    location: {
       city: {
         type: String,
+        required: true,
+      },
+      neighborhood: {
+        type: String,
+        required: true,
       },
       address: {
         type: String,
+        required: true,
       },
     },
     features: {

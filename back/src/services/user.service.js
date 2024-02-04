@@ -1,39 +1,60 @@
 import Users from "../models/User.js";
 import jwt from "jsonwebtoken"
+import HttpError from "../utils/HttpError.util.js";
+import { createHash } from "../utils/bcrypt.util.js";
+import { NOT_FOUND } from "../utils/constants.util.js";
 
 class UsersService {
-  static async getAllUsers() {
+  async getAllUsers() {
     const users = await Users.find({});
     return users;
   }
 
-  static async createUser({ user }) {
-    try {
-      // hashed password
-      const newUser = new Users({ ...user, password: hashedPassword })
-      await newUser.save()
-      return { error: false, message: 'User register successfully' }
-
-    } catch (error) {
-      return { error: true, message: 'Registration failed' }
+  async getUserById(uid) {
+    const user = await Users.findById(uid);
+    if (!user) {
+      throw new HttpError("User not found", NOT_FOUND);
     }
+    return user;
   }
 
-  static async login({ username, password }) {
-
-    try {
-      const user = await Users.findOne({ username })
-      if (!user) return { error: true, message: 'Autentication failed' }
-      // des-hashed password
-
-      const token = jwt.sign({ userId: user._id }, 'MY_SECRET_KEY', {
-        expiresIn: '2h'
-      })
-      return { error: false, token }
-    } catch (error) {
-      return { error: true, message: 'Login failed' }
+  async getUserByEmail(email) {
+    const user = await Users.findOne({ email: email });
+    if (!user) {
+      throw new HttpError("User not found", NOT_FOUND);
     }
+    return user;
   }
+
+  async createUser(userDTO) {
+    const newPass = createHash(userDTO.password);
+    const newUser = {
+      ...userDTO,
+      password: newPass,
+    };
+    const user = await Users.create(newUser);
+    if (!user) {
+      throw new HttpError();
+    }
+    return user;
+  }
+
+  async updateUser(uid, payload) {
+    const user = await Users.findByIdAndUpdate(uid, payload);
+    if (!user) {
+      throw new HttpError();
+    }
+    return user;
+  }
+
+  async deleteUser(uid) {
+    const user = await Users.deleteOne({ _id: uid });
+    if (!user) {
+      throw new HttpError();
+    }
+    return user;
+  }
+
 }
 
 export default UsersService;
