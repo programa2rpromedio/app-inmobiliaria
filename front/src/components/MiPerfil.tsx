@@ -42,6 +42,30 @@ const formSchema = z.object({
       message: "El apellido debe tener al menos 2 caracteres",
     })
     .max(50),
+  pais: z
+    .string({
+      required_error: "Campo requerido",
+    })
+    .min(2, {
+      message: "El país debe tener al menos 2 caracteres",
+    })
+    .max(50),
+  ciudad: z
+    .string({
+      required_error: "Campo requerido",
+    })
+    .min(2, {
+      message: "La ciudad debe tener al menos 2 caracteres",
+    })
+    .max(50),
+  direccion: z
+    .string({
+      required_error: "Campo requerido",
+    })
+    .min(2, {
+      message: "La dirección debe tener al menos 2 caracteres",
+    })
+    .max(50),
   email: z
     .string()
     .email({
@@ -50,15 +74,14 @@ const formSchema = z.object({
     .min(1, {
       message: "Campo requerido",
     }),
-  contraseña: z.string().min(6, {
-    message: "La contraseña debe ser de al menos 6 caracteres",
-  }),
-  confirmarContraseña: z.string().min(6, {
-    message: "La contraseña debe ser de al menos 6 caracteres",
-  }),
-  rol: z.enum(["Inquilino", "Propietario"], {
-    required_error: "Campo requerido",
-  }),
+  telefono: z
+    .string({
+      required_error: "Campo requerido",
+    })
+    .min(6, {
+      message: "El número teléfono debe tener al menos 6 caracteres",
+    })
+    .max(50),
 });
 
 export default function MiPerfil() {
@@ -67,10 +90,11 @@ export default function MiPerfil() {
     defaultValues: {
       nombre: "",
       apellido: "",
+      pais: "",
+      ciudad: "",
+      direccion: "",
       email: "",
-      contraseña: "",
-      confirmarContraseña: "",
-      rol: undefined,
+      telefono: "",
     },
   });
 
@@ -79,25 +103,143 @@ export default function MiPerfil() {
   }
 
   return (
-    <div className="">
+    <div className="flex flex-wrap">
       <header className="bg-blue-600 h-[112px] w-full "> </header>
 
-      <div className="container">
-        <aside className="bg-gray-100 h-[1024px] w-[408px] flex flex-col items-center selection:text-center ">
-          <Avatar className=" h-[215px] w-[215px] item-center mt-44 ">
-            <AvatarImage src="https://github.com/shadcn.png" />
+      <div className="flex flex-row">
+        <aside className="flex flex-col items-center bg-gray-100 p-4 w-[408px] ">
+          <Avatar className=" h-[215px] w-[215px] item-center mt-16 ">
+            <AvatarImage src="/j.png" />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
-          <h2 className="font-semibold text-3xl mt-10">Juan Perez</h2>
-          <Badge variant="outline" className="mt-2 text-xl bg-smerald-300">
-            Inquilino
-          </Badge>
+
+          <h2 className="font-semibold text-3xl mt-5">Juan Perez</h2>
+          <img src="/inquilino.png" alt="" className="w-[184px] mt-5 " />
         </aside>
       </div>
 
-      <main className="d-flex ">
-        <h1 className="font-semibold text-3xl">Mi Perfil</h1>
-        <h2>Datos Personales</h2>
+      <main className="flex-1 p-4 pl-12">
+        <h1 className="font-semibold text-3xl py-5">Mi Perfil</h1>
+        <h2 className="font-semibold text-2xl pb-4">Datos Personales</h2>
+
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="grid grid-cols-2 gap-x-4 gap-y-6 w-[460px]"
+          >
+            <FormField
+              control={form.control}
+              name="nombre"
+              render={({ field }) => (
+                <FormItem className="">
+                  <FormLabel className="">Nombre</FormLabel>
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="apellido"
+              render={({ field }) => (
+                <FormItem className="">
+                  <FormLabel className="">Apellido</FormLabel>
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="pais"
+              render={({ field }) => (
+                <FormItem className="">
+                  <FormLabel className="">Pais</FormLabel>
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="ciudad"
+              render={({ field }) => (
+                <FormItem className="">
+                  <FormLabel className="">Ciudad</FormLabel>
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="direccion"
+              render={({ field }) => (
+                <FormItem className="col-span-2 mt-1">
+                  <FormLabel className="">Dirección</FormLabel>
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <h2>Datos de Contacto</h2>
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem className="col-span-2 mt-2">
+                  <FormLabel className="">Correo Electrónico</FormLabel>
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="telefono"
+              render={({ field }) => (
+                <FormItem className="col-span-2">
+                  <FormLabel className="">Teléfono</FormLabel>
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </form>
+
+          <div className="grid grid-cols-2 gap-x-4 gap-y-6 w-[460px]">
+            <Button
+              className="mt-6 justify-self-start"
+              variant="outline"
+              size="lg"
+            >
+              Editar Perfil
+            </Button>
+
+            <Button
+              className="mt-6 justify-self-end"
+              variant="default"
+              size="lg"
+            >
+              Guardar cambios
+            </Button>
+          </div>
+        </Form>
       </main>
     </div>
   );
