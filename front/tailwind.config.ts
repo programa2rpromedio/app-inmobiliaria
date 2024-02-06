@@ -23,7 +23,7 @@ const config = {
         sans: ['var(--font-poppins)']
       },
       backgroundImage: {
-        "register": "url('../images/casa-1.jpg')",
+        "register": "url('../images/OBJECTS.jpg')",
       },
       colors: {
         border: "hsl(var(--border))",

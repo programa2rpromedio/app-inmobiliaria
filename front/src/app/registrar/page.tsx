@@ -6,7 +6,7 @@ export default function page() {
     <main className='grid grid-cols-2 min-h-screen'>
       <Register />
       
-      <div className='bg-register bg-cover bg-center'>
+      <div className='bg-register bg-cover bg-left-bottom'>
         
       </div>
     </main>

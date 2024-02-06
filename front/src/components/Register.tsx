@@ -1,5 +1,6 @@
 "use client"
 import { useState } from "react"
+import Link from "next/link"; 
 import { Progress } from "@/components/ui/progress"
 import { Button } from "@/components/ui/button"
 import {
@@ -67,7 +68,7 @@ const formSchema = z.object({
 
 
 export default function Register() {
-  const [step, setStep] = useState(1)
+  const [step, setStep] = useState(1)  
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -83,6 +84,7 @@ export default function Register() {
       telefono: "",
     },
   })
+  
   const handleNext = () => {
     const values = form.getValues()    
     if (values.nombre === "" || values.apellido === "" || values.email === "" || values.contraseña === "" || values.confirmarContraseña === "" || values.rol === undefined) {
@@ -117,7 +119,7 @@ export default function Register() {
                     Nombre
                   </FormLabel>
                   <FormControl>
-                    <Input {...field}  />
+                    <Input {...field} />
                   </FormControl>                
                   <FormMessage />
                 </FormItem>
@@ -256,7 +258,7 @@ export default function Register() {
                 )}
               />
             </>
-          )}
+          )}          
           {
             step > 1 ? (
             <Button type="submit" className="col-span-2 w-full" variant="default" size="lg">
@@ -271,7 +273,7 @@ export default function Register() {
       </Form>
       <div className="flex flex-col justify-center items-center text-sm">
         <p>¿Ya tienes una cuenta?</p>
-        <p className="font-semibold">Inicia sesión</p>
+        <p className="font-semibold hover:text-primary transition-colors"><Link href="/iniciar-sesion">Inicia sesión</Link></p>
       </div>
     </div>
   )
