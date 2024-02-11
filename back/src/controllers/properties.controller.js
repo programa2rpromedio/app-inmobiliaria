@@ -5,8 +5,9 @@ const propertyService = new PropertiesService();
 
 class PropertiesController {
   static async getAll(req, res, next) {
+    const options = req.query;
     try {
-      const properties = await propertyService.getAllProperties();
+      const properties = await propertyService.getAllProperties(options);
       const propertiesDTO = [];
       properties.forEach((property) => {
         propertiesDTO.push(new GetPropertyDTO(property));
@@ -43,7 +44,8 @@ class PropertiesController {
     const { pid } = req.params;
     const payload = req.body;
     try {
-      const property = await propertyService.updateProperty(pid, payload);
+      const propertyDTO = new CreatePropertyDTO(payload);
+      const property = await propertyService.updateProperty(pid, propertyDTO);
       res.status(200).send(property);
     } catch (error) {
       next(error);

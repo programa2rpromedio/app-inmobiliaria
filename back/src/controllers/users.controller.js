@@ -1,5 +1,6 @@
-import { CreateUserDTO, GetUserDTO } from "../dtos/user.dto.js";
+import { CreateUserDTO, GetUserDTO, UpdateUserDTO } from "../dtos/user.dto.js";
 import UsersService from "../services/user.service.js";
+import { CREATED, SUCCESS } from "../utils/constants.util.js";
 
 const userService = new UsersService();
 
@@ -7,7 +8,11 @@ class UsersController {
   static async getAll(req, res, next) {
     try {
       const users = await userService.getAllUsers();
-      res.status(200).send(users);
+      const usersDTO = [];
+      users.forEach((user) => {
+        usersDTO.push(new GetUserDTO(user));
+      });
+      res.status(SUCCESS).send(usersDTO);
     } catch (error) {
       next(error);
     }
@@ -18,7 +23,7 @@ class UsersController {
     try {
       const user = await userService.getUserById(uid);
       const userDTO = new GetUserDTO(user);
-      res.status(200).send(userDTO);
+      res.status(SUCCESS).send(userDTO);
     } catch (error) {
       next(error);
     }
@@ -30,7 +35,7 @@ class UsersController {
     try {
       const userDTO = new CreateUserDTO(payload);
       const user = await userService.createUser(userDTO);
-      res.status(201).send(user);
+      res.status(CREATED).send(user);
     } catch (error) {
       next(error);
     }
@@ -40,8 +45,9 @@ class UsersController {
     const { uid } = req.params;
     const payload = req.body;
     try {
-      const user = await userService.updateUser(uid, payload);
-      res.status(200).send(user);
+      const userDTO = new CreateUserDTO(payload);
+      const user = await userService.updateUser(uid, userDTO);
+      res.status(SUCCESS).send(user);
     } catch (error) {
       next(error);
     }
@@ -51,7 +57,7 @@ class UsersController {
     const { uid } = req.params;
     try {
       const user = await userService.deleteUser(uid);
-      res.status(200).send(user);
+      res.status(SUCCESS).send(user);
     } catch (error) {
       next(error);
     }

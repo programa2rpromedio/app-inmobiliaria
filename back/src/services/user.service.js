@@ -39,11 +39,22 @@ class UsersService {
   }
 
   async updateUser(uid, payload) {
-    const user = await Users.findByIdAndUpdate(uid, payload);
+    const user = await Users.findById(uid).lean();
     if (!user) {
-      throw new HttpError();
+      throw new HttpError("User not found", NOT_FOUND);
     }
-    return user;
+    user.first_name = payload.first_name ?? user.first_name;
+    user.last_name = payload.last_name ?? user.last_name;
+    user.first_name = payload.first_name ?? user.first_name;
+    user.role = payload.role ?? user.role;
+    if (payload.location.city) {
+      user.location.city = payload.location.city;
+    }
+    if (payload.location.address) {
+      user.location.address = payload.location.address;
+    }
+    const userUpdated = await Users.findByIdAndUpdate(uid, user);
+    return userUpdated;
   }
 
   async deleteUser(uid) {
