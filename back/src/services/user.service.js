@@ -4,12 +4,12 @@ import { createHash } from "../utils/bcrypt.util.js";
 import { NOT_FOUND } from "../utils/constants.util.js";
 
 class UsersService {
-  async getAllUsers() {
+  static async getAllUsers() {
     const users = await Users.find({});
     return users;
   }
 
-  async getUserById(uid) {
+  static async getUserById(uid) {
     const user = await Users.findById(uid);
     if (!user) {
       throw new HttpError("User not found", NOT_FOUND);
@@ -17,7 +17,7 @@ class UsersService {
     return user;
   }
 
-  async getUserByEmail(email) {
+  static async getUserByEmail(email) {
     const user = await Users.findOne({ email: email });
     if (!user) {
       throw new HttpError("User not found", NOT_FOUND);
@@ -25,7 +25,7 @@ class UsersService {
     return user;
   }
 
-  async createUser(userDTO) {
+  static async createUser(userDTO) {
     const newPass = createHash(userDTO.password);
     const newUser = {
       ...userDTO,
@@ -38,7 +38,7 @@ class UsersService {
     return user;
   }
 
-  async updateUser(uid, payload) {
+  static async updateUser(uid, payload) {
     const user = await Users.findById(uid).lean();
     if (!user) {
       throw new HttpError("User not found", NOT_FOUND);
@@ -57,14 +57,13 @@ class UsersService {
     return userUpdated;
   }
 
-  async deleteUser(uid) {
+  static async deleteUser(uid) {
     const user = await Users.deleteOne({ _id: uid });
     if (!user) {
       throw new HttpError();
     }
     return user;
   }
-
 }
 
 export default UsersService;

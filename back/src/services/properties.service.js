@@ -3,7 +3,7 @@ import HttpError from "../utils/HttpError.util.js";
 import { NOT_FOUND } from "../utils/constants.util.js";
 
 class PropertiesService {
-  async getAllProperties(options) {
+  static async getAllProperties(options) {
     const sort = {};
     const filter = {};
     Object.keys(options).forEach((opt) => {
@@ -46,7 +46,7 @@ class PropertiesService {
     return properties;
   }
 
-  async getPropertyById(pid) {
+  static async getPropertyById(pid) {
     const property = await Properties.findById(pid).populate("user_id").lean();
     if (!property) {
       throw new HttpError("Property Not Found", NOT_FOUND);
@@ -55,7 +55,7 @@ class PropertiesService {
     return property;
   }
 
-  async createProperty(payload) {
+  static async createProperty(payload) {
     const property = await Properties.create(payload);
     if (!property) {
       throw new HttpError();
@@ -63,46 +63,89 @@ class PropertiesService {
     return property;
   }
 
-  async updateProperty(pid, payload) {
+  static async updateProperty(pid, payload) {
     const property = await Properties.findById(pid).lean();
     if (!property) {
       throw new HttpError("Property not found", NOT_FOUND);
     }
-    property.title = payload.title ?? property.title;
-    property.description = payload.description ?? property.description;
-    property.status = payload.status ?? property.status;
-    if (payload.price.value) {
-      property.price.value = payload.price.value;
-    }
-    if (payload.price.term) {
-      property.price.term = payload.price.term;
-    }
-    if (payload.location.city) {
-      property.location.city = payload.location.city;
-    }
-    if (payload.location.neighborhood) {
-      property.location.neighborhood = payload.location.neighborhood;
-    }
-    if (payload.location.address) {
-      property.location.address = payload.location.address;
-    }
-    if (payload.features.area) {
-      property.features.area = payload.features.area;
-    }
-    if (payload.features.rooms) {
-      property.features.rooms = payload.features.rooms;
-    }
-    if (payload.features.bedrooms) {
-      property.features.bedrooms = payload.features.bedrooms;
-    }
-    if (payload.features.bathrooms) {
-      property.features.bathrooms = payload.features.bathrooms;
-    }
-    const propertyUpdated = await Properties.findByIdAndUpdate(pid, property);
+    const newProperty = {
+      title: payload.title ?? property.title,
+      category: payload.category ?? property.category,
+      type: payload.type ?? property.type,
+      price: payload.price ?? property.price,
+      availability_date:
+        payload.availability_date ?? property.availability_date,
+      description: payload.description ?? property.description,
+      status: payload.status ?? property.status,
+    };
+    //Location
+    if (payload.location.province)
+      newProperty.location.province = payload.location.province;
+    if (payload.location.city)
+      newProperty.location.city = payload.location.city;
+    if (payload.location.address_street)
+      newProperty.location.address_street = payload.location.address_street;
+    if (payload.location.address_number)
+      newProperty.location.address_number = payload.location.address_number;
+    //Features
+    if (payload.features.area)
+      newProperty.features.area = payload.features.area;
+    if (payload.features.rooms)
+      newProperty.features.rooms = payload.features.rooms;
+    if (payload.features.bedrooms)
+      newProperty.features.bedrooms = payload.features.bedrooms;
+    if (payload.features.bathrooms)
+      newProperty.features.bathrooms = payload.features.bathrooms;
+    //Services
+    if (payload.services.wifi)
+      newProperty.services.wifi = payload.services.wifi;
+    if (payload.services.tv) newProperty.services.tv = payload.services.tv;
+    if (payload.services.kitchen)
+      newProperty.services.kitchen = payload.services.kitchen;
+    if (payload.services.ac) newProperty.services.ac = payload.services.ac;
+    if (payload.services.free_parking)
+      newProperty.services.free_parking = payload.services.free_parking;
+    if (payload.services.paid_parking)
+      newProperty.services.paid_parking = payload.services.paid_parking;
+    if (payload.services.washing_machine)
+      newProperty.services.washing_machine = payload.services.washing_machine;
+    if (payload.services.workspace)
+      newProperty.services.workspace = payload.services.workspace;
+    //Amenities
+    if (payload.amenities.pool)
+      newProperty.amenities.pool = payload.amenities.pool;
+    if (payload.amenities.jacuzzi)
+      newProperty.amenities.jacuzzi = payload.amenities.jacuzzi;
+    if (payload.amenities.gym)
+      newProperty.amenities.gym = payload.amenities.gym;
+    if (payload.amenities.bbq)
+      newProperty.amenities.bbq = payload.amenities.bbq;
+    if (payload.amenities.backyard)
+      newProperty.amenities.backyard = payload.amenities.backyard;
+    if (payload.amenities.garden)
+      newProperty.amenities.garden = payload.amenities.garden;
+    if (payload.amenities.soccer_field)
+      newProperty.amenities.soccer_field = payload.amenities.soccer_field;
+    if (payload.amenities.terrace)
+      newProperty.amenities.terrace = payload.amenities.terrace;
+    //Characteristics
+    if (payload.characteristics.age)
+      newProperty.amenities.age = payload.amenities.age;
+    if (payload.characteristics.disposition)
+      newProperty.amenities.disposition = payload.amenities.disposition;
+    if (payload.characteristics.orientation)
+      newProperty.amenities.orientation = payload.amenities.orientation;
+    if (payload.characteristics.condition)
+      newProperty.amenities.condition = payload.amenities.condition;
+    if (payload.characteristics.state)
+      newProperty.amenities.state = payload.amenities.state;
+
+    console.log(newProperty);
+    // const propertyUpdated = await Properties.findByIdAndUpdate(pid, newProperty);
     return propertyUpdated;
   }
 
-  async deleteProperty(pid) {
+  static async deleteProperty(pid) {
     const property = await Properties.deleteOne({ _id: pid });
     if (!property) {
       throw new HttpError("Property Not Found", NOT_FOUND);

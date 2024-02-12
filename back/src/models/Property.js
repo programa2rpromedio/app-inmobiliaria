@@ -7,71 +7,68 @@ const propertySchema = mongoose.Schema(
       ref: "Users",
       required: true,
     },
-    title: {
+    title: { type: String, required: true },
+    category: {
       type: String,
-      required: true,
+      enum: [
+        "house",
+        "apartment",
+        "cabin",
+        "hotel",
+        "country-house",
+        "camping",
+      ],
     },
-    price: {
-      value: {
-        type: Number,
-        required: true,
-      },
-      term: {
-        type: String,
-        enum: ["day", "week", "month"],
-        required: true,
-        default: "month",
-      },
-    },
-    description: {
-      type: String,
-      required: true,
-    },
+    type: { type: String, enum: ["permanent", "temporary"], required: true },
+    price: { type: Number, required: true },
+    availability_date: { type: Date, required: true, default: new Date() },
+    description: { type: String, required: true },
     property_pictures: [
       {
-        url: {
-          type: String,
-          trim: true,
-          required: true,
-        },
-        public_id: {
-          type: String,
-          required: true,
-        },
+        url: { type: String, trim: true, required: true },
+        public_id: { type: String, required: true },
       },
     ],
     location: {
-      city: {
-        type: String,
-        required: true,
-      },
-      neighborhood: {
-        type: String,
-        required: true,
-      },
-      address: {
-        type: String,
-        required: true,
-      },
+      province: { type: String, required: true },
+      city: { type: String, required: true },
+      address_street: { type: String, required: true },
+      address_number: { type: String, required: true },
     },
     features: {
-      area: {
-        type: Number,
-      },
-      bathrooms: {
-        type: Number,
-      },
-      rooms: {
-        type: Number,
-      },
-      bedrooms: {
-        type: Number,
-      },
+      area: { type: Number },
+      bathrooms: { type: Number },
+      rooms: { type: Number },
+      bedrooms: { type: Number },
     },
-    status: {
-      type: String,
-      enum: ["active", "rented", "paused"],
+    services: {
+      wifi: { type: Boolean, default: false },
+      tv: { type: Boolean, default: false },
+      kitchen: { type: Boolean, default: false },
+      ac: { type: Boolean, default: false },
+      free_parking: { type: Boolean, default: false },
+      paid_parking: { type: Boolean, default: false },
+      washing_machine: { type: Boolean, default: false },
+      workspace: { type: Boolean, default: false },
     },
+    amenities: {
+      pool: { type: Boolean, default: false },
+      jacuzzi: { type: Boolean, default: false },
+      gym: { type: Boolean, default: false },
+      bbq: { type: Boolean, default: false },
+      backyard: { type: Boolean, default: false },
+      garden: { type: Boolean, default: false },
+      soccer_field: { type: Boolean, default: false },
+      terrace: { type: Boolean, default: false },
+    },
+    characteristics: {
+      age: { type: String },
+      disposition: { type: String },
+      orientation: { type: String },
+      condition: { type: String },
+      state: { type: String },
+    },
+    status: { type: String, enum: ["active", "rented", "paused"] },
   },
   {
     timestamps: true,
