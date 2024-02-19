@@ -13,17 +13,20 @@ export class GetPropertyDTO {
     this.title = payload.title;
     this.category = payload.category;
     this.type = payload.type;
-    this.price = payload.price;
     this.availabilityDate = payload.availability_date;
     this.desciption = payload.description;
     this.propertyPictures = payload.property_pictures;
+
+    this.value = payload.price.value;
+    this.currency = payload.price.currency;
 
     this.province = payload.location.province;
     this.city = payload.location.city;
     this.addressStreet = payload.location.address_street;
     this.addressNumber = payload.location.address_number;
 
-    this.area = payload.features.area;
+    this.totalArea = payload.features.total_area;
+    this.coveredArea = payload.features.covered_area;
     this.rooms = payload.features.rooms;
     this.bathrooms = payload.features.bathrooms;
     this.bedrooms = payload.features.bedrooms;
@@ -45,6 +48,7 @@ export class GetPropertyDTO {
     this.garden = payload.amenities.garden;
     this.soccerField = payload.amenities.terrace;
     this.terrace = payload.amenities.terrace;
+    this.pets = payload.amenities.pets;
 
     this.age = payload.characteristics.age;
     this.disposition = payload.characteristics.disposition;
@@ -68,6 +72,10 @@ export class CreatePropertyDTO {
     this.description = payload.description;
     this.property_pictures = payload.propertyPictures;
 
+    this.price = {};
+    this.price.value = payload.value;
+    this.price.currency = payload.currency;
+
     this.location = {};
     this.location.province = payload.province;
     this.location.city = payload.city;
@@ -75,7 +83,8 @@ export class CreatePropertyDTO {
     this.location.address_number = payload.addressNumber;
 
     this.features = {};
-    this.features.area = payload.area;
+    this.features.total_area = payload.totalArea;
+    this.features.covered_area = payload.coveredArea;
     this.features.rooms = payload.rooms;
     this.features.bathrooms = payload.bathrooms;
     this.features.bedrooms = payload.bedrooms;
@@ -99,6 +108,7 @@ export class CreatePropertyDTO {
     this.amenities.garden = payload.garden;
     this.amenities.soccer_field = payload.soccerField;
     this.amenities.terrace = payload.terrace;
+    this.amenities.pets = payload.pets;
 
     this.characteristics = {};
     this.characteristics.age = payload.age;
