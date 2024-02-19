@@ -1,5 +1,6 @@
 import { defaultConfig } from "next/dist/server/config-shared"
 import type { Config } from "tailwindcss"
+import { radixThemePreset } from 'radix-themes-tw';
 
 const config = {
   darkMode: ["class"],
@@ -24,6 +25,7 @@ const config = {
       },
       backgroundImage: {
         "register": "url('../images/OBJECTS.jpg')",
+        "vectorcasa": "url('../images/vector_casa.png)"
       },
       colors: {
         border: "hsl(var(--border))",
@@ -81,6 +83,7 @@ const config = {
       },
     },
   },
+  presets: [radixThemePreset],
   plugins: [require("tailwindcss-animate")],
 } satisfies Config
 
