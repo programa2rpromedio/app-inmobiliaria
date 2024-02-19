@@ -38,6 +38,12 @@ const userSchema = mongoose.Schema(
       type: String,
       unique: true,
     },
+    favourites: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "properties",
+      },
+    ],
   },
   {
     timestamps: true,

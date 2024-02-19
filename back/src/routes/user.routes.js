@@ -7,8 +7,8 @@ router.get("/", UsersController.getAll);
 router.get("/:uid", UsersController.getById);
 router.post("/", UsersController.createOne);
 router.put("/:uid", UsersController.updateOne);
+router.patch("/:uid/favourites/:pid", UsersController.addFavouriteProperty);
 router.delete("/:uid", UsersController.deleteOne);
-router.post("/login", UsersController.login);
-
+// router.post("/login", UsersController.login);
 
 export default router;

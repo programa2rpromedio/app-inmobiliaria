@@ -51,6 +51,16 @@ class UsersController {
     }
   }
 
+  static async addFavouriteProperty(req, res, next) {
+    const { uid, pid } = req.params;
+    try {
+      const user = await UsersService.addFavourite(uid, pid);
+      res.status(SUCCESS).send(user);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   static async deleteOne(req, res, next) {
     const { uid } = req.params;
     try {
@@ -61,21 +71,21 @@ class UsersController {
     }
   }
 
-  static async login(req, res, next) {
-    const { email, password } = req.body;
-    if (!email || !password)
-      return res.status(400).json({ message: "Failed login, invalid data" });
+  // static async login(req, res, next) {
+  //   const { email, password } = req.body;
+  //   if (!email || !password)
+  //     return res.status(400).json({ message: "Failed login, invalid data" });
 
-    try {
-      const user = req.body;
-      const { error, message, token } = await UsersService.login(user);
-      if (!error) return res.status(500).json(message);
+  //   try {
+  //     const user = req.body;
+  //     const { error, message, token } = await UsersService.login(user);
+  //     if (!error) return res.status(500).json(message);
 
-      return res.status(200).json(token);
-    } catch (error) {
-      next(error);
-    }
-  }
+  //     return res.status(200).json(token);
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // }
 }
 
 export default UsersController;

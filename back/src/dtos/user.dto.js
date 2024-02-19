@@ -9,6 +9,7 @@ export class GetUserDTO {
     this.city = payload.location.city;
     this.address = payload.location.address;
     this.phone = payload.phone;
+    this.favourites = payload.favourites;
   }
 }
 
