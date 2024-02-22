@@ -1,20 +1,25 @@
+'use client'
+import { useParams } from 'next/navigation'
 import Image from 'next/image'
 import HeroDetail from '@/components/HeroDetail'
-import Metrospng from '../../../public/metros.png'
-import Bañopng from '../../../public/baño.png'
-import Mascotapng from '../../../public/mascota.png'
-import Habitacionpng from '../../../public/habitacion.png'
-import Jardinpng from '../../../public/jardin.png'
-import Transportepng from '../../../public/transporte.png'
-import FigMap from '../../../public/Figmap.png'
-import VectorCasa from '../../../public/vector_casa.png'
+import Metrospng from '../../../../../public/metros.png'
+import Bañopng from '../../../../../public/baño.png'
+import Mascotapng from '../../../../../public/mascota.png'
+import Habitacionpng from '../../../../../public/habitacion.png'
+import Jardinpng from '../../../../../public/jardin.png'
+import Transportepng from '../../../../../public/transporte.png'
+import FigMap from '../../../../../public/Figmap.png'
 import FormContact from '@/components/FormContact'
 
 
 
 
 
-export default function page() {
+export default function Page(/*{ params }: { params: { id: string } }*/) {
+
+  let params = useParams()
+  console.log(params);
+  console.log(params.id);
 
 
   return (
