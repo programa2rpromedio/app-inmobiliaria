@@ -42,7 +42,7 @@ export default function FormContact() {
       <h2 className='font-medium text-[24px] text-center pt-[40px] pb-[25px]'>¡Dejales tus datos al anunciante!</h2>
       <hr className='w-[270px] mx-auto mb-[25px]  border-[#B0B0B0]' />
       <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2 justify-items-center">
-        <div className='sm:col-span-2'>
+        <div className='sm:col-span-2 w-[80%]'>
           <div className="mt-2.5">
             <input
               type="text"
@@ -50,12 +50,12 @@ export default function FormContact() {
               id="nombre"
               placeholder='Nombre'
               autoComplete="given-name"
-              className="block w-[415px] py-[16px] px-[12px] rounded-md border-0   text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              className="block w-full py-[16px] px-[12px] rounded-md border-0   text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             />
             {formState.errors.nombre && <p className='text-2 text-[#e94a4a]'>{formState.errors.nombre.message}</p>}
           </div>
         </div>
-        <div className="sm:col-span-2">
+        <div className="sm:col-span-2 w-[80%]">
           <div className="mt-2.5">
             <input
               type="text"
@@ -63,12 +63,12 @@ export default function FormContact() {
               id="email"
               placeholder='Correo electrónico'
               autoComplete="email"
-              className="block w-[415px] py-[16px] px-[12px] rounded-md border-0   text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              className="block w-full py-[16px] px-[12px] rounded-md border-0   text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             />
             {formState.errors.email && <p className='text-2 text-[#e94a4a]'>{formState.errors.email.message}</p>}
           </div>
         </div>
-        <div className="sm:col-span-2">
+        <div className="sm:col-span-2 w-[80%]">
           <div className="relative mt-2.5">
             <input
               type="tel"
@@ -76,11 +76,11 @@ export default function FormContact() {
               id="phone-number"
               placeholder='Numero de telefono'
               autoComplete="tel"
-              className="block w-[415px] py-[16px] px-[12px] rounded-md border-0   text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              className="block w-full py-[16px] px-[12px] rounded-md border-0   text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             />
           </div>
         </div>
-        <div className="sm:col-span-2">
+        <div className="sm:col-span-2 w-[80%]">
           <label htmlFor="consulta" className="block text-sm font-semibold leading-6 text-gray-900">
             Consulta:
           </label>
@@ -89,13 +89,13 @@ export default function FormContact() {
               {...register("consulta")}
               id="consulta"
               rows={4}
-              className="block w-[415px] py-[16px] px-[12px] rounded-md border-0   text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              className="block w-full py-[16px] px-[12px] rounded-md border-0   text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             />
             {formState.errors.consulta && <p className='text-2 text-[#e94a4a]'>{formState.errors.consulta.message}</p>}
           </div>
         </div>
       </div>
-      <div className="mt-10 pb-[34px]">
+      <div className="mt-10 pb-[34px] ">
         <Button variant='default' className='block m-auto ' size='lg'>Contactar</Button>
       </div>
     </form>
