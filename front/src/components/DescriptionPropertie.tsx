@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import MetrosCuadradosSVG from './MetrosCuadradosSVG'
-import BanioSVG from './BanioSVG'
-import MascotaSVG from './MascotaSVG'
-import HabitacionSVG from './HabitacionSVG'
-import PatioSVG from './PatioSVG'
-import TransporteSVG from './TransporteSVG'
+import MetrosCuadradosSVG from './svgs/MetrosCuadradosSVG'
+import BanioSVG from './svgs/BathroomSVG'
+import MascotaSVG from './svgs/MascotaSVG'
+import HabitacionSVG from './svgs/HabitacionSVG'
+import PatioSVG from './svgs/PatioSVG'
+import TransporteSVG from './svgs/TransporteSVG'
 
 function ViewDescription() {
   return (

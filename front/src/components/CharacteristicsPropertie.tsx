@@ -1,10 +1,10 @@
 import React from 'react'
-import MetrosCuadradosSVG from '@/components/MetrosCuadradosSVG'
-import BanioSVG from '@/components/BanioSVG'
-import MascotaSVG from '@/components/MascotaSVG'
-import HabitacionSVG from '@/components/HabitacionSVG'
-import PatioSVG from '@/components/PatioSVG'
-import TransporteSVG from '@/components/TransporteSVG'
+import MetrosCuadradosSVG from '@/components/svgs/MetrosCuadradosSVG'
+import BanioSVG from '@/components/svgs/BathroomSVG'
+import MascotaSVG from '@/components/svgs/MascotaSVG'
+import HabitacionSVG from '@/components/svgs/HabitacionSVG'
+import PatioSVG from '@/components/svgs/PatioSVG'
+import TransporteSVG from '@/components/svgs/TransporteSVG'
 
 
 export default function CharacteristicsPropertie() {
