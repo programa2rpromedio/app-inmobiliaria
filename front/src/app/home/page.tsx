@@ -13,9 +13,17 @@ import { Button } from "@/components/ui/button";
 
 export default function home() {
   return (
+<<<<<<< HEAD:front/src/app/home/page.jsx
     <div className="bg-[#F5F5F7] ">
       <header className="flex justify-between">
         <div className="flex items-center ">
+=======
+    <div
+      className="bg-[#F5F5F7]"
+    >
+      <header className="flex justify-between ">
+        <div className="flex  items-center ">
+>>>>>>> 104dc5ffd5e7b49626084f0c73c2f4b4aaf1e060:front/src/app/home/page.tsx
           <Image
             src={Logo}
             alt="Logo de la App"
@@ -28,9 +36,9 @@ export default function home() {
         <Button variant="link">Iniciar sesión</Button>
       </header>
 
-      <section className="flex justify-center flex-col">
-        <p className="font-semibold text-4xl text-center whitespace-normal break-words sm:whitespace-nowrap sm:break-normal">
-          ¡Tu hogar ideal en un solo click!
+      <section className="flex justify-center flex-col gap-7">
+        <p className="font-bold text-[18px] text-center whitespace-normal break-words sm:whitespace-nowrap sm:break-normal">
+          ¡Tu hogar ideal en <br /> un solo click!
         </p>
 
         <div className="flex  justify-center ">
@@ -64,8 +72,8 @@ export default function home() {
         </div>
       </section>
 
-      <section className="flex justify-center mt-5 w-48">
-        <div className="flex items-center ">
+      <section className="flex justify-center mt-5 w-[324px] mx-auto h-[48px] bg-[#FFF] rounded-[1rem] ">
+        <div className="flex items-center w-full ">
           <Image
             src={Search}
             alt="Logo de la App"
@@ -77,9 +85,9 @@ export default function home() {
           <input
             type="text"
             placeholder="¿Dónde querés mudarte?"
-            className="flex w-24"
+            className="flex w-full "
           />
-          <button className="bg-blue-500 text-slate-100 rounded-md">
+          <button className="bg-primary text-slate-100 rounded-md">
             Buscar
           </button>
         </div>
