@@ -242,6 +242,8 @@ export default function page() {
           <div className=" p-4 rounded-md h-[192px] bg-[#ffffff]"></div>
         </div>
       </section>
+
+      <section>continuar</section>
     </main>
   );
 }
