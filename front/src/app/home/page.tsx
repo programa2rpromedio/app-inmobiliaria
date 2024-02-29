@@ -1,5 +1,15 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import Logo from "@/images/logo.svg";
 import Search from "@/images/search.png";
 import Alquilar from "@/images/alquilar.svg";
@@ -7,14 +17,8 @@ import Temporal from "@/images/temporal.svg";
 import CreaCuenta from "@/images/creaCuenta.svg";
 import BuscaDescubre from "@/images/buscaDescubre.svg";
 import Conecta from "@/images/conectaCasa.svg";
-import Depto from "@/images/depto.svg";
-import Sup from "@/images/sup.svg";
-import Bed from "@/images/bed.svg";
-import Bath from "@/images/bath.svg";
-import Pet from "@/images/pet.svg";
-("@/images/pet.svg");
-
 import Presentacion from "@/images/presentacion.svg";
+import PropiedadCard from "@/components/PropiedadCard";
 
 export default function page() {
   return (
@@ -99,7 +103,7 @@ export default function page() {
           />
           <Button
             variant={"default"}
-            className="bg-[#ffffff] text-[#3354FF] w-[75px] h-[20px] text-[11px] font-bold hover:text-[#ffffff] -mt-9 ml-10 p-2"
+            className="relative bg-[#ffffff] text-[#3354FF] w-[75px] h-[20px] text-[11px] font-bold hover:text-[#ffffff] -mt-9 ml-10 p-2"
           >
             Ver la lista
           </Button>
@@ -194,56 +198,99 @@ export default function page() {
 
       <section>
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 m-2 m">
-          <div className="bg-[#ffffff] p-2 rounded-md h-[208px] mx-auto">
-            <div className="mb-1">
-              <Image
-                src={Depto}
-                alt=""
-                className=" "
-                width={145}
-                height={110}
-              />
-            </div>
-            <div className="mb-1">
-              <p className="font-bold text-[10px] ">$350.000/mes </p>
-              <p className="text-[8px] ">Departamento en alquiler</p>
-              <p className="text-gray-9 text-[8px] ">
-                Almagro, Capital Federal
-              </p>
-            </div>
-            <div className="flex justify-between">
-              <div className="flex gap-1 ">
-                <Image src={Sup} alt="" className=" " width={7} height={7} />
-                <p className="text-[7px] ">75 mt2</p>
-              </div>
-              <div className="flex gap-1 ">
-                <Image src={Bed} alt="" className=" " width={9} height={9} />
-                <p className="text-[7px] ">2</p>
-              </div>
-              <div className="flex gap-1  ">
-                <Image src={Bath} alt="" className=" " width={9} height={9} />
-                <p className="text-[7px] ">1</p>
-              </div>
-              <div className="flex gap-1  ">
-                <Image src={Pet} alt="" className=" " width={9} height={9} />
-                <p className="text-[7px] ">NO</p>
-              </div>
-            </div>
-
-            <div>
-              <Button className="h-[18px] w-[140px] text-[7px]">Ver más</Button>
-            </div>
-          </div>
-
-          <div className=" p-4 rounded-md h-[192px] bg-[#ffffff]"></div>
-
-          <div className=" p-4 rounded-md h-[192px] bg-[#ffffff]"></div>
-
-          <div className=" p-4 rounded-md h-[192px] bg-[#ffffff]"></div>
+          <PropiedadCard />
+          <PropiedadCard />
+          <PropiedadCard />
+          <PropiedadCard />
         </div>
       </section>
 
-      <section>continuar</section>
+      <footer className="bg-[#EDEEF2] p-4">
+        <div className="flex justify-between ">
+          <div>
+            <p className="text-[10px] font-bold">Acerca de</p>
+            <ul className="mt-3 text-[10px] text-slate-9">
+              <li className="mb-2">
+                <Link href="">Alquilar</Link>
+              </li>
+              <li className="mb-2">
+                <Link href="">Temporal</Link>
+              </li>
+              <li className="mb-2">
+                <Link href="">Alquila tu propiedad</Link>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <p className="text-[10px] font-bold">Contacto</p>
+            <ul className="mt-3 text-[9px] text-slate-9">
+              <li className="mb-2">
+                <Link href="">Centro de Ayuda</Link>
+              </li>
+              <li className="mb-2">
+                <Link href="">Quiénes somos</Link>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <p className="text-[10px] font-bold">Información Legal</p>
+            <ul className="mt-3 text-[10px] text-slate-9">
+              <li className="mb-2">
+                <Link href="">Términos y condiciones</Link>
+              </li>
+              <li className="mb-2">
+                <Link href="">Política de privacidad</Link>
+              </li>
+              <li className="mb-2">
+                <Link href="">Aviso legal</Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div className="flex justify-end gap-4 mt-4 items-center">
+          <Select>
+            <SelectTrigger className="bg-[#ffffff]  w-[90px] h-[20px] text-[9px] font-semibold outline-none">
+              <SelectValue placeholder="AR$" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup className="text-[9px] font-semibold">
+                <SelectLabel></SelectLabel>
+                <SelectItem value="AR$">AR$</SelectItem>
+                <SelectItem value="brasil">Brasil</SelectItem>
+                <SelectItem value="chile">Chile</SelectItem>
+                <SelectItem value="uruguay">Uruguay</SelectItem>
+                <SelectItem value="paraguay">Paraguay</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+          <Select>
+            <SelectTrigger className="bg-[#ffffff]  w-[90px] h-[20px] text-[9px] font-semibold outline-none">
+              <SelectValue placeholder="Argentina" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup className="text-[9px] font-semibold">
+                <SelectLabel></SelectLabel>
+                <SelectItem value="argentina">Argentina</SelectItem>
+                <SelectItem value="brasil">Brasil</SelectItem>
+                <SelectItem value="chile">Chile</SelectItem>
+                <SelectItem value="uruguay">Uruguay</SelectItem>
+                <SelectItem value="paraguay">Paraguay</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
+        <div>
+          <Image
+            src={Logo}
+            alt="Logo de la App"
+            className=""
+            width={22}
+            height={22}
+          />
+          <p>2024 Alquileres Ya!</p>
+          <p>Todos los derechos reservados</p>
+        </div>
+      </footer>
     </main>
   );
 }
