@@ -8,7 +8,6 @@ export default function Home() {
       <Link href="/iniciar-sesion">iniciar sesion</Link>
       <Link href="/detalle">Detalle</Link> {/*  TODO deberia recibir el id  */}
       <Link href="/home">Home</Link>
-      <Link href="/home2">Home2</Link>
     </main>
   );
 }
