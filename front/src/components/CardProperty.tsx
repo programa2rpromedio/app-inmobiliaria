@@ -5,7 +5,6 @@ import BanioSVG from '@/components/svgs/BathroomSVG'
 import MascotaSVG from '@/components/svgs/MascotaSVG'
 import HabitacionSVG from '@/components/svgs/HabitacionSVG'
 import CasaPic1 from '@/images/casa1.png'
-import { Button } from './ui/button'
 import Link from 'next/link'
 
 
@@ -23,7 +22,7 @@ export default function CardProperty(/*{propiedad}*/) {
           <strong>Departamento en alquiler</strong>
           <small className='block'>Almagro, Capital Federal - 2 ambientes</small>
         </div>
-        <div className='flex justify-between flex-wrap '>
+        <div className='flex justify-between flex-wrap  '>
           <div className=" text-[#19BC86] flex justify-start items-center gap-2 rounded-lg px-[2px]">
             <MetrosCuadradosSVG className='w-[16px]' />
             <h4 className="text-[black] sm:text-[0.6rem] md:text-[0.9rem]">75 mt</h4>

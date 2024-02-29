@@ -7,7 +7,7 @@ export default function Home() {
 
       <Link href="/registrar">registrarse</Link>
       <Link href="/iniciar-sesion">iniciar sesion</Link>
-      <Link href="/detalle">Detalle</Link> {/*  TODO deberia recibir el id  */}
+      <Link href="/propiedades">Propiedaes</Link> {/*  TODO deberia recibir el id  */}
     </main>
   );
 }

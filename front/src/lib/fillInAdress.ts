@@ -1,14 +1,20 @@
-export default function fillInAddress(place:google.maps.places.PlaceResult | null ) {
+export default function fillInAddress(place: google.maps.places.PlaceResult | null) {
   // Get the place details from the autocomplete object.
   // const place = autocomplete.getPlace();
-  console.log(place);
-  
-  if (place == null) return 
+  console.log(place?.geometry?.location?.lat());
+  console.log(place?.geometry?.location?.lng());
+
+  if (place === null) return
+  if (place == undefined) return
+  if (!place.address_components) return
 
   let address_street = "";
   let address_number = "";
   let city = "";
   let province = "";
+  let lat = place?.geometry?.location?.lat() || 0
+  let lng = place?.geometry?.location?.lng() || 0
+
 
   // Get each component of the address from the place details,
   // and then fill-in the corresponding field on the form.
@@ -29,7 +35,7 @@ export default function fillInAddress(place:google.maps.places.PlaceResult | nul
         break;
       }
 
-      case "locality":{
+      case "locality": {
         city = component.long_name;
         break;
       }
@@ -41,7 +47,7 @@ export default function fillInAddress(place:google.maps.places.PlaceResult | nul
     }
   }
 
-  return {address_street, address_number, city, province}
+  return { address_street, address_number, city, province, lat, lng }
   // After filling the form with address components from the Autocomplete
   // prediction, set cursor focus on the second address line to encourage
   // entry of subpremise information such as apartment, unit, or floor number.
