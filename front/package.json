@@ -19,6 +19,8 @@
     "@vis.gl/react-google-maps": "^0.7.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "flowbite": "^2.3.0",
+    "flowbite-react": "^0.7.2",
     "lucide-react": "^0.319.0",
     "next": "14.1.0",
     "radix-themes-tw": "^0.1.3",

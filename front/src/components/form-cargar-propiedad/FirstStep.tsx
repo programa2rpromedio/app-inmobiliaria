@@ -64,7 +64,6 @@ export default function FirstStep(props: PropsFormCargarPropiedad) {
     if (selectTypeProperty == null) return setIsSelectedProperty(false)
     setIsSelectedProperty(true)
     setFormValues((prev) => ({ ...prev, ...data, lat: resultMaps.lat, lng: resultMaps.lng, category: selectTypeProperty, }))
-    // TODO fetch 👇
     handleNextStep()
   }
 

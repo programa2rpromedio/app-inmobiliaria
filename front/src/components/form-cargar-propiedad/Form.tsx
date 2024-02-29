@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import Intro from './Intro';
 import FirstStep from './FirstStep';
 import { Property } from '@/lib/types';
+import SecondStep from './SecondStep';
 
 const initialState: Property = {
   title: '',
@@ -51,7 +52,7 @@ const initialState: Property = {
 }
 export default function Form() {
 
-  const [step, setStep] = useState<number>(0)
+  const [step, setStep] = useState<number>(2)
   const [formValues, setFormValues] = useState<Property>(initialState)
 
   const handleNextStep = () => {
@@ -72,7 +73,7 @@ export default function Form() {
     case 1:
       return <FirstStep setFormValues={setFormValues} handleNextStep={handleNextStep} />
     case 2:
-      return <h1>Segundo steep</h1>
+      return <SecondStep />
     default:
       break;
   }
