@@ -255,11 +255,10 @@ export default function page() {
             <SelectContent>
               <SelectGroup className="text-[9px] font-semibold">
                 <SelectLabel></SelectLabel>
-                <SelectItem value="AR$">AR$</SelectItem>
-                <SelectItem value="brasil">Brasil</SelectItem>
-                <SelectItem value="chile">Chile</SelectItem>
-                <SelectItem value="uruguay">Uruguay</SelectItem>
-                <SelectItem value="paraguay">Paraguay</SelectItem>
+                <SelectItem value="pesos$">AR$</SelectItem>
+                <SelectItem value="doalres">u$s</SelectItem>
+                <SelectItem value="reales">r$</SelectItem>
+                <SelectItem value="euros">euros</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
