@@ -19,10 +19,10 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { PropsFormCargarPropiedad, propertyCategory } from '@/lib/types'
 
 const formSchema = z.object({
-  address_street: z.string({
+  addressStreet: z.string({
     required_error: 'El nombre es requerido'
   }),
-  address_number: z.string().min(1, {
+  addressNumber: z.string().min(1, {
     message: "Campo requerido",
   }),
   city: z.string().min(1, {
@@ -45,8 +45,8 @@ export default function FirstStep(props: PropsFormCargarPropiedad) {
   const [selectTypeProperty, setSelectTypeProperty] = useState<propertyCategory>(null)
   const [isSelectedProperty, setIsSelectedProperty] = useState<boolean>()
   const [resultMaps, setResultMaps] = useState({
-    address_street: '',
-    address_number: '',
+    addressStreet: '',
+    addressNumber: '',
     city: '',
     province: '',
     lat: 0,
@@ -89,8 +89,8 @@ export default function FirstStep(props: PropsFormCargarPropiedad) {
 
         if (address == undefined) return
         setResultMaps(address);
-        setValue('address_street', address.address_street);
-        setValue('address_number', address.address_number);
+        setValue('addressStreet', address.addressStreet);
+        setValue('addressNumber', address.addressNumber);
         setValue('city', address.city);
         setValue('province', address.province);
 
@@ -136,13 +136,13 @@ export default function FirstStep(props: PropsFormCargarPropiedad) {
         <h2 className='mt-5 font-medium'>Ubicacion</h2>
         <form className='flex flex-wrap gap-y-4 gap-x-3 mt-4 justify-center' onSubmit={handleSubmit(onSubmit)}>
           <div className='w-[48%] max-[340px]:w-[100%] sm:w-[49%]'>
-            <input type="text" placeholder="Calle" id="location-input" className='w-full py-3 px-6 rounded-[10px] border-[#999999] border bg-transparent' value={resultMaps.address_street} {...register('address_street')} onChange={handleChange} ref={inputRef} />
-            {formState.errors.address_street && <p className='text-2 text-[#e94a4a] mt-2'>{formState.errors.address_street?.message}</p>}
+            <input type="text" placeholder="Calle" id="location-input" className='w-full py-3 px-6 rounded-[10px] border-[#999999] border bg-transparent' value={resultMaps.addressStreet} {...register('addressStreet')} onChange={handleChange} ref={inputRef} />
+            {formState.errors.addressStreet && <p className='text-2 text-[#e94a4a] mt-2'>{formState.errors.addressStreet?.message}</p>}
           </div>
 
           <div className='w-[48%] max-[340px]:w-[100%] sm:w-[49%]'>
-            <input type="text" placeholder="Numero" id='address_number' className='w-full py-3 px-6 rounded-[10px] border-[#999999] border bg-transparent' value={resultMaps.address_number} {...register('address_number')} onChange={handleChange} />
-            {formState.errors.address_number && <p className='text-2 text-[#e94a4a] mt-2'>{formState.errors.address_number.message}</p>}
+            <input type="text" placeholder="Numero" id='addressNumber' className='w-full py-3 px-6 rounded-[10px] border-[#999999] border bg-transparent' value={resultMaps.addressNumber} {...register('addressNumber')} onChange={handleChange} />
+            {formState.errors.addressNumber && <p className='text-2 text-[#e94a4a] mt-2'>{formState.errors.addressNumber.message}</p>}
           </div>
 
           <div className='w-[99%] sm:w-[99%]'>

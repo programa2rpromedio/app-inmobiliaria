@@ -13,18 +13,16 @@ export interface Property {
   type: propertyType;
   price: number;
   currency: "ARS" | "USD";
-  availability_date: Date;
+  availabilityDate: Date;
   description: string;
   province: string;
   city: string;
-  address_street: string;
-  address_number: string;
-
+  addressStreet: string;
+  addressNumber: string;
   lat: number | undefined;
   lng: number | undefined;
-
-  total_area?: number; // Optional property
-  covered_area?: number; // Optional property
+  totalArea?: number; // Optional property
+  coveredArea?: number; // Optional property
   bathrooms: number;
   rooms: number;
   bedrooms: number;
@@ -32,9 +30,9 @@ export interface Property {
   tv: boolean;
   kitchen: boolean;
   ac: boolean;
-  free_parking: boolean;
-  paid_parking: boolean;
-  washing_machine: boolean;
+  freeParking: boolean;
+  paidParking: boolean;
+  washingMachine: boolean;
   workspace: boolean;
   pool: boolean;
   jacuzzi: boolean;
@@ -42,7 +40,7 @@ export interface Property {
   bbq: boolean;
   backyard: boolean;
   garden: boolean;
-  soccer_field: boolean;
+  soccerField: boolean;
   terrace: boolean;
   pets: boolean;
   age?: string; // Optional property

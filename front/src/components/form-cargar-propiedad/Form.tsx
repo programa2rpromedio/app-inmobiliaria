@@ -4,6 +4,9 @@ import Intro from './Intro';
 import FirstStep from './FirstStep';
 import { Property } from '@/lib/types';
 import SecondStep from './SecondStep';
+import ThirdStep from './ThirdStep';
+import IntroSecondPart from './IntroSecondPart';
+import FourthStep from './FourthStep';
 
 const initialState: Property = {
   title: '',
@@ -11,18 +14,16 @@ const initialState: Property = {
   type: null,
   price: 0,
   currency: "ARS",
-  availability_date: new Date(),
+  availabilityDate: new Date(),
   description: '',
   province: '',
   city: '',
-  address_street: '',
-  address_number: '',
-
+  addressStreet: '',
+  addressNumber: '',
   lat: 0,
   lng: 0,
-
-  total_area: 0, // Optional property
-  covered_area: 0, // Optional property
+  totalArea: 0, // Optional property
+  coveredArea: 0, // Optional property
   bathrooms: 0,
   rooms: 0,
   bedrooms: 0,
@@ -30,9 +31,9 @@ const initialState: Property = {
   tv: false,
   kitchen: false,
   ac: false,
-  free_parking: false,
-  paid_parking: false,
-  washing_machine: false,
+  freeParking: false,
+  paidParking: false,
+  washingMachine: false,
   workspace: false,
   pool: false,
   jacuzzi: false,
@@ -40,7 +41,7 @@ const initialState: Property = {
   bbq: false,
   backyard: false,
   garden: false,
-  soccer_field: false,
+  soccerField: false,
   terrace: false,
   pets: false,
   age: '', // Optional property
@@ -48,11 +49,11 @@ const initialState: Property = {
   orientation: '', // Optional property
   condition: '', // Optional property
   state: '', // Optional property
-  status: null,
+  status: 'active',
 }
 export default function Form() {
 
-  const [step, setStep] = useState<number>(2)
+  const [step, setStep] = useState<number>(0)
   const [formValues, setFormValues] = useState<Property>(initialState)
 
   const handleNextStep = () => {
@@ -73,7 +74,13 @@ export default function Form() {
     case 1:
       return <FirstStep setFormValues={setFormValues} handleNextStep={handleNextStep} />
     case 2:
-      return <SecondStep />
+      return <SecondStep setFormValues={setFormValues} handleNextStep={handleNextStep} />
+    case 3:
+      return <ThirdStep setFormValues={setFormValues} handleNextStep={handleNextStep} />
+    case 4:
+      return <IntroSecondPart handleNextStep={handleNextStep} />
+    case 5:
+      return <FourthStep handleNextStep={handleNextStep} setFormValues={setFormValues} formValues={formValues} />
     default:
       break;
   }
