@@ -51,6 +51,16 @@ class UsersController {
     }
   }
 
+  static async addFavouriteProperty(req, res, next) {
+    const { uid, pid } = req.params;
+    try {
+      const user = await UsersService.addFavourite(uid, pid);
+      res.status(SUCCESS).send(user);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   static async deleteOne(req, res, next) {
     const { uid } = req.params;
     try {
@@ -61,7 +71,6 @@ class UsersController {
     }
   }
 
-  // ESTO LO HACE EL AUTH CONTROLLER
   // static async login(req, res, next) {
   //   const { email, password } = req.body;
   //   if (!email || !password)
@@ -76,7 +85,7 @@ class UsersController {
   //   } catch (error) {
   //     next(error);
   //   }
-  // } 
+  // }
 }
 
 export default UsersController;

@@ -20,7 +20,10 @@ const propertySchema = mongoose.Schema(
       ],
     },
     type: { type: String, enum: ["permanent", "temporary"], required: true },
-    price: { type: Number, required: true },
+    price: {
+      value: { type: Number, required: true },
+      currency: { type: String, enum: ["ARS", "USD"], default: "ARS" },
+    },
     availability_date: { type: Date, required: true, default: new Date() },
     description: { type: String, required: true },
     property_pictures: [
@@ -36,7 +39,8 @@ const propertySchema = mongoose.Schema(
       address_number: { type: String, required: true },
     },
     features: {
-      area: { type: Number },
+      total_area: { type: Number },
+      covered_area: { type: Number },
       bathrooms: { type: Number },
       rooms: { type: Number },
       bedrooms: { type: Number },
@@ -60,6 +64,7 @@ const propertySchema = mongoose.Schema(
       garden: { type: Boolean, default: false },
       soccer_field: { type: Boolean, default: false },
       terrace: { type: Boolean, default: false },
+      pets: { type: Boolean, default: false },
     },
     characteristics: {
       age: { type: String },

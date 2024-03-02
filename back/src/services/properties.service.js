@@ -72,12 +72,15 @@ class PropertiesService {
       title: payload.title ?? property.title,
       category: payload.category ?? property.category,
       type: payload.type ?? property.type,
-      price: payload.price ?? property.price,
       availability_date:
         payload.availability_date ?? property.availability_date,
       description: payload.description ?? property.description,
       status: payload.status ?? property.status,
     };
+    //Price
+    if (payload.price.value) newProperty.price.value = payload.price.value;
+    if (payload.price.currency)
+      newProperty.price.currency = payload.price.currency;
     //Location
     if (payload.location.province)
       newProperty.location.province = payload.location.province;
@@ -88,8 +91,10 @@ class PropertiesService {
     if (payload.location.address_number)
       newProperty.location.address_number = payload.location.address_number;
     //Features
-    if (payload.features.area)
-      newProperty.features.area = payload.features.area;
+    if (payload.features.total_area)
+      newProperty.features.total_area = payload.features.total_area;
+    if (payload.features.covered_area)
+      newProperty.features.covered_area = payload.features.covered_area;
     if (payload.features.rooms)
       newProperty.features.rooms = payload.features.rooms;
     if (payload.features.bedrooms)
@@ -128,6 +133,8 @@ class PropertiesService {
       newProperty.amenities.soccer_field = payload.amenities.soccer_field;
     if (payload.amenities.terrace)
       newProperty.amenities.terrace = payload.amenities.terrace;
+    if (payload.amenities.pets)
+      newProperty.amenities.pets = payload.amenities.pets;
     //Characteristics
     if (payload.characteristics.age)
       newProperty.amenities.age = payload.amenities.age;

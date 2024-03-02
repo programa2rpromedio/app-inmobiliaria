@@ -1,3 +1,4 @@
+import Properties from "../models/Property.js";
 import Users from "../models/User.js";
 import HttpError from "../utils/HttpError.util.js";
 import { createHash } from "../utils/bcrypt.util.js";
@@ -55,6 +56,23 @@ class UsersService {
     }
     const userUpdated = await Users.findByIdAndUpdate(uid, user);
     return userUpdated;
+  }
+
+  static async addFavourite(uid, pid) {
+    const user = await Users.findById(uid).lean();
+    if (!user) {
+      throw new HttpError("User not found", NOT_FOUND);
+    }
+    const property = await Properties.findById(pid).lean();
+    if (!property) {
+      throw new HttpError("Property not found", NOT_FOUND);
+    }
+    const updatedUser = await Users.findByIdAndUpdate(
+      uid,
+      { $push: { favourites: pid } },
+      { new: true }
+    );
+    return updatedUser;
   }
 
   static async deleteUser(uid) {
