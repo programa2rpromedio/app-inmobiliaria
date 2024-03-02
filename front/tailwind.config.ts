@@ -25,7 +25,9 @@ const config = {
       },
       backgroundImage: {
         "register": "url('../images/OBJECTS.jpg')",
-        "vectorcasa": "url('../images/vector_casa.png')"
+        "vectorcasa": "url('../images/vector_casa.png')",
+        "cardCiudad": "url('../images/cardCiudad.svg')"
+      
       },
       colors: {
         border: "hsl(var(--border))",

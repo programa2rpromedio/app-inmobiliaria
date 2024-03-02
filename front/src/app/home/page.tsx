@@ -216,7 +216,7 @@ export default function page() {
           </div>
           <div className="flex gap-2 mx-auto">
             <Input
-              type="text"
+              type="email"
               placeholder="Ingresa tu correo"
               className=" w-[186px] h-[36px] text-[12px] font-semibold "
             />
@@ -239,6 +239,30 @@ export default function page() {
               *
             </p>
           </div>
+        </div>
+      </section>
+
+      <section>
+        <div className="w-[320px] h[180px] bg-cardCiudad bg-cover flex flex-col items-center justify-center rounded-md mx-auto p-2">
+          <div className="text-[17px] font-bold text-[#F5F5F7]">
+            <p>
+              Las propiedades más populares en todo{" "}
+              <span className="text-[#19BC86]">Argentina</span>
+            </p>
+          </div>
+
+          <div className="flex flex-col text-[9px] font-semibold text-[#F5F5F7]">
+            <p>
+              Desde departamentos hasta locales comerciales, con ___ lo tienes
+              todo al alcance de un click.
+            </p>
+            <p>
+              ¿Qué esperas para encontrar y conectar con tu nuevo hogar? ¡Busca
+              ahora!
+            </p>
+          </div>
+
+          <div>carrusel de card propiedades</div>
         </div>
       </section>
 
