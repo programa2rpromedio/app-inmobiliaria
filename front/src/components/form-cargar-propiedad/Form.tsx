@@ -12,7 +12,7 @@ const initialState: Property = {
   title: '',
   category: null,
   type: null,
-  price: 0,
+  value: 0,
   currency: "ARS",
   availabilityDate: new Date(),
   description: '',
@@ -80,7 +80,7 @@ export default function Form() {
     case 4:
       return <IntroSecondPart handleNextStep={handleNextStep} />
     case 5:
-      return <FourthStep handleNextStep={handleNextStep} setFormValues={setFormValues} formValues={formValues} />
+      return <FourthStep handleNextStep={handleNextStep} setFormValues={setFormValues} formValues={formValues} handleChange={handleChange} />
     default:
       break;
   }

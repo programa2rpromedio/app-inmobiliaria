@@ -11,7 +11,7 @@ export interface Property {
   title: string;
   category: propertyCategory;
   type: propertyType;
-  price: number;
+  value: number;
   currency: "ARS" | "USD";
   availabilityDate: Date;
   description: string;
