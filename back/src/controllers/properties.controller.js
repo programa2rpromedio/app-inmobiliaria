@@ -29,7 +29,7 @@ class PropertiesController {
 
   static async createOne(req, res, next) {
     const payload = req.body;
-    console.log("[PAYLOAD]:", JSON.parse(payload));
+    console.log("[PAYLOAD]:", payload);
     try {
       const propertyDTO = new CreatePropertyDTO(payload);
       const property = await PropertiesService.createProperty(propertyDTO);
