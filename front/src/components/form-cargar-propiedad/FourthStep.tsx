@@ -177,7 +177,7 @@ export default function FourthStep(props: FourthStepProps) {
         <div className='mt-5'>
           <h2 className='text-[#000000] mb-4'>Agregar fotos</h2>
           <p>Agrega hasta 5 fotos para mostrar tu propiedad.</p>
-          <FileInput id="files" multiple className='mt-5' name='files' required ref={refForm} />
+          <FileInput id="images" multiple className='mt-5' name='images' required ref={refForm} />
         </div>
 
         <div className='mt-5'>
