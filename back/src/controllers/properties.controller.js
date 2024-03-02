@@ -31,6 +31,8 @@ class PropertiesController {
   static async createOne(req, res, next) {
     const payload = req.body;
     console.log(req.files);
+    console.log("[PAYLOAD]:", payload);
+    
     try {
       if (req.files?.length > 0) {
         payload.propertyPictures = [];
@@ -48,6 +50,8 @@ class PropertiesController {
         }
       }
       const propertyDTO = new CreatePropertyDTO(payload);
+      console.log("[propertyDTO]:", propertyDTO);
+      
       const property = await PropertiesService.createProperty(propertyDTO);
       res.status(201).send(property);
     } catch (error) {
