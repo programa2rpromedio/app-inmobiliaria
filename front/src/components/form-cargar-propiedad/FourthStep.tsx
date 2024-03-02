@@ -145,7 +145,7 @@ export default function FourthStep(props: FourthStepProps) {
     // for (const pair of Array.from(formData.entries())) {
     //   console.log(pair[0], pair[1]);
     // }
-    fetch('https://api-inmobiliaria-kkch.onrender.com/api/properties', {
+    fetch('http://localhost:8080/api/properties', {
       method: 'POST',
       headers: {
         "Content-Type": "multipart/form-data"
