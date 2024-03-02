@@ -29,8 +29,11 @@ class PropertiesController {
 
   static async createOne(req, res, next) {
     const payload = req.body;
+    console.log("[PAYLOAD]:", payload);
     try {
       const propertyDTO = new CreatePropertyDTO(payload);
+      console.log("[propertyDTO]:", propertyDTO);
+      
       const property = await PropertiesService.createProperty(propertyDTO);
       res.status(201).send(property);
     } catch (error) {
