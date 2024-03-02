@@ -1,6 +1,14 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 import Logo from "@/images/logo.svg";
 import Search from "@/images/search.png";
@@ -209,7 +217,7 @@ export default function page() {
       </section>
 
       <section>
-        <div className="bg-[#E6E9F5] flex flex-col mx-3 rounded-md ">
+        <div className="bg-[#E6E9F5] w-[320px] h[180px] flex flex-col mx-auto my-3 rounded-md ">
           <div className="flex flex-col p-3 font-bold text-[12px] ">
             <p className=" ">Recibe las ofertas más recientes,</p>
             <p>actualizaciones y mucho más.</p>
@@ -243,15 +251,16 @@ export default function page() {
       </section>
 
       <section>
-        <div className="w-[320px] h[180px] bg-cardCiudad bg-cover flex flex-col items-center justify-center rounded-md mx-auto p-2">
-          <div className="text-[17px] font-bold text-[#F5F5F7]">
+        <div className="relative w-[320px] h-[180px] bg-cardCiudad bg-cover flex flex-col items-center justify-center rounded-md mx-auto my-3 p-2 overflow-hidden">
+          <div className="absolute inset-0 bg-black opacity-[0.99]"></div>
+          <div className="z-10 relative text-[17px] font-bold text-[#F5F5F7]">
             <p>
               Las propiedades más populares en todo{" "}
               <span className="text-[#19BC86]">Argentina</span>
             </p>
           </div>
 
-          <div className="flex flex-col text-[9px] font-semibold text-[#F5F5F7]">
+          <div className="z-10 relative flex flex-col text-[9px] font-semibold text-[#F5F5F7]">
             <p>
               Desde departamentos hasta locales comerciales, con ___ lo tienes
               todo al alcance de un click.
@@ -262,7 +271,41 @@ export default function page() {
             </p>
           </div>
 
-          <div>carrusel de card propiedades</div>
+          <div className="z-10 relative">carrusel de card propiedades</div>
+        </div>
+      </section>
+
+      <section>
+        <div className=" w-[320px] h-[180px] flex mx-auto">
+          <div className="w-[250px] h-[120px] flex mx-auto items-center ">
+            <Carousel
+              opts={{
+                align: "start",
+              }}
+              className="w-1/2 max-w-sm mx-auto"
+            >
+              <CarouselContent>
+                {Array.from({ length: 5 }).map((_, index) => (
+                  <CarouselItem
+                    key={index}
+                    className=" md:basis-1/2 lg:basis-1/3"
+                  >
+                    <div className="p-1">
+                      <Card>
+                        <CardContent className="flex items-center justify-center p-6">
+                          <span className="text-3xl font-semibold">
+                            {index + 1}
+                          </span>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious />
+              <CarouselNext />
+            </Carousel>
+          </div>
         </div>
       </section>
 
