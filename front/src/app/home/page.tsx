@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+
 import Logo from "@/images/logo.svg";
 import Search from "@/images/search.png";
 import Alquilar from "@/images/alquilar.svg";
@@ -10,6 +12,7 @@ import Conecta from "@/images/conectaCasa.svg";
 import Presentacion from "@/images/presentacion.svg";
 import PropiedadCard from "@/components/PropiedadCard";
 import Footer from "@/components/Footer";
+import Link from "next/link";
 
 export default function page() {
   return (
@@ -195,6 +198,50 @@ export default function page() {
           <PropiedadCard />
         </div>
       </section>
+
+      <section>
+        <div className="flex flex-col mx-auto items-center gap-4 m-4 text-[12px]">
+          <p>Sigue descubriendolas mejores propiedades</p>
+          <Button className="bg-[#19BC86] w-[130px] h-[36px] ">
+            Mostrar más
+          </Button>
+        </div>
+      </section>
+
+      <section>
+        <div className="bg-[#E6E9F5] flex flex-col mx-3 rounded-md ">
+          <div className="flex flex-col p-3 font-bold text-[12px] ">
+            <p className=" ">Recibe las ofertas más recientes,</p>
+            <p>actualizaciones y mucho más.</p>
+          </div>
+          <div className="flex gap-2 mx-auto">
+            <Input
+              type="text"
+              placeholder="Ingresa tu correo"
+              className=" w-[186px] h-[36px] text-[12px] font-semibold "
+            />
+            <Button className=" w-[94px] h-[36px] text-[12px] font-semibold ">
+              {" "}
+              Suscribirse{" "}
+            </Button>
+          </div>
+          <div className="flex flex-col text-[10px] m-3">
+            <p>*Al suscribirte a nuestro newsletter aceptas nuestros </p>
+            <p>
+              <Link href="" className="text-[#3354FF] hover:underline">
+                Términos y condiciones
+              </Link>
+              {"  "}y nuestra
+              <Link href="" className="text-[#3354FF] hover:underline">
+                {" "}
+                Política de privacidad
+              </Link>
+              *
+            </p>
+          </div>
+        </div>
+      </section>
+
       <Footer />
     </main>
   );
