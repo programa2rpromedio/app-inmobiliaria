@@ -53,5 +53,4 @@ export interface Property {
 
 export interface PropsFormCargarPropiedad {
   setFormValues: React.Dispatch<React.SetStateAction<Property>>,
-  handleNextStep: () => void
 }

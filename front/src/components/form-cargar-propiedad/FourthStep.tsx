@@ -2,13 +2,13 @@ import React, { useRef, useState } from 'react'
 import Step from './Step'
 import * as z from "zod"
 import { useForm } from "react-hook-form"
-import { FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Property, PropsFormCargarPropiedad } from '@/lib/types'
 import { Button } from '../ui/button';
 import { FileInput, Select, Textarea } from 'flowbite-react';
-
 import ModalFinishUpload from './ModalFinishUpload';
+import { StepContext } from "@/lib/ContextFormProp";
+import { useContext } from "react";
 
 const permanentType = z.literal("permanent");
 const temporaryType = z.literal("temporary");
@@ -38,7 +38,16 @@ interface FourthStepProps extends PropsFormCargarPropiedad {
 
 
 export default function FourthStep(props: FourthStepProps) {
-  const { handleNextStep, setFormValues, formValues, handleChange } = props
+
+  const { dispatch } = useContext(StepContext)
+
+  const handleNextStep = () => {
+    dispatch({
+      type: 'next'
+    })
+  }
+
+  const { setFormValues, formValues, handleChange } = props
   const { register, handleSubmit, formState, setValue, } = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
   })
@@ -67,7 +76,7 @@ export default function FourthStep(props: FourthStepProps) {
     }).then(res => res.json()).then(data => setIsFinishUpload(true))
       .catch(err => setIsFinishUpload(false)
       )
-    // handleNextStep()
+    handleNextStep()
   }
 
 
@@ -76,7 +85,7 @@ export default function FourthStep(props: FourthStepProps) {
   return (
     <Step title='Paso 2 - Publicación' description='Ahora preparemos tu publicación.'>
       <>
-        <form className='mt-10' encType="multipart/form-data" onSubmit={handleSubmit(onSubmit)} >
+        <form className='mt-10 sm:w-[70%]' encType="multipart/form-data" onSubmit={handleSubmit(onSubmit)} >
           <div className='w-[100%] mt-5'>
             <h2 className='text-[#000000] mb-4'>Titulo del anuncio</h2>
             <input type="text" placeholder="Titulo del anuncio" id="value" className='w-full py-3 px-6 rounded-[10px] border-[#999999] border bg-transparent'  {...register('title')} onChange={handleChange} />
@@ -110,7 +119,7 @@ export default function FourthStep(props: FourthStepProps) {
             {formState.errors.value && <p className='text-2 text-[#e94a4a] mt-2'>{formState.errors.value?.message}</p>}
           </div>
 
-          <Button variant="default" size="lg" className='w-full mt-20'>Siguiente</Button>
+          <Button variant="default" size="lg" className='w-full mt-20 sm:hidden'>Siguiente</Button>
 
         </form>
         {isFinishUpload && < ModalFinishUpload state='success' />}

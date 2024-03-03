@@ -9,6 +9,8 @@ import InputNumber from './InputNumber'
 import InputCheckbox from './InputCheckbox';
 import { Checkbox, ToggleSwitch } from 'flowbite-react';
 import { useState } from 'react';
+import { StepContext } from "@/lib/ContextFormProp";
+import { useContext } from "react";
 
 
 const formSchema = z.object({
@@ -75,7 +77,16 @@ type FormSchema = z.infer<typeof formSchema>
 
 
 export default function SecondStep(props: PropsFormCargarPropiedad) {
-  const { setFormValues, handleNextStep } = props
+
+  const { dispatch } = useContext(StepContext)
+
+  const handleNextStep = () => {
+    dispatch({
+      type: 'next'
+    })
+  }
+
+  const { setFormValues } = props
   const [toggle, setToggle] = useState(false)
   const methods = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
@@ -136,7 +147,7 @@ export default function SecondStep(props: PropsFormCargarPropiedad) {
           </label>
 
 
-          <Button variant="default" size="lg" className='w-full mt-20'>Siguiente</Button>
+          <Button variant="default" size="lg" className='w-full mt-20 sm:hidden'>Siguiente</Button>
 
         </form>
 

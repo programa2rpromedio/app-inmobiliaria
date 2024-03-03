@@ -7,6 +7,8 @@ import SecondStep from './SecondStep';
 import ThirdStep from './ThirdStep';
 import IntroSecondPart from './IntroSecondPart';
 import FourthStep from './FourthStep';
+import { StepContext } from "@/lib/ContextFormProp";
+import { useContext } from "react";
 
 const initialState: Property = {
   title: '',
@@ -53,15 +55,19 @@ const initialState: Property = {
 }
 export default function Form() {
 
-  const [step, setStep] = useState<number>(5)
+  // const [step, setStep] = useState<number>(5)
+  const { step } = useContext(StepContext)
+
+
   const [formValues, setFormValues] = useState<Property>(initialState)
 
-  const handleNextStep = () => {
-    setStep((prev) => prev + 1)
-  }
-  const handlePrevStep = () => {
-    setStep((prev) => prev - 1)
-  }
+  // const handleNextStep = () => {
+  //   if (step > 5) return window.location.href = 'http://localhost:3000/propiedades'
+  //   setStep((prev) => prev + 1)
+  // }
+  // const handlePrevStep = () => {
+  //   setStep((prev) => prev - 1)
+  // }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormValues((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -70,17 +76,17 @@ export default function Form() {
 
   switch (step) {
     case 0:
-      return <Intro handleNextStep={handleNextStep} />
+      return <Intro />
     case 1:
-      return <FirstStep setFormValues={setFormValues} handleNextStep={handleNextStep} />
+      return <FirstStep setFormValues={setFormValues} />
     case 2:
-      return <SecondStep setFormValues={setFormValues} handleNextStep={handleNextStep} />
+      return <SecondStep setFormValues={setFormValues} />
     case 3:
-      return <ThirdStep setFormValues={setFormValues} handleNextStep={handleNextStep} />
+      return <ThirdStep setFormValues={setFormValues} />
     case 4:
-      return <IntroSecondPart handleNextStep={handleNextStep} />
+      return <IntroSecondPart />
     case 5:
-      return <FourthStep handleNextStep={handleNextStep} setFormValues={setFormValues} formValues={formValues} handleChange={handleChange} />
+      return <FourthStep setFormValues={setFormValues} formValues={formValues} handleChange={handleChange} />
     default:
       break;
   }
