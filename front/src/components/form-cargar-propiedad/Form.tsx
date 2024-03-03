@@ -53,7 +53,7 @@ const initialState: Property = {
 }
 export default function Form() {
 
-  const [step, setStep] = useState<number>(0)
+  const [step, setStep] = useState<number>(5)
   const [formValues, setFormValues] = useState<Property>(initialState)
 
   const handleNextStep = () => {
