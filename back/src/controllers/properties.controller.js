@@ -30,7 +30,6 @@ class PropertiesController {
 
   static async createOne(req, res, next) {
     const payload = req.body;
-    console.log(req.files);
     try {
       if (req.files?.length > 0) {
         payload.propertyPictures = [];

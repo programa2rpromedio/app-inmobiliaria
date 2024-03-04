@@ -90,6 +90,10 @@ class PropertiesService {
       newProperty.location.address_street = payload.location.address_street;
     if (payload.location.address_number)
       newProperty.location.address_number = payload.location.address_number;
+    if (payload.location.lat)
+      newProperty.location.lat = payload.location.lat;
+    if (payload.location.lon)
+      newProperty.location.lon = payload.location.lon;
     //Features
     if (payload.features.total_area)
       newProperty.features.total_area = payload.features.total_area;

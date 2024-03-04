@@ -24,6 +24,8 @@ export class GetPropertyDTO {
     this.city = payload.location.city;
     this.addressStreet = payload.location.address_street;
     this.addressNumber = payload.location.address_number;
+    this.lat = payload.location.lat;
+    this.lon = payload.location.lon;
 
     this.totalArea = payload.features.total_area;
     this.coveredArea = payload.features.covered_area;
@@ -81,6 +83,8 @@ export class CreatePropertyDTO {
     this.location.city = payload.city;
     this.location.address_street = payload.addressStreet;
     this.location.address_number = payload.addressNumber;
+    this.location.lat = payload.lat;
+    this.location.lon = payload.lon;
 
     this.features = {};
     this.features.total_area = payload.totalArea;
