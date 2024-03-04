@@ -8,8 +8,8 @@ export default function fillInAddress(place: google.maps.places.PlaceResult | nu
   if (place == undefined) return
   if (!place.address_components) return
 
-  let address_street = "";
-  let address_number = "";
+  let addressStreet = "";
+  let addressNumber = "";
   let city = "";
   let province = "";
   let lat = place?.geometry?.location?.lat() || 0
@@ -26,12 +26,12 @@ export default function fillInAddress(place: google.maps.places.PlaceResult | nu
 
     switch (componentType) {
       case "street_number": {
-        address_number = component.long_name;
+        addressNumber = component.long_name;
         break;
       }
 
       case "route": {
-        address_street = component.short_name;
+        addressStreet = component.short_name;
         break;
       }
 
@@ -47,7 +47,7 @@ export default function fillInAddress(place: google.maps.places.PlaceResult | nu
     }
   }
 
-  return { address_street, address_number, city, province, lat, lng }
+  return { addressStreet, addressNumber, city, province, lat, lng }
   // After filling the form with address components from the Autocomplete
   // prediction, set cursor focus on the second address line to encourage
   // entry of subpremise information such as apartment, unit, or floor number.
