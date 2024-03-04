@@ -1,15 +1,15 @@
 import Image from "next/image";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card, CardContent } from "@/components/ui/card";
 import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+
 import Logo from "@/images/logo.svg";
 import Search from "@/images/search.png";
 import Alquilar from "@/images/alquilar.svg";
@@ -19,11 +19,13 @@ import BuscaDescubre from "@/images/buscaDescubre.svg";
 import Conecta from "@/images/conectaCasa.svg";
 import Presentacion from "@/images/presentacion.svg";
 import PropiedadCard from "@/components/PropiedadCard";
+import Footer from "@/components/Footer";
+import Link from "next/link";
 
 export default function page() {
   return (
     <main className=" mx-auto ">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between  items-center">
         <div className="flex items-center ">
           <Image
             src={Logo}
@@ -205,92 +207,109 @@ export default function page() {
         </div>
       </section>
 
-      <footer className="bg-[#EDEEF2] p-4">
-        <div className="flex justify-between ">
-          <div>
-            <p className="text-[10px] font-bold">Acerca de</p>
-            <ul className="mt-3 text-[10px] text-slate-9">
-              <li className="mb-2">
-                <Link href="">Alquilar</Link>
-              </li>
-              <li className="mb-2">
-                <Link href="">Temporal</Link>
-              </li>
-              <li className="mb-2">
-                <Link href="">Alquila tu propiedad</Link>
-              </li>
-            </ul>
+      <section>
+        <div className="flex flex-col mx-auto items-center gap-4 m-4 text-[12px]">
+          <p>Sigue descubriendolas mejores propiedades</p>
+          <Button className="bg-[#19BC86] w-[130px] h-[36px] ">
+            Mostrar más
+          </Button>
+        </div>
+      </section>
+
+      <section>
+        <div className="bg-[#E6E9F5] w-[320px] h[180px] flex flex-col mx-auto my-3 rounded-md ">
+          <div className="flex flex-col p-3 font-bold text-[12px] ">
+            <p className=" ">Recibe las ofertas más recientes,</p>
+            <p>actualizaciones y mucho más.</p>
           </div>
-          <div>
-            <p className="text-[10px] font-bold">Contacto</p>
-            <ul className="mt-3 text-[9px] text-slate-9">
-              <li className="mb-2">
-                <Link href="">Centro de Ayuda</Link>
-              </li>
-              <li className="mb-2">
-                <Link href="">Quiénes somos</Link>
-              </li>
-            </ul>
+          <div className="flex gap-2 mx-auto">
+            <Input
+              type="email"
+              placeholder="Ingresa tu correo"
+              className=" w-[186px] h-[36px] text-[12px] font-semibold "
+            />
+            <Button className=" w-[94px] h-[36px] text-[12px] font-semibold ">
+              {" "}
+              Suscribirse{" "}
+            </Button>
           </div>
-          <div>
-            <p className="text-[10px] font-bold">Información Legal</p>
-            <ul className="mt-3 text-[10px] text-slate-9">
-              <li className="mb-2">
-                <Link href="">Términos y condiciones</Link>
-              </li>
-              <li className="mb-2">
-                <Link href="">Política de privacidad</Link>
-              </li>
-              <li className="mb-2">
-                <Link href="">Aviso legal</Link>
-              </li>
-            </ul>
+          <div className="flex flex-col text-[10px] m-3">
+            <p>*Al suscribirte a nuestro newsletter aceptas nuestros </p>
+            <p>
+              <Link href="" className="text-[#3354FF] hover:underline">
+                Términos y condiciones
+              </Link>
+              {"  "}y nuestra
+              <Link href="" className="text-[#3354FF] hover:underline">
+                {" "}
+                Política de privacidad
+              </Link>
+              *
+            </p>
           </div>
         </div>
-        <div className="flex justify-end gap-4 mt-4 items-center">
-          <Select>
-            <SelectTrigger className="bg-[#ffffff]  w-[90px] h-[20px] text-[9px] font-semibold outline-none">
-              <SelectValue placeholder="AR$" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup className="text-[9px] font-semibold">
-                <SelectLabel></SelectLabel>
-                <SelectItem value="AR$">AR$</SelectItem>
-                <SelectItem value="brasil">Brasil</SelectItem>
-                <SelectItem value="chile">Chile</SelectItem>
-                <SelectItem value="uruguay">Uruguay</SelectItem>
-                <SelectItem value="paraguay">Paraguay</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-          <Select>
-            <SelectTrigger className="bg-[#ffffff]  w-[90px] h-[20px] text-[9px] font-semibold outline-none">
-              <SelectValue placeholder="Argentina" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup className="text-[9px] font-semibold">
-                <SelectLabel></SelectLabel>
-                <SelectItem value="argentina">Argentina</SelectItem>
-                <SelectItem value="brasil">Brasil</SelectItem>
-                <SelectItem value="chile">Chile</SelectItem>
-                <SelectItem value="uruguay">Uruguay</SelectItem>
-                <SelectItem value="paraguay">Paraguay</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+      </section>
+
+      <section>
+        <div className="relative w-[320px] h-[180px] bg-cardCiudad bg-cover flex flex-col items-center justify-center rounded-md mx-auto my-3 p-2 overflow-hidden">
+          <div className="absolute inset-0 bg-black opacity-[0.99]"></div>
+          <div className="z-10 relative text-[17px] font-bold text-[#F5F5F7]">
+            <p>
+              Las propiedades más populares en todo{" "}
+              <span className="text-[#19BC86]">Argentina</span>
+            </p>
+          </div>
+
+          <div className="z-10 relative flex flex-col text-[9px] font-semibold text-[#F5F5F7]">
+            <p>
+              Desde departamentos hasta locales comerciales, con ___ lo tienes
+              todo al alcance de un click.
+            </p>
+            <p>
+              ¿Qué esperas para encontrar y conectar con tu nuevo hogar? ¡Busca
+              ahora!
+            </p>
+          </div>
+
+          <div className="z-10 relative">carrusel de card propiedades</div>
         </div>
-        <div>
-          <Image
-            src={Logo}
-            alt="Logo de la App"
-            className=""
-            width={22}
-            height={22}
-          />
-          <p>2024 Alquileres Ya!</p>
-          <p>Todos los derechos reservados</p>
+      </section>
+
+      <section>
+        <div className=" w-[320px] h-[180px] flex mx-auto">
+          <div className="w-[250px] h-[120px] flex mx-auto items-center ">
+            <Carousel
+              opts={{
+                align: "start",
+              }}
+              className="w-1/2 max-w-sm mx-auto"
+            >
+              <CarouselContent>
+                {Array.from({ length: 5 }).map((_, index) => (
+                  <CarouselItem
+                    key={index}
+                    className=" md:basis-1/2 lg:basis-1/3"
+                  >
+                    <div className="p-1">
+                      <Card>
+                        <CardContent className="flex items-center justify-center p-6">
+                          <span className="text-3xl font-semibold">
+                            {index + 1}
+                          </span>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious />
+              <CarouselNext />
+            </Carousel>
+          </div>
         </div>
-      </footer>
+      </section>
+
+      <Footer />
     </main>
   );
 }
