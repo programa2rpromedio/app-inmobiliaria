@@ -10,7 +10,7 @@ export const StepContext: StepContextType = createContext<any>(null)
 export function stepReducer(state: number, action: { type: any; }) {
   switch (action.type) {
     case 'next': {
-      if (state >= 5) return 0
+      if (state >= 5) return state
       return state + 1
     }
     case 'prev': {

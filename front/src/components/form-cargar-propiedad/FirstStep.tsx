@@ -17,6 +17,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { PropsFormCargarPropiedad, propertyCategory } from '@/lib/types'
 import { StepContext } from "@/lib/ContextFormProp";
 import { useContext } from "react";
+import ControllerSteps from './ControllerStepsIntros'
+import ControllerStepsForm from './ControllerStepsForm'
 
 const formSchema = z.object({
   addressStreet: z.string({
@@ -165,6 +167,7 @@ export default function FirstStep(props: PropsFormCargarPropiedad) {
           </div>
 
           <Button variant="default" size="lg" className='w-full mt-20 sm:hidden'>Siguiente</Button>
+          <ControllerStepsForm />
         </form>
       </section>
     </Step>

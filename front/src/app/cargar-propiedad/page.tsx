@@ -5,12 +5,15 @@ import ArrowLeftSVG from "@/components/svgs/ArrowLeftSVG";
 import { APIProvider } from "@vis.gl/react-google-maps";
 import { stepReducer, StepContext } from "@/lib/ContextFormProp";
 import { useContext, useReducer } from "react";
+import ControllerSteps from "@/components/form-cargar-propiedad/ControllerStepsIntros";
+
 const mapsApiKey = "AIzaSyC5Imp84G-XJszq7Iep7djj0kI035RcbJk"
 
 
 export default function Page() {
-  const initialState = 0
+  const initialState = 5
   const [step, dispatch] = useReducer(stepReducer, initialState)
+
 
   return (
     <StepContext.Provider value={{ step, dispatch }}>
@@ -24,10 +27,11 @@ export default function Page() {
           </div>
         </header>
         <APIProvider apiKey={mapsApiKey}>
-          <div className="p-4 min-h-[100vh] sm:px-24">
+          <div className="p-4  sm:px-24 sm:pb-12  mb-32">
             <Form />
           </div>
         </APIProvider>
+        <ControllerSteps />
       </main>
     </StepContext.Provider>
   )

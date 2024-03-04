@@ -8,6 +8,7 @@ import { PropsFormCargarPropiedad } from '@/lib/types'
 import { Button } from '../ui/button';
 import { StepContext } from "@/lib/ContextFormProp";
 import { useContext } from "react";
+import ControllerStepsForm from './ControllerStepsForm';
 
 const formSchema = z.object({
   age: z.optional(z.string()),
@@ -77,8 +78,8 @@ export default function ThirdStep(props: PropsFormCargarPropiedad) {
             <input type="number" placeholder="Metros cuadrados cubiertos" id="coveredArea" className='w-full py-3 px-6 rounded-[10px] border-[#999999] border bg-transparent'  {...register('coveredArea')} onChange={handleChange} />
           </div>
 
-          <Button variant="default" size="lg" className='w-full mt-20'>Siguiente</Button>
-
+          <Button variant="default" size="lg" className='w-full mt-20 sm:hidden'>Siguiente</Button>
+          <ControllerStepsForm />
         </form>
       </>
     </Step>

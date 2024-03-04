@@ -11,6 +11,7 @@ import { Checkbox, ToggleSwitch } from 'flowbite-react';
 import { useState } from 'react';
 import { StepContext } from "@/lib/ContextFormProp";
 import { useContext } from "react";
+import ControllerStepsForm from './ControllerStepsForm';
 
 
 const formSchema = z.object({
@@ -105,7 +106,7 @@ export default function SecondStep(props: PropsFormCargarPropiedad) {
     <FormProvider {...methods}  >
       <Step title={'Paso 1 - Datos de la propiedad'} description={'Comencemos con los datos y características de la propiedad'}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div>
+          <div className='sm:w-[60%]'>
             <h2 className='text-[#484554]'>Ambientes</h2>
 
 
@@ -148,7 +149,7 @@ export default function SecondStep(props: PropsFormCargarPropiedad) {
 
 
           <Button variant="default" size="lg" className='w-full mt-20 sm:hidden'>Siguiente</Button>
-
+          <ControllerStepsForm />
         </form>
 
       </Step>

@@ -9,6 +9,7 @@ import { FileInput, Select, Textarea } from 'flowbite-react';
 import ModalFinishUpload from './ModalFinishUpload';
 import { StepContext } from "@/lib/ContextFormProp";
 import { useContext } from "react";
+import ControllerStepsForm from './ControllerStepsForm'
 
 const permanentType = z.literal("permanent");
 const temporaryType = z.literal("temporary");
@@ -76,7 +77,7 @@ export default function FourthStep(props: FourthStepProps) {
     }).then(res => res.json()).then(data => setIsFinishUpload(true))
       .catch(err => setIsFinishUpload(false)
       )
-    handleNextStep()
+    // handleNextStep()
   }
 
 
@@ -120,7 +121,7 @@ export default function FourthStep(props: FourthStepProps) {
           </div>
 
           <Button variant="default" size="lg" className='w-full mt-20 sm:hidden'>Siguiente</Button>
-
+          <ControllerStepsForm />
         </form>
         {isFinishUpload && < ModalFinishUpload state='success' />}
         {isFinishUpload === false && < ModalFinishUpload state='error' />}

@@ -17,7 +17,7 @@ export default function Intro() {
 
   return (
     <>
-      <div className="max-[767]:hidden sm:flex sm:h-[100vh] sm:items-center sm:justify-center">
+      <div className="max-[767]:hidden sm:flex sm:h-[80vh] sm:items-center sm:justify-center">
         <div className="flex flex-col gap-4 sm:w-[50%]">
           <h3 className="text-primary sm:text-[1.5rem]">Paso 1</h3>
           <h4 className="font-[600] sm:text-[1.5rem]">Cuentanos un poco de tu propiedad</h4>
