@@ -18,11 +18,11 @@ export default function Page() {
 
 
   return (
-    <main className="w-8/12 mx-auto border border-black p-4 bg-[#F5F5F7]">
+    <main className="w-8/12 mx-auto border p-4 bg-[#F5F5F7]">
       <HeroDetail />
 
-      <section className="mt-4 flex flex-wrap md:justify-between sm:justify-center min-[1160px]:gap-8">
-        <div className='sm:w-full min-[1160px]:w-[45%]'>
+      <section className="mt-4 flex flex-wrap md:justify-between sm:justify-center md:gap-8">
+        <div className='sm:w-full md:w-[45%] '>
           <CharacteristicsProperties />
           <div className="max-w-[474px] mt-8">
             <p>
@@ -39,7 +39,7 @@ export default function Page() {
             </APIProvider>
           </div>
         </div>
-        <div className="min-[1160px]:w-[50%] w-full sm:mt-8  min-[1160px]:mt-0  bg-vectorcasa bg-contain bg-no-repeat bg-right">
+        <div className="md:w-[50%] w-full sm:mt-8  md:mt-0  bg-vectorcasa bg-contain bg-no-repeat bg-right">
           <FormContact />
         </div>
       </section>

@@ -12,7 +12,7 @@ export default function CardProperty(/*{propiedad}*/) {
   // { title, category, type, availabilityDate, desciption, propertyPictures, value, currency, province, city, totalArea, coveredArea, rooms, bathrooms, bedrooms, pets, estado as status } = item
   let id = 1;
   return (
-    <div className='flex flex-col items-center bg-[#FFFFFF]'>
+    <div className='flex flex-col items-center bg-[#FFFFFF] max-w-[350px]'>
       <div className='w-full p-4'>
         <Image src={CasaPic1} className=' rounded-[12px] object-contain' alt="casa" />
       </div>
