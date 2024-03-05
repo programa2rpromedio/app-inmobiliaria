@@ -9,7 +9,8 @@ const config = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
-	],
+    "./node_modules/flowbite-react/lib/**/*.js"
+  ],
   prefix: "",
   theme: {
     container: {
@@ -25,7 +26,9 @@ const config = {
       },
       backgroundImage: {
         "register": "url('../images/OBJECTS.jpg')",
-        "vectorcasa": "url('../images/vector_casa.png')"
+        "vectorcasa": "url('../images/vector_casa.png')",
+        "cardCiudad": "url('../images/cardCiudad.svg')"
+      
       },
       colors: {
         border: "hsl(var(--border))",
@@ -84,7 +87,7 @@ const config = {
     },
   },
   presets: [radixThemePreset],
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("flowbite/plugin")],
 } satisfies Config
 
 export default config

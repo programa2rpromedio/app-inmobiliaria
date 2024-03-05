@@ -15,7 +15,7 @@ const HeroDetail = () => {
     <>
       <section className=" w-full flex justify-between">
         <div>
-          <h2 className="font-sans font-bold ">Sarmiento 4100 . $350.000</h2>
+          <h2 className="font-sans font-bold text-[2rem] ">Sarmiento 4100 . $350.000</h2>
           <h4>Departamento en alquiler en Almagro, Capital Federal</h4>
         </div>
 
