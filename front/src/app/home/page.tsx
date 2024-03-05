@@ -1,14 +1,7 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent } from "@/components/ui/card";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
+
 
 import Logo from "@/images/logo.svg";
 import Search from "@/images/search.png";
@@ -275,39 +268,7 @@ export default function page() {
         </div>
       </section>
 
-      <section>
-        <div className=" w-[320px] h-[180px] flex mx-auto">
-          <div className="w-[250px] h-[120px] flex mx-auto items-center ">
-            <Carousel
-              opts={{
-                align: "start",
-              }}
-              className="w-1/2 max-w-sm mx-auto"
-            >
-              <CarouselContent>
-                {Array.from({ length: 5 }).map((_, index) => (
-                  <CarouselItem
-                    key={index}
-                    className=" md:basis-1/2 lg:basis-1/3"
-                  >
-                    <div className="p-1">
-                      <Card>
-                        <CardContent className="flex items-center justify-center p-6">
-                          <span className="text-3xl font-semibold">
-                            {index + 1}
-                          </span>
-                        </CardContent>
-                      </Card>
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselPrevious />
-              <CarouselNext />
-            </Carousel>
-          </div>
-        </div>
-      </section>
+      
 
       <Footer />
     </main>
