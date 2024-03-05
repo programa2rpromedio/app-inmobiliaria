@@ -1,14 +1,6 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent } from "@/components/ui/card";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
 
 import Logo from "@/images/logo.svg";
 import Search from "@/images/search.png";
@@ -95,17 +87,17 @@ export default function page() {
       </section>
 
       <section>
-        <div className="flex flex-col mx-auto justify-center mt-10">
+        <div className="flex flex-col items-center justify-center mt-10 rounded-xl overflow-hidden">
           <Image
             src={Presentacion}
             alt="Logo de la App"
-            className="mx-auto row-start-1 row-end-3 rounded-tl-[20px] rounded-bl-[20px] object-cover"
+            className="w-full h-40 object-cover"
             width={330}
             height={172}
           />
           <Button
             variant={"default"}
-            className="relative bg-[#ffffff] text-[#3354FF] w-[75px] h-[20px] text-[11px] font-bold hover:text-[#ffffff] -mt-9 ml-10 p-2"
+            className="mt-2 bg-[#ffffff] text-[#3354FF] w-[75px] h-[20px] text-[11px] font-bold hover:text-[#ffffff] p-2"
           >
             Ver la lista
           </Button>
@@ -244,67 +236,7 @@ export default function page() {
                 {" "}
                 Política de privacidad
               </Link>
-              *
             </p>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <div className="relative w-[320px] h-[180px] bg-cardCiudad bg-cover flex flex-col items-center justify-center rounded-md mx-auto my-3 p-2 overflow-hidden">
-          <div className="absolute inset-0 bg-black opacity-[0.99]"></div>
-          <div className="z-10 relative text-[17px] font-bold text-[#F5F5F7]">
-            <p>
-              Las propiedades más populares en todo{" "}
-              <span className="text-[#19BC86]">Argentina</span>
-            </p>
-          </div>
-
-          <div className="z-10 relative flex flex-col text-[9px] font-semibold text-[#F5F5F7]">
-            <p>
-              Desde departamentos hasta locales comerciales, con ___ lo tienes
-              todo al alcance de un click.
-            </p>
-            <p>
-              ¿Qué esperas para encontrar y conectar con tu nuevo hogar? ¡Busca
-              ahora!
-            </p>
-          </div>
-
-          <div className="z-10 relative">carrusel de card propiedades</div>
-        </div>
-      </section>
-
-      <section>
-        <div className=" w-[320px] h-[180px] flex mx-auto">
-          <div className="w-[250px] h-[120px] flex mx-auto items-center ">
-            <Carousel
-              opts={{
-                align: "start",
-              }}
-              className="w-1/2 max-w-sm mx-auto"
-            >
-              <CarouselContent>
-                {Array.from({ length: 5 }).map((_, index) => (
-                  <CarouselItem
-                    key={index}
-                    className=" md:basis-1/2 lg:basis-1/3"
-                  >
-                    <div className="p-1">
-                      <Card>
-                        <CardContent className="flex items-center justify-center p-6">
-                          <span className="text-3xl font-semibold">
-                            {index + 1}
-                          </span>
-                        </CardContent>
-                      </Card>
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselPrevious />
-              <CarouselNext />
-            </Carousel>
           </div>
         </div>
       </section>
