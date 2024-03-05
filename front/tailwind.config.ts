@@ -9,7 +9,8 @@ const config = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
-	],
+    "./node_modules/flowbite-react/lib/**/*.js"
+  ],
   prefix: "",
   theme: {
     container: {
@@ -86,7 +87,7 @@ const config = {
     },
   },
   presets: [radixThemePreset],
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("flowbite/plugin")],
 } satisfies Config
 
 export default config
