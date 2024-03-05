@@ -47,6 +47,8 @@ class PropertiesController {
         }
       }
       const propertyDTO = new CreatePropertyDTO(payload);
+      console.log("[propertyDTO]:", propertyDTO);
+      
       const property = await PropertiesService.createProperty(propertyDTO);
       res.status(201).send(property);
     } catch (error) {
