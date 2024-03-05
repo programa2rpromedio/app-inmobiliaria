@@ -20,7 +20,7 @@ export default function ControllerSteps() {
         <hr className={`border-[4px] w-[50%] ${step >= 4 ? 'border-[#636FFF]' : null}`} />
       </div>
       <div className="flex justify-between my-auto px-20">
-        <Button size='lg' variant='outline' className='bg-white' onClick={() => window.location.href = 'http://localhost:3000/home'} > Salir </Button>
+        <Button size='lg' variant='outline' className='bg-white' onClick={() => window.location.href = 'http://localhost:3000/'} > Salir </Button>
         <Button size='lg' onClick={handleNextStep}> Comenzar </Button>
       </div>
     </section>
