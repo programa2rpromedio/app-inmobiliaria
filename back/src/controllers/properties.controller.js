@@ -1,6 +1,6 @@
 import { CreatePropertyDTO, GetPropertyDTO } from "../dtos/property.dto.js";
 import PropertiesService from "../services/properties.service.js";
-import { uploadSingleImage } from "../utils/cloudinary.utils.js";
+import { uploadPropertyImage } from "../utils/cloudinary.utils.js";
 
 class PropertiesController {
   static async getAll(req, res, next) {
@@ -33,9 +33,9 @@ class PropertiesController {
     try {
       if (req.files?.length > 0) {
         payload.propertyPictures = [];
-        const folderName = "inmobiliaria/propiedades";
+        const folderName = `inmobiliaria/propiedades/${payload.userId}`;
         const promises = req.files.map((file) =>
-          uploadSingleImage(file, folderName)
+          uploadPropertyImage(file, folderName)
         );
         const uploadedUrls = await Promise.all(promises);
         for (let i = 0; i < uploadedUrls.length; i++) {
@@ -47,7 +47,7 @@ class PropertiesController {
         }
       }
       const propertyDTO = new CreatePropertyDTO(payload);
-      console.log("[propertyDTO]:", propertyDTO);
+      // console.log("[propertyDTO]:", propertyDTO);
       
       const property = await PropertiesService.createProperty(propertyDTO);
       res.status(201).send(property);

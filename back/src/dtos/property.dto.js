@@ -69,7 +69,6 @@ export class CreatePropertyDTO {
     this.title = payload.title;
     this.category = payload.category;
     this.type = payload.type;
-    this.price = payload.price;
     this.availability_date = payload.availabilityDate;
     this.description = payload.description;
     this.property_pictures = payload.propertyPictures;

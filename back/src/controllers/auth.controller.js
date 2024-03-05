@@ -3,12 +3,22 @@ import MailService from "../services/mail.service.js";
 import UsersService from "../services/user.service.js";
 import HttpError from "../utils/HttpError.util.js";
 import { isValidPassword } from "../utils/bcrypt.util.js";
+import { uploadProfileImage } from "../utils/cloudinary.utils.js";
 import { generateAccessToken } from "../utils/jwt.util.js";
 
 class AuthController {
   static async register(req, res, next) {
     const payload = req.body;
     try {
+      if(req.file){
+        const folderName = `inmobiliaria/perfil`;
+        const uploadedUrl = await uploadProfileImage(req.file, folderName)
+        const imageObject = {
+          url: uploadedUrl.url,
+          public_id: uploadedUrl.public_id,
+        };
+        payload.profilePicture = imageObject
+      }
       const userDTO = new CreateUserDTO(payload);
       const user = await UsersService.createUser(userDTO);
       await MailService.sendWelcome(user)

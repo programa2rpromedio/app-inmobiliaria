@@ -48,6 +48,7 @@ class UsersService {
     user.last_name = payload.last_name ?? user.last_name;
     user.first_name = payload.first_name ?? user.first_name;
     user.role = payload.role ?? user.role;
+    user.profile_picture = payload.profile_picture ?? user.profile_picture;
     if (payload.location.city) {
       user.location.city = payload.location.city;
     }
@@ -55,6 +56,11 @@ class UsersService {
       user.location.address = payload.location.address;
     }
     const userUpdated = await Users.findByIdAndUpdate(uid, user);
+    return userUpdated;
+  }
+
+  static async updateProfilePicture(uid, payload) {
+    const userUpdated = await Users.findByIdAndUpdate(uid, payload, {returnDocument: 'after'});
     return userUpdated;
   }
 
