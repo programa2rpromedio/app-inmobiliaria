@@ -21,7 +21,6 @@ import Conecta from "@/images/conectaCasa.svg";
 import Presentacion from "@/images/presentacion.svg";
 import PropiedadCard from "@/components/PropiedadCard";
 import Footer from "@/components/Footer";
-import BannerDesktop from "@/images/bannerDesktop.png";
 import CardProperty from "@/components/CardProperty";
 
 
@@ -129,8 +128,9 @@ export default function page() {
             Ver la lista
           </Button>
         </div>
-        <div className=" hidden sm:block bg-bannerDesktop bg-no-repeat w-[60%]  h-[650px] mx-auto relative  bg-contain mt-10">
-          <Button className="absolute bottom-28 left-14" size='lg' variant='outline'>Ver Lista</Button>
+        <div className=" hidden sm:block bg-bannerDesktop bg-no-repeat sm:w-[80%] w-[60%] sm:h-[40vh] md:h-[45vh] lg:h-[55vh] xl:h-[65vh] mx-auto relative bg-cover md:bg-left bg- mt-10">
+          <Button className="absolute bottom-2 left-10 hidden md:block xl:left-20" size='lg' variant='outline'>Ver Lista</Button>
+          <Button className="absolute sm:bottom-1 sm:left-6 hidden sm:block md:hidden" size='sm' variant='outline'>Ver Lista</Button>
         </div>
       </section>
 
@@ -140,7 +140,7 @@ export default function page() {
         </h3>
       </section>
 
-      <section className="sm:bg-white sm:w-[60%] sm:mx-auto sm:flex sm:rounded-[2rem] sm:p-4">
+      <section className="sm:bg-white sm:w-[80%] sm:mx-auto sm:flex sm:rounded-[2rem] sm:p-4">
         <div className="flex max-w-[328px] max-h-[156px] bg-[#ffffff]  mt-8 shadow-xl rounded-lg border p-4 mx-auto sm:mt-0 sm:max-h-none sm:border-none ">
           <div className="flex sm:flex-col">
             <div className="sm:order-2">
@@ -220,14 +220,14 @@ export default function page() {
         </h3>
       </section>
 
-      <section className="sm:w-[60%] sm:mx-auto ">
+      <section className="sm:w-[80%] sm:mx-auto ">
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 m-2 sm:hidden">
           <PropiedadCard />
           <PropiedadCard />
           <PropiedadCard />
           <PropiedadCard />
         </div>
-        <div className="sm:flex sm:flex-wrap sm:gap-4 sm:justify-between hidden">
+        <div className="sm:flex sm:flex-col sm:gap-4 sm:items-center md:flex-row md:flex-wrap md:justify-center hidden">
           <CardProperty />
           <CardProperty />
           <CardProperty />
@@ -239,14 +239,14 @@ export default function page() {
 
       <section>
         <div className="flex flex-col mx-auto items-center gap-4 m-4 text-[12px]">
-          <p>Sigue descubriendolas mejores propiedades</p>
+          <p>Sigue descubriendo las mejores propiedades</p>
           <Button className="bg-[#19BC86] w-[130px] h-[36px] ">
             Mostrar más
           </Button>
         </div>
       </section>
 
-      <section>
+      {/* <section>
         <div className="bg-[#E6E9F5] w-[320px] h[180px] flex flex-col mx-auto my-3 rounded-md ">
           <div className="flex flex-col p-3 font-bold text-[12px] ">
             <p className=" ">Recibe las ofertas más recientes,</p>
@@ -337,7 +337,7 @@ export default function page() {
             </Carousel>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <Footer />
     </main>

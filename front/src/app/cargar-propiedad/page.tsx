@@ -11,7 +11,7 @@ const mapsApiKey = "AIzaSyC5Imp84G-XJszq7Iep7djj0kI035RcbJk"
 
 
 export default function Page() {
-  const initialState = 5
+  const initialState = 0
   const [step, dispatch] = useReducer(stepReducer, initialState)
 
 

@@ -55,24 +55,13 @@ const initialState: Property = {
 }
 export default function Form() {
 
-  // const [step, setStep] = useState<number>(5)
   const { step } = useContext(StepContext)
 
-
   const [formValues, setFormValues] = useState<Property>(initialState)
-
-  // const handleNextStep = () => {
-  //   if (step > 5) return window.location.href = 'http://localhost:3000/propiedades'
-  //   setStep((prev) => prev + 1)
-  // }
-  // const handlePrevStep = () => {
-  //   setStep((prev) => prev - 1)
-  // }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormValues((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
-
 
   switch (step) {
     case 0:
