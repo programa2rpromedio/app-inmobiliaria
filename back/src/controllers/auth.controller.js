@@ -1,4 +1,5 @@
 import { CreateUserDTO, GetUserDTO } from "../dtos/user.dto.js";
+import MailService from "../services/mail.service.js";
 import UsersService from "../services/user.service.js";
 import HttpError from "../utils/HttpError.util.js";
 import { isValidPassword } from "../utils/bcrypt.util.js";
@@ -10,6 +11,7 @@ class AuthController {
     try {
       const userDTO = new CreateUserDTO(payload);
       const user = await UsersService.createUser(userDTO);
+      await MailService.sendWelcome(user)
       res.status(201).send(user);
     } catch (error) {
       next(error);

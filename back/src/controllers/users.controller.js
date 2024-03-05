@@ -29,7 +29,6 @@ class UsersController {
 
   static async createOne(req, res, next) {
     const payload = req.body;
-    console.log(payload);
     try {
       const userDTO = new CreateUserDTO(payload);
       const user = await UsersService.createUser(userDTO);
