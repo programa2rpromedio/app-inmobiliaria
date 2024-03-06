@@ -10,6 +10,12 @@ class PropertiesService {
       if (opt === "sort") {
         Object.assign(sort, { "price.value": +options.sort });
       }
+      if (opt === "max") {
+        Object.assign(filter, { "price.value": { $lte: +options.max } });
+      }
+      if (opt === "min") {
+        Object.assign(filter, { "price.value": { $gte: +options.min } });
+      }
       if (opt === "user") {
         Object.assign(filter, { user_id: options.user });
       }
