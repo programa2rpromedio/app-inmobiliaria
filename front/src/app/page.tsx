@@ -211,7 +211,7 @@ export default function page() {
         </div>
       </section>
 
-      <section className="text-center m-8 sm:text-left sm:w-[60%] sm:mx-auto sm:mt-28">
+      <section className="text-center m-8 sm:text-left sm:w-[60%] md:w-[75%] sm:mx-auto sm:mt-28">
         <h3 className="font-bold text-[14px] max-w-[200px] mx-auto mb-2 sm:text-[2rem] sm:max-w-none ">
           Nuestras recomendaciones exclusivas para ti
         </h3>
