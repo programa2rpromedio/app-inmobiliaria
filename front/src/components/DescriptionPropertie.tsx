@@ -65,8 +65,8 @@ export default function DescriptionPropertie() {
   }
 
   return (
-    <section className='my-[70px] flex flex-col gap-10 px-20'>
-      <div className='flex justify-center gap-10'>
+    <section className='my-[70px] flex flex-col gap-10 sm:px-20'>
+      <div className='flex justify-center gap-10 px-20  sm:px-0'>
         <a className={`text-[24px]  pb-1 cursor-pointer ${viewInfo == 'desciption' ? 'border-b-[3px] border-primary ' : null}`} onClick={handleClick}>Descripción</a>
         <a className={`text-[24px]  pb-1 cursor-pointer ${viewInfo == 'aditional' ? 'border-b-[3px] border-primary ' : null}`} onClick={handleClick}>Información Adicional</a>
       </div>
@@ -76,7 +76,7 @@ export default function DescriptionPropertie() {
         }
       </div>
 
-      <div className='flex justify-evenly w-full'>
+      <div className='flex flex-col gap-y-4 px-3 sm:px-0 sm:flex-row sm:justify-evenly  w-full'>
         <div>
           <ul>
             <li>Cantidad de ambientes: 2</li>

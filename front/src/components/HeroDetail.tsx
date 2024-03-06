@@ -13,7 +13,7 @@ const HeroDetail = () => {
 
   return (
     <>
-      <section className=" w-full flex justify-between">
+      <section className="w-full flex flex-col md:flex-row md:justify-between gap-y-2">
         <div>
           <h2 className="font-sans font-bold text-[2rem] ">Sarmiento 4100 . $350.000</h2>
           <h4>Departamento en alquiler en Almagro, Capital Federal</h4>
@@ -25,7 +25,7 @@ const HeroDetail = () => {
         </div>
       </section>
 
-      <Grid columns='3' rows='2' className="gap-4 mt-4"  >
+      <Grid columns='3' rows='2' className="gap-1 md:gap-4 mt-4"  >
         <Image
           src={CasaPic1}
           alt="Picture of the author"

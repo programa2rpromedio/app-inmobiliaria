@@ -18,10 +18,10 @@ export default function Page() {
 
 
   return (
-    <main className="w-8/12 mx-auto border p-4 bg-[#F5F5F7]">
+    <main className="w-full md:w-8/12 mx-auto border p-4 bg-[#F5F5F7]">
       <HeroDetail />
 
-      <section className="mt-4 flex flex-wrap md:justify-between sm:justify-center md:gap-8">
+      <section className="mt-4 flex flex-wrap md:justify-between sm:justify-center md:gap-8 gap-y-4">
         <div className='sm:w-full md:w-[45%] '>
           <CharacteristicsProperties />
           <div className="max-w-[474px] mt-8">

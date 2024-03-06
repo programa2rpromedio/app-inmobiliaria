@@ -38,7 +38,7 @@ export default function FormContact() {
   }
 
   return (
-    <form className="mx-auto  max-w-xl px-[8px]  bg-[#ffffffdf] rounded-[22px] shadow-lg mr-[110px]" onSubmit={handleSubmit(onSubmit)}>
+    <form className="mx-auto  max-w-xl px-[8px]  bg-[#ffffffdf] rounded-[22px] shadow-lg md:mr-[10px] lg:mr-[110px]" onSubmit={handleSubmit(onSubmit)}>
       <h2 className='font-medium text-[24px] text-center pt-[40px] pb-[25px]'>¡Dejales tus datos al anunciante!</h2>
       <hr className='w-[270px] mx-auto mb-[25px]  border-[#B0B0B0]' />
       <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2 justify-items-center">
