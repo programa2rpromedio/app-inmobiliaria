@@ -21,6 +21,9 @@ import { Input } from "@/components/ui/input"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { isDirty, z } from "zod"
+import { instanceAxios } from "@/lib/axios";
+import { useContext } from "react";
+import { UserContext } from "@/lib/ContextUser";
 
 const formSchema = z.object({
   email: z.string().email({
@@ -28,22 +31,37 @@ const formSchema = z.object({
   }).min(1, {
     message: "Campo requerido",
   }),
-  contraseña: z.string().min(6, {
+  password: z.string().min(6, {
     message: "La contraseña debe ser de al menos 6 caracteres",
   }),
 })
 
 export default function IniciarSesion() {
+  const { dispatch } = useContext(UserContext)
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
-      contraseña: "",
+      password: "",
     },
   })
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values)
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      const response = await instanceAxios.post('/auth/login', values)
+      if (response.status === 200) {
+        dispatch({
+          type: 'login',
+          payload: { ...response.data[0], token: response.data[1] }
+        })
+        window.location.href = 'http://localhost:3000/'
+      }
+
+    } catch (error) {
+      console.log(error);
+
+    }
   }
 
   return (
@@ -69,10 +87,10 @@ export default function IniciarSesion() {
 
           <FormField
             control={form.control}
-            name="contraseña"
+            name="password"
             render={({ field }) => (
               <FormItem className="col-span-2 mt-2">
-                <FormLabel className={form.control.getFieldState("contraseña").isDirty ? " text-sm -top-6 -left-0" : ""}>
+                <FormLabel className={form.control.getFieldState("password").isDirty ? " text-sm -top-6 -left-0" : ""}>
                   Contraseña
                 </FormLabel>
                 <FormControl>

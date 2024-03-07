@@ -4,7 +4,7 @@ import Form from "@/components/form-cargar-propiedad/Form";
 import ArrowLeftSVG from "@/components/svgs/ArrowLeftSVG";
 import { APIProvider } from "@vis.gl/react-google-maps";
 import { stepReducer, StepContext } from "@/lib/ContextFormProp";
-import { useContext, useReducer } from "react";
+import { useReducer } from "react";
 import ControllerSteps from "@/components/form-cargar-propiedad/ControllerStepsIntros";
 
 const mapsApiKey = "AIzaSyC5Imp84G-XJszq7Iep7djj0kI035RcbJk"
