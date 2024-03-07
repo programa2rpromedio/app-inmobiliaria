@@ -18,7 +18,8 @@ const userSchema = mongoose.Schema(
       required: true,
     },
     profile_picture: {
-      type: String,
+      url: { type: String, trim: true },
+      public_id: { type: String },
     },
     role: {
       type: String,

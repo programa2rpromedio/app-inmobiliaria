@@ -37,6 +37,8 @@ const propertySchema = mongoose.Schema(
       city: { type: String, required: true },
       address_street: { type: String, required: true },
       address_number: { type: String, required: true },
+      lat: { type: Number },
+      lon: { type: Number }
     },
     features: {
       total_area: { type: Number },
