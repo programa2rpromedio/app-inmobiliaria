@@ -26,9 +26,9 @@ export default function page() {
   };
 
   return (
-    <main className="grid grid-cols-2 min-h-screen">
+    <main className="">
       <MiPerfil userData={userData} />
-      <div className="bg-register bg-cover bg-left-bottom"></div>
+      <div className=""></div>
     </main>
   );
 }

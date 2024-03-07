@@ -11,6 +11,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Badge } from "@/components/ui/badge";
 
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -121,35 +122,39 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
   function onSubmit(values: z.infer<typeof formSchema>) {}
 
   return (
-    <div className="flex flex-wrap">
-      <header className="bg-blue-600 "> </header>
+    <div className="flex flex-col h-screen ">
+      <div className="bg-[#3354FF] h-[43px] sm:hidden "></div>
 
-      <div className="flex flex-row">
-        <div className="relative flex items-end justify-end ">
-          <Avatar className=" h-[215px] w-[215px] item-center mt-16 ">
+      <div className="flex flex-col bg-[#F0F1F5] pb-10">
+        <h1 className="font-semibold text-3xl mt-8 text-center">Mi Perfil</h1>
+        <div className="flex justify-center gap-5 items-center">
+          <Avatar className=" ">
             <AvatarImage
               src="https://github.com/shadcn.png"
-              className="rounded-[100%] h-[72px] w-[72px] "
+              className="rounded-[100%] h-[100px] w-[100px] "
             />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
-          <img
-            src="/agregarfoto.png"
-            alt="Botón Agregar Foto"
-            className="absolute flex items-center justify-center -mr-8 "
-          />
+
+          <div className="flex flex-col gap-4 mt-8">
+            <h2 className="font-bold text-3xl ">Juan Perez</h2>
+            <Badge
+              variant="outline"
+              className="bg-[#6ABAA3] rounded-[22px]  h-[22px] text-[12px] text-[#F6F6F6]"
+            >
+              Inquilino
+            </Badge>
+          </div>
         </div>
-        <h2 className="font-semibold text-3xl mt-5">Juan Perez</h2>
       </div>
 
-      <main className="flex-1 p-4 pl-12">
-        <h1 className="font-semibold text-3xl py-5">Mi Perfil</h1>
-        <h2 className="font-semibold text-2xl pb-4">Datos Personales</h2>
+      <main className="flex-1 p-4 ">
+        <h2 className="font-bold text-2xl mb-6">Datos Personales</h2>
 
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="grid grid-cols-2 gap-x-4 gap-y-6 w-[460px]"
+            className="grid grid-cols-2 gap-x-4 gap-y-6 w-[330px]"
           >
             <FormField
               control={form.control}
@@ -217,7 +222,7 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
               )}
             />
 
-            <h2>Datos de Contacto</h2>
+            <h2 className="font-bold text-2xl ">Datos de Contacto</h2>
             <FormField
               control={form.control}
               name="email"
@@ -246,9 +251,9 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
             />
           </form>
 
-          <div className="grid grid-cols-2 gap-x-4 gap-y-6 w-[460px]">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-6 w-[330px]">
             <Button
-              className="mt-6 justify-self-start"
+              className="mt-6 justify-self-start w-[156px] text-[14px] font-semibold"
               variant="outline"
               size="lg"
             >
@@ -256,11 +261,19 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
             </Button>
 
             <Button
-              className="mt-6 justify-self-end"
+              className="mt-6 justify-self-end w-[156px] text-[14px] font-semibold"
               variant="default"
               size="lg"
             >
               Guardar cambios
+            </Button>
+
+            <Button
+              className=" justify-center w-[330px] text-[14px] font-semibold"
+              variant="default"
+              size="lg"
+            >
+              Editar Perfil
             </Button>
           </div>
         </Form>
