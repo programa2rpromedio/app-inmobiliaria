@@ -19,10 +19,11 @@ class AuthController {
         };
         payload.profilePicture = imageObject
       }
-      const userDTO = new CreateUserDTO(payload);
-      const user = await UsersService.createUser(userDTO);
+      const createUserDTO = new CreateUserDTO(payload);
+      const user = await UsersService.createUser(createUserDTO);
+      const getUserDTO = new GetUserDTO(user)
       await MailService.sendWelcome(user)
-      res.status(201).send(user);
+      res.status(201).send(getUserDTO);
     } catch (error) {
       next(error);
     }
