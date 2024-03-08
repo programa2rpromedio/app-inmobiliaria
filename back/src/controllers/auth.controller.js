@@ -23,7 +23,8 @@ class AuthController {
       const user = await UsersService.createUser(createUserDTO);
       const getUserDTO = new GetUserDTO(user)
       await MailService.sendWelcome(user)
-      res.status(201).send(getUserDTO);
+      const token = generateAccessToken(getUserDTO._id);
+      res.status(200).json([getUserDTO, token]);
     } catch (error) {
       next(error);
     }
