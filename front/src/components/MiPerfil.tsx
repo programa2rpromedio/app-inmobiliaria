@@ -23,6 +23,7 @@ import Image from "next/image";
 import Logo from "@/images/logo.svg";
 import Notificacion from "@/images/notificacion.svg";
 import Configuracion from "@/images/configuracion.svg";
+import agregarFoto from "@/images/agregarFoto.svg";
 import { Separator } from "@/components/ui/separator";
 
 const formSchema = z.object({
@@ -128,56 +129,55 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
 
   return (
     <div className="flex flex-col h-screen ">
-      <div className="bg-[#3354FF] h-[152px] flex-block sm:hidden "></div>
+      <div className="bg-[#3354FF] h-[43px] flex-block sm:hidden "></div>
 
-      <div className=" bg-[#8E8E8E]/15  h-[152px] hidden sm:flex shadow-lg">
-        <div className="flex items-center container justify-between ">
-          <div className="flex items-center container justify-between ">
-            <div className="flex  items-center">
-              <div className="flex items-center">
-                <Image
-                  src={Logo}
-                  alt="Logo de la App"
-                  className=""
-                  width={72}
-                  height={72}
-                />
-                <p className="text-[17px] font-semibold m-4"> Alquileres Ya!</p>
-              </div>
-              <div className="flex mx-auto divide-y ">
-                <Image
-                  src={Notificacion}
-                  alt="Icono Notificacion"
-                  className=""
-                  width={40}
-                  height={40}
-                />
-                <Separator
-                  orientation="vertical"
-                  className="h-[40px] mx-4  border-[#C2C0C7] border-[1px] "
-                />
-                <Image
-                  src={Configuracion}
-                  alt="Icono Notificacion"
-                  className=""
-                  width={40}
-                  height={40}
-                />
-              </div>
+      <header className=" bg-[#8E8E8E]/15  h-[152px] hidden sm:flex shadow-lg">
+        <div className="flex items-center container justify-between mx-10 ">
+          <div className="flex items-center  justify-between ">
+            <div className="flex items-center">
+              <Image
+                src={Logo}
+                alt="Logo de la App"
+                className="flex"
+                width={72}
+                height={72}
+              />
+              <p className="text-[17px] font-semibold m-4"> Alquileres Ya!</p>
             </div>
           </div>
+          <div className="flex justify-between items-center gap-12 ">
+            <div className="flex items-center gap-4">
+              <Image
+                src={Notificacion}
+                alt="Icono Notificacion"
+                className="flex"
+                width={40}
+                height={40}
+              />
+              <Separator
+                orientation="vertical"
+                className="h-[42px] mx-4  border-[#C2C0C7] border-[1px] "
+              />
+              <Image
+                src={Configuracion}
+                alt="Icono Configuracion"
+                className="flex"
+                width={40}
+                height={40}
+              />
+            </div>
+            <Image
+              src={imgAvatar}
+              alt="Avatar del Usuario"
+              className="rounded-[100%] shadow-xl"
+              width={76}
+              height={76}
+            />
+          </div>
         </div>
+      </header>
 
-        <Image
-          src={imgAvatar}
-          alt="Avatar del Usuario"
-          className="rounded-[100%] shadow-xl"
-          width={72}
-          height={72}
-        />
-      </div>
-
-      <div className="flex flex-col bg-[#F0F1F5] pb-10">
+      <div className="flex flex-col bg-[#F0F1F5] pb-10 flex-block sm:hidden">
         <h1 className="font-bold text-[16px] mt-8 text-center">Mi Perfil</h1>
         <div className="flex justify-center gap-6 items-center mt-5">
           <Image
@@ -202,7 +202,38 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
         </div>
       </div>
 
-      <main className="flex-1 p-4 ">
+      <aside className="flex  bg-[#F0F1F5]  w-[408px]">
+        <div className="flex flex-col justify-center mx-auto gap-6 items-center mt-5">
+          <div className="flex  items-center ">
+            <Image
+              src={imgAvatar}
+              alt="Avatar del Usuario"
+              className="rounded-[100%] shadow-xl"
+              width={235}
+              height={235}
+            />
+            <div className="flex justify-center items-center rounded-[100%] shadow-xl  bg-white h-[64px] w-[64px]">
+              <Image
+                src={agregarFoto}
+                alt="Icono Agregar foto"
+                className="rounded-[100%] shadow-xl  bg-white"
+                width={38}
+                height={38}
+              />
+            </div>
+          </div>
+          <div className="flex flex-col gap-4 items-center mb-10">
+            <h2 className="font-semibold text-[32px] text-[#242633]">
+              Juan Perez
+            </h2>
+            <p className="bg-[#6ABAA3] text-center p-[3px] rounded-[22px] w-[186px] h-[46px] text-[25px] text-[#F6F6F6] ">
+              Inquilino
+            </p>
+          </div>
+        </div>
+      </aside>
+
+      <main className="flex-1 p-4 mx-auto ">
         <h2 className="font-bold text-2xl mb-6">Datos Personales</h2>
 
         <Form {...form}>
