@@ -17,8 +17,13 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useState } from "react";
+import imgAvatar from "@/images/juan.svg";
+import Image from "next/image";
+import Logo from "@/images/logo.svg";
+import Notificacion from "@/images/notificacion.svg";
+import Configuracion from "@/images/configuracion.svg";
+import { Separator } from "@/components/ui/separator";
 
 const formSchema = z.object({
   nombre: z
@@ -123,24 +128,73 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
 
   return (
     <div className="flex flex-col h-screen ">
-      <div className="bg-[#3354FF] h-[43px] sm:hidden "></div>
+      <div className="bg-[#3354FF] h-[152px] flex-block sm:hidden "></div>
+
+      <div className=" bg-[#8E8E8E]/15  h-[152px] hidden sm:flex shadow-lg">
+        <div className="flex items-center container justify-between ">
+          <div className="flex items-center container justify-between ">
+            <div className="flex  items-center">
+              <div className="flex items-center">
+                <Image
+                  src={Logo}
+                  alt="Logo de la App"
+                  className=""
+                  width={72}
+                  height={72}
+                />
+                <p className="text-[17px] font-semibold m-4"> Alquileres Ya!</p>
+              </div>
+              <div className="flex mx-auto divide-y ">
+                <Image
+                  src={Notificacion}
+                  alt="Icono Notificacion"
+                  className=""
+                  width={40}
+                  height={40}
+                />
+                <Separator
+                  orientation="vertical"
+                  className="h-[40px] mx-4  border-[#C2C0C7] border-[1px] "
+                />
+                <Image
+                  src={Configuracion}
+                  alt="Icono Notificacion"
+                  className=""
+                  width={40}
+                  height={40}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <Image
+          src={imgAvatar}
+          alt="Avatar del Usuario"
+          className="rounded-[100%] shadow-xl"
+          width={72}
+          height={72}
+        />
+      </div>
 
       <div className="flex flex-col bg-[#F0F1F5] pb-10">
-        <h1 className="font-semibold text-3xl mt-8 text-center">Mi Perfil</h1>
-        <div className="flex justify-center gap-5 items-center">
-          <Avatar className=" ">
-            <AvatarImage
-              src="https://github.com/shadcn.png"
-              className="rounded-[100%] h-[100px] w-[100px] "
-            />
-            <AvatarFallback>CN</AvatarFallback>
-          </Avatar>
+        <h1 className="font-bold text-[16px] mt-8 text-center">Mi Perfil</h1>
+        <div className="flex justify-center gap-6 items-center mt-5">
+          <Image
+            src={imgAvatar}
+            alt="Avatar del Usuario"
+            className="rounded-[100%] shadow-xl"
+            width={72}
+            height={72}
+          />
 
-          <div className="flex flex-col gap-4 mt-8">
-            <h2 className="font-bold text-3xl ">Juan Perez</h2>
+          <div className="flex flex-col gap-4 items-center ">
+            <h2 className="font-semibold text-[20px] text-[#08367D]">
+              Juan Perez
+            </h2>
             <Badge
               variant="outline"
-              className="bg-[#6ABAA3] rounded-[22px]  h-[22px] text-[12px] text-[#F6F6F6]"
+              className="bg-[#6ABAA3] rounded-[22px] w-[86px] h-[22px] text-[12px] text-[#F6F6F6] "
             >
               Inquilino
             </Badge>
