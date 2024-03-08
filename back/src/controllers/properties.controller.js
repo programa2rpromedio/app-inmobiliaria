@@ -30,10 +30,12 @@ class PropertiesController {
 
   static async createOne(req, res, next) {
     const payload = req.body;
+    const { userId } = req
+    payload.userId = userId
     try {
       if (req.files?.length > 0) {
         payload.propertyPictures = [];
-        const folderName = `inmobiliaria/propiedades/${payload.userId}`;
+        const folderName = `inmobiliaria/propiedades/${userId}`;
         const promises = req.files.map((file) =>
           uploadPropertyImage(file, folderName)
         );

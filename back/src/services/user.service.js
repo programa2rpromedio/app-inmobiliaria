@@ -64,7 +64,7 @@ class UsersService {
     return userUpdated;
   }
 
-  static async addFavourite(uid, pid) {
+  static async toggleFavourite(uid, pid) {
     const user = await Users.findById(uid).lean();
     if (!user) {
       throw new HttpError("User not found", NOT_FOUND);
@@ -73,12 +73,24 @@ class UsersService {
     if (!property) {
       throw new HttpError("Property not found", NOT_FOUND);
     }
-    const updatedUser = await Users.findByIdAndUpdate(
-      uid,
-      { $push: { favourites: pid } },
-      { new: true }
-    );
-    return updatedUser;
+    const stringPropertyIds = user.favourites?.map(propertyId => JSON.stringify(propertyId))
+
+    let updatedUser
+    if(stringPropertyIds.includes(JSON.stringify(pid))){
+      updatedUser = await Users.findByIdAndUpdate(
+        uid,
+        { $pull: { favourites: pid } },
+        { new: true }
+      );
+      return -1
+    }else{
+      updatedUser = await Users.findByIdAndUpdate(
+        uid,
+        { $push: { favourites: pid } },
+        { new: true }
+      )
+      return 1
+    }
   }
 
   static async deleteUser(uid) {

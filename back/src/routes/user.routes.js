@@ -11,7 +11,7 @@ router.get("/:uid", UsersController.getById);
 router.post("/", UsersController.createOne);
 router.put("/:uid", UsersController.updateOne);
 router.patch("/:uid/update-image", upload.single("image"), UsersController.updateImage);
-router.patch("/:uid/favourites/:pid", UsersController.addFavouriteProperty);
+router.patch("/:uid/favourites/:pid", UsersController.toggleFavouriteProperty);
 router.delete("/:uid", UsersController.deleteOne);
 // router.post("/login", UsersController.login);
 

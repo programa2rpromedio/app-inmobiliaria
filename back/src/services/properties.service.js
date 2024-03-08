@@ -74,92 +74,91 @@ class PropertiesService {
     if (!property) {
       throw new HttpError("Property not found", NOT_FOUND);
     }
-    const newProperty = {
-      title: payload.title ?? property.title,
-      category: payload.category ?? property.category,
-      type: payload.type ?? property.type,
-      availability_date:
-        payload.availability_date ?? property.availability_date,
-      description: payload.description ?? property.description,
-      status: payload.status ?? property.status,
-    };
+    const newProperty = {};
+    //General
+    if (payload.title) newProperty.title = payload.title;
+    if (payload.category) newProperty.category = payload.category;
+    if (payload.availability_date) newProperty.availability_date = payload.availability_date;
+    if (payload.description) newProperty.description = payload.description;
+    if (typeof payload.favourites !== 'undefined') newProperty.favourites = property.favourites + payload.favourites;
+    if (payload.status) newProperty.status = payload.status;
+
     //Price
-    if (payload.price.value) newProperty.price.value = payload.price.value;
-    if (payload.price.currency)
+    if (payload.price?.value) newProperty.price.value = payload.price.value;
+    if (payload.price?.currency)
       newProperty.price.currency = payload.price.currency;
     //Location
-    if (payload.location.province)
+    if (payload.location?.province)
       newProperty.location.province = payload.location.province;
-    if (payload.location.city)
+    if (payload.location?.city)
       newProperty.location.city = payload.location.city;
-    if (payload.location.address_street)
+    if (payload.location?.address_street)
       newProperty.location.address_street = payload.location.address_street;
-    if (payload.location.address_number)
+    if (payload.location?.address_number)
       newProperty.location.address_number = payload.location.address_number;
-    if (payload.location.lat)
+    if (payload.location?.lat)
       newProperty.location.lat = payload.location.lat;
-    if (payload.location.lon)
+    if (payload.location?.lon)
       newProperty.location.lon = payload.location.lon;
     //Features
-    if (payload.features.total_area)
+    if (payload.features?.total_area)
       newProperty.features.total_area = payload.features.total_area;
-    if (payload.features.covered_area)
+    if (payload.features?.covered_area)
       newProperty.features.covered_area = payload.features.covered_area;
-    if (payload.features.rooms)
+    if (payload.features?.rooms)
       newProperty.features.rooms = payload.features.rooms;
-    if (payload.features.bedrooms)
+    if (payload.features?.bedrooms)
       newProperty.features.bedrooms = payload.features.bedrooms;
-    if (payload.features.bathrooms)
+    if (payload.features?.bathrooms)
       newProperty.features.bathrooms = payload.features.bathrooms;
     //Services
-    if (payload.services.wifi)
+    if (payload.services?.wifi)
       newProperty.services.wifi = payload.services.wifi;
-    if (payload.services.tv) newProperty.services.tv = payload.services.tv;
-    if (payload.services.kitchen)
+    if (payload.services?.tv) newProperty.services.tv = payload.services.tv;
+    if (payload.services?.kitchen)
       newProperty.services.kitchen = payload.services.kitchen;
-    if (payload.services.ac) newProperty.services.ac = payload.services.ac;
-    if (payload.services.free_parking)
+    if (payload.services?.ac) newProperty.services.ac = payload.services.ac;
+    if (payload.services?.free_parking)
       newProperty.services.free_parking = payload.services.free_parking;
-    if (payload.services.paid_parking)
+    if (payload.services?.paid_parking)
       newProperty.services.paid_parking = payload.services.paid_parking;
-    if (payload.services.washing_machine)
+    if (payload.services?.washing_machine)
       newProperty.services.washing_machine = payload.services.washing_machine;
-    if (payload.services.workspace)
+    if (payload.services?.workspace)
       newProperty.services.workspace = payload.services.workspace;
     //Amenities
-    if (payload.amenities.pool)
+    if (payload.amenities?.pool)
       newProperty.amenities.pool = payload.amenities.pool;
-    if (payload.amenities.jacuzzi)
+    if (payload.amenities?.jacuzzi)
       newProperty.amenities.jacuzzi = payload.amenities.jacuzzi;
-    if (payload.amenities.gym)
+    if (payload.amenities?.gym)
       newProperty.amenities.gym = payload.amenities.gym;
-    if (payload.amenities.bbq)
+    if (payload.amenities?.bbq)
       newProperty.amenities.bbq = payload.amenities.bbq;
-    if (payload.amenities.backyard)
+    if (payload.amenities?.backyard)
       newProperty.amenities.backyard = payload.amenities.backyard;
-    if (payload.amenities.garden)
+    if (payload.amenities?.garden)
       newProperty.amenities.garden = payload.amenities.garden;
-    if (payload.amenities.soccer_field)
+    if (payload.amenities?.soccer_field)
       newProperty.amenities.soccer_field = payload.amenities.soccer_field;
-    if (payload.amenities.terrace)
+    if (payload.amenities?.terrace)
       newProperty.amenities.terrace = payload.amenities.terrace;
-    if (payload.amenities.pets)
+    if (payload.amenities?.pets)
       newProperty.amenities.pets = payload.amenities.pets;
     //Characteristics
-    if (payload.characteristics.age)
+    if (payload.characteristics?.age)
       newProperty.amenities.age = payload.amenities.age;
-    if (payload.characteristics.disposition)
+    if (payload.characteristics?.disposition)
       newProperty.amenities.disposition = payload.amenities.disposition;
-    if (payload.characteristics.orientation)
+    if (payload.characteristics?.orientation)
       newProperty.amenities.orientation = payload.amenities.orientation;
-    if (payload.characteristics.condition)
+    if (payload.characteristics?.condition)
       newProperty.amenities.condition = payload.amenities.condition;
-    if (payload.characteristics.state)
+    if (payload.characteristics?.state)
       newProperty.amenities.state = payload.amenities.state;
 
-    console.log(newProperty);
-    // const propertyUpdated = await Properties.findByIdAndUpdate(pid, newProperty);
-    return propertyUpdated;
+    const updatedProperty = await Properties.findByIdAndUpdate(pid, { $set: newProperty }, { new: true });
+    return updatedProperty;
   }
 
   static async deleteProperty(pid) {

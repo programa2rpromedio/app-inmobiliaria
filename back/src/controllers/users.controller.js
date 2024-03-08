@@ -1,4 +1,5 @@
 import { CreateUserDTO, GetUserDTO, UpdateUserDTO } from "../dtos/user.dto.js";
+import PropertiesService from "../services/properties.service.js";
 import UsersService from "../services/user.service.js";
 import { deleteImage, uploadProfileImage } from "../utils/cloudinary.utils.js";
 import { CREATED, SUCCESS } from "../utils/constants.util.js";
@@ -72,11 +73,12 @@ class UsersController {
     }
   }
 
-  static async addFavouriteProperty(req, res, next) {
+  static async toggleFavouriteProperty(req, res, next) {
     const { uid, pid } = req.params;
     try {
-      const user = await UsersService.addFavourite(uid, pid);
-      res.status(SUCCESS).send(user);
+      const favouriteCount = await UsersService.toggleFavourite(uid, pid);
+      const property = await PropertiesService.updateProperty(pid, { favourites: favouriteCount })
+      res.status(SUCCESS).send(property);
     } catch (error) {
       next(error);
     }

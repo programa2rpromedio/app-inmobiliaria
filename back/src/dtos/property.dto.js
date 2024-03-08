@@ -58,6 +58,8 @@ export class GetPropertyDTO {
     this.condition = payload.characteristics.condition;
     this.state = payload.characteristics.state;
 
+    this.favourites = payload.favourites
+
     this.status = payload.status;
   }
 }
