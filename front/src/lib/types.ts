@@ -51,6 +51,20 @@ export interface Property {
   status?: propertyStatus;
 }
 
+export interface User {
+  address: string;
+  city: string;
+  email: string;
+  favourites: [];
+  firstName: string;
+  lastName: string;
+  phone: string;
+  profilePicture: { url: string | null };
+  role: string;
+  _id: string;
+  token: string
+}
+
 export interface PropsFormCargarPropiedad {
   setFormValues: React.Dispatch<React.SetStateAction<Property>>,
 }

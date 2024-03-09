@@ -1,15 +1,17 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Step from './Step'
 import * as z from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Property, PropsFormCargarPropiedad } from '@/lib/types'
+import { Property, PropsFormCargarPropiedad, User } from '@/lib/types'
 import { Button } from '../ui/button';
 import { FileInput, Select, Textarea } from 'flowbite-react';
 import ModalFinishUpload from './ModalFinishUpload';
 import { StepContext } from "@/lib/ContextFormProp";
 import { useContext } from "react";
 import ControllerStepsForm from './ControllerStepsForm'
+import { getUser } from '@/lib/getUser'
+import { instanceAxios } from '@/lib/axios'
 
 const permanentType = z.literal("permanent");
 const temporaryType = z.literal("temporary");
@@ -40,6 +42,12 @@ interface FourthStepProps extends PropsFormCargarPropiedad {
 
 export default function FourthStep(props: FourthStepProps) {
 
+  const [user, setUser] = useState<User | undefined>()
+
+  useEffect(() => {
+    setUser(getUser())
+  }, [])
+
   const { dispatch } = useContext(StepContext)
 
   const handleNextStep = () => {
@@ -58,7 +66,9 @@ export default function FourthStep(props: FourthStepProps) {
   const formData = new FormData()
 
 
-  const onSubmit = (data: FormSchema) => {
+  const onSubmit = async (data: FormSchema) => {
+
+    if (!user) return
     if (!refForm.current) return
     let files = refForm.current as HTMLFormElement
     Object.entries(formValues).forEach(([key, value]) => {
@@ -68,15 +78,23 @@ export default function FourthStep(props: FourthStepProps) {
     for (const file of files.files) {
       formData.append('images', file); // Agrega cada archivo a FormData
     }
-    //TODO user id dinamico
-    formData.append('userId', "65be79c8fb9ed4e11f260524")
 
-    fetch('http://localhost:8080/api/properties', {
-      method: 'POST',
-      body: formData
-    }).then(res => res.json()).then(data => setIsFinishUpload(true))
-      .catch(err => setIsFinishUpload(false)
-      )
+    formData.append('userId', user?._id)
+    try {
+      const response = await instanceAxios.post('/properties', formData)
+      if (response.status === 201) {
+        setIsFinishUpload(true)
+      }
+    } catch (error) {
+      setIsFinishUpload(false)
+    }
+
+    // fetch('http://localhost:8080/api/properties', {
+    //   method: 'POST',
+    //   body: formData
+    // }).then(res => res.json()).then(data => setIsFinishUpload(true))
+    //   .catch(err => setIsFinishUpload(false)
+    //   )
     // handleNextStep()
   }
 

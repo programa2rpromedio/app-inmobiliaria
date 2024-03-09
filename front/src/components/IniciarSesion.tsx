@@ -22,8 +22,6 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { isDirty, z } from "zod"
 import { instanceAxios } from "@/lib/axios";
-import { useContext } from "react";
-import { UserContext } from "@/lib/ContextUser";
 
 const formSchema = z.object({
   email: z.string().email({
@@ -37,7 +35,6 @@ const formSchema = z.object({
 })
 
 export default function IniciarSesion() {
-  const { dispatch } = useContext(UserContext)
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -51,24 +48,19 @@ export default function IniciarSesion() {
     try {
       const response = await instanceAxios.post('/auth/login', values)
       if (response.status === 200) {
-        dispatch({
-          type: 'login',
-          payload: { ...response.data[0], token: response.data[1] }
-        })
+        sessionStorage.setItem('user', JSON.stringify({ ...response.data[0], token: response.data[1] }))
         window.location.href = 'http://localhost:3000/'
       }
-
     } catch (error) {
       console.log(error);
-
     }
   }
 
   return (
-    <div className="flex flex-col justify-center items-center gap-y-6 p-8">
-      <h1 className="font-semibold text-3xl">Crear cuenta</h1>
+    <div className="flex flex-col justify-center items-center gap-y-6 p-8 pb-0 sm:pb-8">
+      <h1 className="font-bold text-[2rem]">Iniciar sesión</h1>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-2 items-center justify-between gap-x-4 gap-y-8 w-[460px]">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-2 items-center justify-between gap-x-4 gap-y-8  sm:w-[350px]  md:w-[460px] xl:w-[40vw] xl:h-[50vh]">
           <FormField
             control={form.control}
             name="email"

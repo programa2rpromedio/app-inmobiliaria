@@ -1,10 +1,21 @@
+'use client'
 import Image from 'next/image'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import logo from '@/images/logo.svg'
 import { Button } from './ui/button'
 import Link from 'next/link'
+import { User } from '@/lib/types'
+import { getUser } from '@/lib/getUser'
+import userDefault from "@/images/userDefault.png";
+
 
 export default function Header() {
+
+  const [user, setUser] = useState<User | undefined>()
+  useEffect(() => {
+    setUser(getUser())
+  }, [])
+
   return (
     <header className='py-2 px-4 sm:px-20 bg-[#fff]'>
       <div className='flex flex-col sm:flex-row justify-between  sm:items-center mb-6'>
@@ -13,9 +24,21 @@ export default function Header() {
           <h1>Alquileres Ya!</h1>
         </div>
         <div className='flex justify-between sm:justify-normal items-center gap-4 md:gap-32'>
-          <Button variant='outline' size='lg' className='hidden sm:block' >Publicar propiedad </Button>
+
+          {
+            user ?
+              <div className="flex justify-between gap-4 w-full items-center sm:gap-8 md:gap-16 sm:justify-normal sm:px-2">
+                <Link href='cargar-propiedad' className="order-2 sm:order-1 border border-primary text-primary hover:bg-muted h-10 px-4 py-2">Publicar propiedad</Link>
+                <Image src={user.profilePicture?.url ?? userDefault.src} alt="user picture" width={70}
+                  height={70} className=" sm:order-2" />
+              </div>
+              :
+              <Link href='iniciar-sesion' className="bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2">Iniciar sesión</Link>
+
+          }
+          {/* <Button variant='outline' size='lg' className='hidden sm:block' >Publicar propiedad </Button>
           <Button variant='outline' size='sm' className=' sm:hidden' >Publicar propiedad </Button>
-          <Image src={logo} alt='Usuario' width={70} />
+          <Image src={logo} alt='profile picture user' width={70} /> */}
         </div>
       </div>
 

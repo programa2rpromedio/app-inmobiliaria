@@ -16,6 +16,10 @@ export default function ModalFinishUpload({ state }: Props) {
     (refModal.current as HTMLElement).style.display = 'none'
   }
 
+  const goToProperties = () => {
+    window.location.href = 'propiedades'
+  }
+
   return (
     <div ref={refModal} onClick={closeModal} className='z-30 min-h-[100vh] h-full w-[100vw] bg-[#2222223c] absolute left-0 top-0 flex justify-center items-center'>
       <div className='bg-[#fff]  w-[90%] sm:w-[50%] rounded-[1rem]'>
@@ -27,7 +31,7 @@ export default function ModalFinishUpload({ state }: Props) {
                 <CelebrationSVG className='text-[#19BC86] w-14 h-14 ' />
                 <h2 className='font-bold text-[#3354FF] text-[1.2rem]'>¡Felicitaciones! </h2>
                 <h3>Tu propiedad ha sido publicada con éxito.</h3>
-                <Button variant='default' size='lg' >Ver publicacion</Button>
+                <Button variant='default' size='lg' onClick={goToProperties} >Ver publicacion</Button>
               </>
               :
               <>
