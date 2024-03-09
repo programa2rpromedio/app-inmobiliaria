@@ -1,4 +1,5 @@
-import { createContext } from "react";
+'use client'
+import React, { createContext, useReducer } from "react";
 
 interface UserContextType {
   Provider: React.Provider<any>;
@@ -34,4 +35,11 @@ export function userReducer(state: State | null, action: { type: any; payload: S
       throw Error('Unknown action: ' + action.type);
     }
   }
+}
+
+export const UserProvider = ({ children }: { children: React.ReactNode }) => {
+  const [user, dispatch] = useReducer(userReducer, null)
+  return (
+    <UserContext.Provider value={{ user, dispatch }}> {children} </UserContext.Provider>
+  )
 }

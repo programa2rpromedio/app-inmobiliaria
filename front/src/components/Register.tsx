@@ -111,7 +111,7 @@ export default function Register() {
   return (
 
     <div className="flex flex-col justify-center items-center gap-y-6 p-8 pb-0 sm:pb-8">
-      <h1 className="font-semibold text-3xl">Crear cuenta</h1>
+      <h1 className="font-bold text-[2rem]">Crear cuenta</h1>
       <Progress value={(step / 2) * 100} className="w-[346px] mb-4" />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-2 items-center justify-between gap-x-4 gap-y-8 sm:w-[350px]  md:w-[460px] xl:w-[40vw] xl:h-[50vh]">

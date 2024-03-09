@@ -1,16 +1,7 @@
+'use client'
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-
 import Logo from "@/images/logo.svg";
 import Search from "@/images/search.png";
 import Alquilar from "@/images/alquilar.svg";
@@ -19,26 +10,47 @@ import CreaCuenta from "@/images/creaCuenta.svg";
 import BuscaDescubre from "@/images/buscaDescubre.svg";
 import Conecta from "@/images/conectaCasa.svg";
 import Presentacion from "@/images/presentacion.svg";
+import userDefault from "@/images/userDefault.png";
 import PropiedadCard from "@/components/PropiedadCard";
 import Footer from "@/components/Footer";
 import CardProperty from "@/components/CardProperty";
+import { useEffect, useState } from "react";
+import { getUser } from "@/lib/getUser";
+import { User } from "@/lib/types";
 
+export default function Page() {
 
-export default function page() {
+  const [user, setUser] = useState<User | undefined>()
+  useEffect(() => {
+    setUser(getUser())
+  }, [])
+
   return (
     <main className=" mx-auto ">
-      <div className="flex justify-between  items-center sm:h-[6rem] bg-white p-2">
+      <div className="flex justify-between  flex-wrap items-center sm:h-[6rem] bg-white p-2">
         <div className="flex items-center ">
           <Image
             src={Logo}
             alt="Logo de la App"
-            className="ml-2"
-            width={40}
-            height={40}
+            className="sm:ml-2"
+            width={70}
+            height={70}
           />
           <h1 className="text-sm font-bold m-4"> Alquileres Ya!</h1>
         </div>
-        <Link href='iniciar-sesion' className="bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2">Iniciar sesión</Link>
+
+        {
+          user ?
+            <div className="flex justify-between gap-4 w-full items-center sm:gap-8 md:gap-16 sm:w-1/2 sm:justify-end sm:px-2">
+              <Link href='cargar-propiedad' className="order-2 sm:order-1 border border-primary text-primary hover:bg-muted h-10 px-4 py-2">Publicar propiedad</Link>
+              <Image src={user.profilePicture?.url ?? userDefault.src} alt="user picture" width={70}
+                height={70} className=" sm:order-2" />
+            </div>
+            :
+            <Link href='iniciar-sesion' className="bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2">Iniciar sesión</Link>
+
+        }
+
       </div>
 
       <section className="flex justify-center flex-col sm:p-10 sm:pb-3">
