@@ -1,5 +1,7 @@
 import { CreatePropertyDTO, GetPropertyDTO } from "../dtos/property.dto.js";
+import MailService from "../services/mail.service.js";
 import PropertiesService from "../services/properties.service.js";
+import UsersService from "../services/user.service.js";
 import { uploadPropertyImage } from "../utils/cloudinary.utils.js";
 
 class PropertiesController {
@@ -52,6 +54,8 @@ class PropertiesController {
       // console.log("[propertyDTO]:", propertyDTO);
       
       const property = await PropertiesService.createProperty(propertyDTO);
+      const user = await UsersService.getUserById(userId)
+      await MailService.newProperty(property, user)
       res.status(201).send(property);
     } catch (error) {
       next(error);
