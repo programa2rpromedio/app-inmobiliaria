@@ -1,6 +1,6 @@
 import Properties from "../models/Property.js";
 import HttpError from "../utils/HttpError.util.js";
-import { NOT_FOUND } from "../utils/constants.util.js";
+import { FORBIDDEN, NOT_FOUND } from "../utils/constants.util.js";
 
 class PropertiesService {
   static async getAllProperties(options) {
@@ -69,12 +69,15 @@ class PropertiesService {
     return property;
   }
 
-  static async updateProperty(pid, payload) {
+  static async updateProperty(pid, user, payload) {
     const property = await Properties.findById(pid).lean();
     if (!property) {
       throw new HttpError("Property not found", NOT_FOUND);
     }
-    const newProperty = {};
+    if (JSON.stringify(user._id) !== JSON.stringify(property.user_id)) {
+      throw new HttpError("Only owner can update property", FORBIDDEN);
+    }
+    const newProperty = property;
     //General
     if (payload.title) newProperty.title = payload.title;
     if (payload.category) newProperty.category = payload.category;
@@ -84,89 +87,85 @@ class PropertiesService {
     if (payload.status) newProperty.status = payload.status;
 
     //Price
-    if (payload.price?.value) newProperty.price.value = payload.price.value;
-    if (payload.price?.currency)
-      newProperty.price.currency = payload.price.currency;
+    if (payload.price) {
+      const priceKeys = ["value", "currency"];
+      for (const key of priceKeys) {
+        if (payload.price[key] !== undefined) {
+          newProperty.price = newProperty.price || {};
+          newProperty.price[key] = payload.price[key];
+        }
+      }
+    }
+
     //Location
-    if (payload.location?.province)
-      newProperty.location.province = payload.location.province;
-    if (payload.location?.city)
-      newProperty.location.city = payload.location.city;
-    if (payload.location?.address_street)
-      newProperty.location.address_street = payload.location.address_street;
-    if (payload.location?.address_number)
-      newProperty.location.address_number = payload.location.address_number;
-    if (payload.location?.lat)
-      newProperty.location.lat = payload.location.lat;
-    if (payload.location?.lon)
-      newProperty.location.lon = payload.location.lon;
+    if (payload.location) {
+      const locationKeys = ["province", "city", "address_street", "address_number", "lat", "lon"];
+      for (const key of locationKeys) {
+        if (payload.location[key] !== undefined) {
+          newProperty.location = newProperty.location || {};
+          newProperty.location[key] = payload.location[key];
+        }
+      }
+    }
+
     //Features
-    if (payload.features?.total_area)
-      newProperty.features.total_area = payload.features.total_area;
-    if (payload.features?.covered_area)
-      newProperty.features.covered_area = payload.features.covered_area;
-    if (payload.features?.rooms)
-      newProperty.features.rooms = payload.features.rooms;
-    if (payload.features?.bedrooms)
-      newProperty.features.bedrooms = payload.features.bedrooms;
-    if (payload.features?.bathrooms)
-      newProperty.features.bathrooms = payload.features.bathrooms;
+    if (payload.features) {
+      const featuresKeys = ["total_area", "covered_area", "rooms", "bedrooms", "bathrooms"];
+      for (const key of featuresKeys) {
+        if (payload.features[key] !== undefined) {
+          newProperty.features = newProperty.features || {};
+          newProperty.features[key] = payload.features[key];
+        }
+      }
+    }
+
     //Services
-    if (payload.services?.wifi)
-      newProperty.services.wifi = payload.services.wifi;
-    if (payload.services?.tv) newProperty.services.tv = payload.services.tv;
-    if (payload.services?.kitchen)
-      newProperty.services.kitchen = payload.services.kitchen;
-    if (payload.services?.ac) newProperty.services.ac = payload.services.ac;
-    if (payload.services?.free_parking)
-      newProperty.services.free_parking = payload.services.free_parking;
-    if (payload.services?.paid_parking)
-      newProperty.services.paid_parking = payload.services.paid_parking;
-    if (payload.services?.washing_machine)
-      newProperty.services.washing_machine = payload.services.washing_machine;
-    if (payload.services?.workspace)
-      newProperty.services.workspace = payload.services.workspace;
+    if (payload.services) {
+      const servicesKeys = ["wifi", "tv", "kitchen", "ac", "free_parking", "paid_parking", "washing_machine", "workspace"];
+      for (const key of servicesKeys) {
+        if (payload.services[key] !== undefined) {
+          newProperty.services = newProperty.services || {};
+          newProperty.services[key] = payload.services[key];
+        }
+      }
+    }
+
     //Amenities
-    if (payload.amenities?.pool)
-      newProperty.amenities.pool = payload.amenities.pool;
-    if (payload.amenities?.jacuzzi)
-      newProperty.amenities.jacuzzi = payload.amenities.jacuzzi;
-    if (payload.amenities?.gym)
-      newProperty.amenities.gym = payload.amenities.gym;
-    if (payload.amenities?.bbq)
-      newProperty.amenities.bbq = payload.amenities.bbq;
-    if (payload.amenities?.backyard)
-      newProperty.amenities.backyard = payload.amenities.backyard;
-    if (payload.amenities?.garden)
-      newProperty.amenities.garden = payload.amenities.garden;
-    if (payload.amenities?.soccer_field)
-      newProperty.amenities.soccer_field = payload.amenities.soccer_field;
-    if (payload.amenities?.terrace)
-      newProperty.amenities.terrace = payload.amenities.terrace;
-    if (payload.amenities?.pets)
-      newProperty.amenities.pets = payload.amenities.pets;
+    if (payload.amenities) {
+      const amenitiesKeys = ["pool", "jacuzzi", "gym", "bbq", "backyard", "garden", "soccer_field", "terrace", "pets"];
+      for (const key of amenitiesKeys) {
+        if (payload.amenities[key] !== undefined) {
+          newProperty.amenities = newProperty.amenities || {};
+          newProperty.amenities[key] = payload.amenities[key];
+        }
+      }
+    }
+
     //Characteristics
-    if (payload.characteristics?.age)
-      newProperty.amenities.age = payload.amenities.age;
-    if (payload.characteristics?.disposition)
-      newProperty.amenities.disposition = payload.amenities.disposition;
-    if (payload.characteristics?.orientation)
-      newProperty.amenities.orientation = payload.amenities.orientation;
-    if (payload.characteristics?.condition)
-      newProperty.amenities.condition = payload.amenities.condition;
-    if (payload.characteristics?.state)
-      newProperty.amenities.state = payload.amenities.state;
+    if (payload.characteristics) {
+      const characteristicKeys = ["age", "disposition", "orientation", "condition", "state"];
+      for (const key of characteristicKeys) {
+        if (payload.characteristics[key] !== undefined) {
+          newProperty.characteristics = newProperty.characteristics || {};
+          newProperty.characteristics[key] = payload.characteristics[key];
+        }
+      }
+    } 
 
     const updatedProperty = await Properties.findByIdAndUpdate(pid, { $set: newProperty }, { new: true });
     return updatedProperty;
   }
 
-  static async deleteProperty(pid) {
-    const property = await Properties.deleteOne({ _id: pid });
+  static async deleteProperty(pid, user) {
+    const property = await Properties.findById(pid).lean();
     if (!property) {
       throw new HttpError("Property Not Found", NOT_FOUND);
     }
-    return property;
+    if (JSON.stringify(user._id) !== JSON.stringify(property.user_id)) {
+      throw new HttpError("Only owner can delete property", FORBIDDEN);
+    }
+    const deletedProperty = await Properties.deleteOne({ _id: pid });
+    return deletedProperty;
   }
 }
 

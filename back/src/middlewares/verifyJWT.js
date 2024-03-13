@@ -7,7 +7,7 @@ dotenv.config();
 
 export default function verifyToken(req, res, next) {
   try {
-    const token = req.header("Authorization").split(" ")[1];
+    const token = req.header("Authorization")?.split(" ")[1];
     if (!token) {
       throw new HttpError("Access denied", UNAUTHORIZED);
     }

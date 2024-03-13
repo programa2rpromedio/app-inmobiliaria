@@ -50,13 +50,12 @@ class PropertiesController {
           payload.propertyPictures.push(imageObject);
         }
       }
-      const propertyDTO = new CreatePropertyDTO(payload);
-      // console.log("[propertyDTO]:", propertyDTO);
-      
-      const property = await PropertiesService.createProperty(propertyDTO);
+      const createPropertyDTO = new CreatePropertyDTO(payload);
+      const property = await PropertiesService.createProperty(createPropertyDTO);
+      const getPropertyDTO = new GetPropertyDTO(property)
       const user = await UsersService.getUserById(userId)
       await MailService.newProperty(property, user)
-      res.status(201).send(property);
+      res.status(201).send(getPropertyDTO);
     } catch (error) {
       next(error);
     }
@@ -64,11 +63,14 @@ class PropertiesController {
 
   static async updateOne(req, res, next) {
     const { pid } = req.params;
+    const { userId } = req
     const payload = req.body;
     try {
-      const propertyDTO = new CreatePropertyDTO(payload);
-      const property = await PropertiesService.updateProperty(pid, propertyDTO);
-      res.status(200).send(property);
+      const createPropertyDTO = new CreatePropertyDTO(payload);
+      const user = await UsersService.getUserById(userId)
+      const property = await PropertiesService.updateProperty(pid, user, createPropertyDTO);
+      const getPropertyDTO = new GetPropertyDTO(property)
+      res.status(200).send(getPropertyDTO);
     } catch (error) {
       next(error);
     }
@@ -76,8 +78,10 @@ class PropertiesController {
 
   static async deleteOne(req, res, next) {
     const { pid } = req.params;
+    const { userId } = req
     try {
-      const property = await PropertiesService.deleteProperty(pid);
+      const user = await UsersService.getUserById(userId)
+      const property = await PropertiesService.deleteProperty(pid, user);
       res.status(200).send(property);
     } catch (error) {
       next(error);
