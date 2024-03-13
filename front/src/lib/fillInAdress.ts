@@ -1,8 +1,7 @@
 export default function fillInAddress(place: google.maps.places.PlaceResult | null) {
   // Get the place details from the autocomplete object.
   // const place = autocomplete.getPlace();
-  console.log(place?.geometry?.location?.lat());
-  console.log(place?.geometry?.location?.lng());
+
 
   if (place === null) return
   if (place == undefined) return
@@ -13,7 +12,7 @@ export default function fillInAddress(place: google.maps.places.PlaceResult | nu
   let city = "";
   let province = "";
   let lat = place?.geometry?.location?.lat() || 0
-  let lng = place?.geometry?.location?.lng() || 0
+  let lon = place?.geometry?.location?.lng() || 0
 
 
   // Get each component of the address from the place details,
@@ -47,7 +46,7 @@ export default function fillInAddress(place: google.maps.places.PlaceResult | nu
     }
   }
 
-  return { addressStreet, addressNumber, city, province, lat, lng }
+  return { addressStreet, addressNumber, city, province, lat, lon }
   // After filling the form with address components from the Autocomplete
   // prediction, set cursor focus on the second address line to encourage
   // entry of subpremise information such as apartment, unit, or floor number.

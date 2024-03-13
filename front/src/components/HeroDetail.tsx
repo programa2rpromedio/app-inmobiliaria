@@ -1,22 +1,60 @@
 import { Button } from "@/components/ui/button"
 import { Grid } from '@radix-ui/themes'
 import Image from 'next/image'
-
-import CasaPic1 from '@/images/casa1.png'
-import CasaPic2 from '@/images/casa2.png'
-import CasaPic3 from '@/images/casa3.png'
-import CasaPic4 from '@/images/casa4.png'
-import CasaPic5 from '@/images/casa5.png'
+import placeHolder from '@/images/placeholder.jpg'
 
 
-const HeroDetail = () => {
+
+interface Props {
+  value: number | undefined
+  addressStreet: string | undefined
+  addressNumber: string | undefined
+  city: string | undefined
+  province: string | undefined
+  category: string | undefined
+  propertyPictures: {
+    url: string,
+    public_id: string,
+    _id: string
+  }[] | undefined
+}
+
+
+const HeroDetail = ({ value, addressStreet, addressNumber, city, province, category, propertyPictures }: Props) => {
+
+  let categoryName = ''
+
+  switch (category) {
+    case 'house':
+      categoryName = 'Casa'
+      break;
+    case 'apartment':
+      categoryName = 'Departamento'
+      break;
+    case 'cabin':
+      categoryName = 'Cabaña'
+      break;
+    case 'hotel':
+      categoryName = 'Hotel'
+      break;
+    case 'country-house':
+      categoryName = 'Quinta'
+      break;
+    case 'camping':
+      categoryName = 'Camping'
+      break;
+    default:
+      categoryName = ''
+      break;
+  }
+
 
   return (
     <>
-      <section className="w-full flex flex-col md:flex-row md:justify-between gap-y-2">
+      <section className="w-full flex flex-col md:flex-row md:justify-between gap-y-2 mb-4">
         <div>
-          <h2 className="font-sans font-bold text-[2rem] ">Sarmiento 4100 . $350.000</h2>
-          <h4>Departamento en alquiler en Almagro, Capital Federal</h4>
+          <h2 className="font-sans font-bold text-[2rem] ">{addressStreet} {addressNumber}. ${value}</h2>
+          <h4>{categoryName} en alquiler en {city}, {province}</h4>
         </div>
 
         <div className="flex gap-3">
@@ -27,43 +65,44 @@ const HeroDetail = () => {
 
       <Grid columns='3' rows='2' className="gap-1 md:gap-4 mt-4"  >
         <Image
-          src={CasaPic1}
+          src={propertyPictures?.length ? propertyPictures[0].url : placeHolder.src}
           alt="Picture of the author"
           className="row-start-1 row-end-3 rounded-tl-[20px] rounded-bl-[20px] object-cover"
           width={574}
           height={503}
         />
         <Image
-
-          src={CasaPic2}
+          src={propertyPictures?.length ? propertyPictures[1]?.url : placeHolder.src}
           alt="Picture of the author"
           className="w-full"
           width={277}
           height={248}
         />
         <Image
-          src={CasaPic3}
+          src={propertyPictures?.length ? propertyPictures[2]?.url : placeHolder.src}
           alt="Picture of the author"
           className=" w-full rounded-tr-[20px]"
           width={277}
           height={248}
         />
         <Image
-          src={CasaPic4}
+          src={propertyPictures?.length ? propertyPictures[3]?.url : placeHolder.src}
           alt="Picture of the author"
           className="col-start-2  w-full "
           width={277}
           height={248}
         />
         <Image
-          src={CasaPic5}
+          src={propertyPictures?.length ? propertyPictures[4]?.url : placeHolder.src}
           alt="Picture of the author"
           className="col-start-3  w-full rounded-br-[20px]"
+          width={277}
+          height={248}
         />
       </Grid>
-      <div className="mt-4">
+      {/* <div className="mt-4">
         <h4>Oferta publicada hace tres dias</h4>
-      </div>
+      </div> */}
     </>
   )
 

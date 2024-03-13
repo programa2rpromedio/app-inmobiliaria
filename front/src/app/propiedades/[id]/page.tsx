@@ -7,33 +7,37 @@ import CharacteristicsProperties from '@/components/CharacteristicsPropertie'
 import DescriptionPropertie from '@/components/DescriptionPropertie'
 import OtherProperties from '@/components/OtherProperties'
 import { APIProvider, Map, Marker } from '@vis.gl/react-google-maps';
+import { useEffect, useState } from 'react'
+import { instanceAxios } from '@/lib/axios'
+import { PropertyCard } from '@/lib/types'
 
 const mapsApiKey = "AIzaSyC5Imp84G-XJszq7Iep7djj0kI035RcbJk"
 const position = { "lat": -34.905877, "lng": -57.9585137 }
 
 export default function Page() {
 
+  const [property, setProperty] = useState<PropertyCard | undefined>()
   let params = useParams()
-  console.log(params.id);
+
+  useEffect(() => {
+    instanceAxios.get(`/properties/${params.id}`)
+      .then(res => setProperty(res.data))
+      .catch(err => console.log(err))
+  }, [params])
+
 
 
   return (
     <main className="w-full md:w-8/12 mx-auto border p-4 bg-[#F5F5F7]">
-      <HeroDetail />
+      <HeroDetail value={property?.value} addressStreet={property?.addressStreet} addressNumber={property?.addressNumber} city={property?.city} province={property?.province} category={property?.category} propertyPictures={property?.propertyPictures} />
 
       <section className="mt-4 flex flex-wrap md:justify-between sm:justify-center md:gap-8 gap-y-4">
         <div className='sm:w-full md:w-[45%] '>
-          <CharacteristicsProperties />
-          <div className="max-w-[474px] mt-8">
-            <p>
-              ¡Te presentamos el departamento ideal en Almagro!
-              A pocos metros de la linea B de Subte.
-              A 100 metros de Av. Corrientes
-            </p>
-          </div>
+          <CharacteristicsProperties coveredArea={property?.coveredArea} bathrooms={property?.bathrooms} bedrooms={property?.bedrooms} pets={property?.pets} garden={property?.garden} />
+
           <div className="mt-8 w-full">
             <APIProvider apiKey={mapsApiKey}>
-              <Map defaultCenter={position} defaultZoom={12} className='md:h-96 sm:h-52 h-40  w-full'>
+              <Map defaultCenter={{ 'lat': property?.lat ?? 0, 'lng': property?.lon ?? 0 }} defaultZoom={12} className='md:h-96 sm:h-52 h-40  w-full'>
                 <Marker position={position} />
               </Map>
             </APIProvider>

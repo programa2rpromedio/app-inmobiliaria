@@ -28,7 +28,12 @@ export default function Header() {
           {
             user ?
               <div className="flex justify-between gap-4 w-full items-center sm:gap-8 md:gap-16 sm:justify-normal sm:px-2">
-                <Link href='cargar-propiedad' className="order-2 sm:order-1 border border-primary text-primary hover:bg-muted h-10 px-4 py-2">Publicar propiedad</Link>
+                {
+                  user.role === 'owner' ?
+                    <Link href='cargar-propiedad' className="order-2 sm:order-1 border border-primary text-primary hover:bg-muted h-10 px-4 py-2">Publicar propiedad</Link>
+                    :
+                    null
+                }
                 <Image src={user.profilePicture?.url ?? userDefault.src} alt="user picture" width={70}
                   height={70} className=" sm:order-2" />
               </div>

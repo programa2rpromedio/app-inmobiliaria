@@ -61,7 +61,7 @@ export default function FirstStep(props: PropsFormCargarPropiedad) {
     city: '',
     province: '',
     lat: 0,
-    lng: 0
+    lon: 0
   })
   const [placeAutocomplete, setPlaceAutocomplete] =
     useState<google.maps.places.Autocomplete | null>(null);
@@ -74,7 +74,7 @@ export default function FirstStep(props: PropsFormCargarPropiedad) {
     console.log(data);
     if (selectTypeProperty == null) return setIsSelectedProperty(false)
     setIsSelectedProperty(true)
-    setFormValues((prev) => ({ ...prev, ...data, lat: resultMaps.lat, lng: resultMaps.lng, category: selectTypeProperty, }))
+    setFormValues((prev) => ({ ...prev, ...data, lat: resultMaps.lat, lon: resultMaps.lon, category: selectTypeProperty, }))
     handleNextStep()
   }
 
