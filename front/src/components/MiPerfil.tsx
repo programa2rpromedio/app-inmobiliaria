@@ -24,6 +24,7 @@ import Notificacion from "@/images/notificacion.svg";
 import Configuracion from "@/images/configuracion.svg";
 import agregarFoto from "@/images/agregarFoto.svg";
 import { Separator } from "@/components/ui/separator";
+import { instanceAxios } from "@/lib/axios";
 
 const formSchema = z.object({
   nombre: z
@@ -124,7 +125,15 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
     telefono: userData.telefono || "",
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {}
+
+
+  function onSubmit(values: z.infer<typeof formSchema>) {
+
+    // instanceAxios.put(`/users/${id}}`, values)
+    //   .then(res => console.log(res))
+    //   .catch(err => console.log(err))
+
+  }
 
   return (
     <div className="flex flex-col h-screen ">
@@ -249,7 +258,7 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
                   <FormItem className="">
                     <FormLabel className="">Nombre</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input {...field} disabled />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

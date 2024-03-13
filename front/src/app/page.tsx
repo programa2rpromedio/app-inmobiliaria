@@ -16,14 +16,22 @@ import Footer from "@/components/Footer";
 import CardProperty from "@/components/CardProperty";
 import { useEffect, useState } from "react";
 import { getUser } from "@/lib/getUser";
-import { User } from "@/lib/types";
+import { PropertyCard, User } from "@/lib/types";
+import { instanceAxios } from "@/lib/axios";
 
 export default function Page() {
 
   const [user, setUser] = useState<User | undefined>()
+  const [properties, setProperties] = useState<PropertyCard[] | undefined>()
+
   useEffect(() => {
     setUser(getUser())
+    instanceAxios.get('/properties')
+      .then(res => setProperties(res.data))
+      .catch(err => console.log(err))
   }, [])
+
+
 
   return (
     <main className=" mx-auto ">
@@ -239,19 +247,22 @@ export default function Page() {
 
       <section className="sm:w-[80%] sm:mx-auto ">
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 m-2 sm:hidden">
-          <PropiedadCard />
-          <PropiedadCard />
-          <PropiedadCard />
-          <PropiedadCard />
+          {
+            properties?.length ? properties.slice(0, 7).map(prop => {
+              return <CardProperty key={prop.propertyId} {...prop} />
+            })
+              :
+              <h2>No hay propiedades </h2>
+          }
         </div>
         <div className="sm:flex sm:flex-col sm:gap-4 sm:items-center md:flex-row md:flex-wrap md:justify-center hidden">
-          {/* TODO */}
-          {/* <CardProperty />
-          <CardProperty />
-          <CardProperty />
-          <CardProperty />
-          <CardProperty />
-          <CardProperty /> */}
+          {
+            properties?.length ? properties.slice(0, 7).map(prop => {
+              return <CardProperty key={prop.propertyId} {...prop} />
+            })
+              :
+              <h2>No hay propiedades </h2>
+          }
         </div>
       </section>
 
