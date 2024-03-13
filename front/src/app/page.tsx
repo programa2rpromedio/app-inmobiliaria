@@ -252,7 +252,7 @@ export default function Page() {
       <section>
         <div className="flex flex-col mx-auto items-center gap-4 m-4 text-[12px]">
           <p>Sigue descubriendo las mejores propiedades</p>
-          <Button className="bg-[#19BC86] w-[130px] h-[36px] ">
+          <Button className="bg-[#19BC86] w-[130px] h-[36px]" onClick={() => window.location.href = '/propiedades'}>
             Mostrar más
           </Button>
         </div>
