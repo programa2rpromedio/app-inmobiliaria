@@ -1,5 +1,5 @@
 'use client'
-import { useParams } from 'next/navigation'
+import { useParams, useSearchParams } from 'next/navigation'
 import HeroDetail from '@/components/HeroDetail'
 import FormContact from '@/components/FormContact'
 import CharacteristicsProperties from '@/components/CharacteristicsPropertie'
@@ -15,13 +15,15 @@ const mapsApiKey = "AIzaSyC5Imp84G-XJszq7Iep7djj0kI035RcbJk"
 export default function Page() {
 
   const [property, setProperty] = useState<PropertyCard | undefined>()
-  let params = useParams()
+
+  const searchParams = useSearchParams();
+  const id = searchParams.get('id');
 
   useEffect(() => {
-    instanceAxios.get(`/properties/${params.id}`)
+    instanceAxios.get(`/properties/${id}`)
       .then(res => setProperty(res.data))
       .catch(err => console.log(err))
-  }, [params])
+  }, [id])
 
 
 
@@ -42,7 +44,7 @@ export default function Page() {
           </div>
         </div>
         <div className="md:w-[50%] w-full sm:mt-8  md:mt-0  bg-vectorcasa bg-contain bg-no-repeat bg-right">
-          <FormContact />
+          <FormContact idProperty={id} />
         </div>
       </section>
 

@@ -1,8 +1,9 @@
-import CardProperty from "@/components/CardProperty";
 import ContainerProperties from "@/components/ContainerProperties";
 import Header from "@/components/Header";
 
 export default function Page() {
+
+
   return (
     <>
       <Header />

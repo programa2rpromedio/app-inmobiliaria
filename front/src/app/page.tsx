@@ -24,6 +24,7 @@ export default function Page() {
   const [user, setUser] = useState<User | undefined>()
   const [properties, setProperties] = useState<PropertyCard[] | undefined>()
 
+
   useEffect(() => {
     setUser(getUser())
     instanceAxios.get('/properties')
@@ -82,7 +83,7 @@ export default function Page() {
                 height={20}
               />
             </div>
-            <p className="text-md mx-2">Alquilar</p>
+            <p className="text-md mx-2 cursor-pointer" onClick={() => window.location.href = '/propiedades'}>Alquilar</p>
           </div>
 
           <div className="flex">
@@ -95,14 +96,14 @@ export default function Page() {
                 height={20}
               />
             </div>
-            <p className="text-md mx-2">Temporal</p>
+            <p className="text-md mx-2 cursor-pointer" onClick={() => window.location.href = '/propiedades'}>Temporal</p>
           </div>
         </div>
       </section>
 
       <section className=" w-[324px] flex mt-5 mx-auto justify-center sm:w-[50%]">
         <div className="bg-[#ffffff] flex justify-around   p-1 w-full sm:rounded-[4rem]">
-          <div className="flex items-center">
+          <div className="flex items-center w-full px-1">
             <Image
               src={Search}
               alt="Imagen Buscar"
@@ -113,10 +114,10 @@ export default function Page() {
             <input
               type="text"
               placeholder="¿Dónde querés mudarte?"
-              className="flex mx-2 w-[200px] sm:w-full text-[14px] border-y-transparent border-l-transparent border-[#797687] border-r-[1px] focus:ring-0 focus:border-r  focus-visible:border-y-transparent  focus-visible:border-l-transparent"
+              className="flex mx-2 w-full sm:w-full text-[14px] border-y-transparent border-l-transparent border-[#797687] border-r-[1px] focus:ring-0 focus:border-r  focus-visible:border-y-transparent  focus-visible:border-l-transparent"
             />
           </div>
-          <div className="hidden md:flex items-center">
+          {/* <div className="hidden md:flex items-center">
             <strong>🏚️</strong>
             <input
               type="text"
@@ -131,7 +132,7 @@ export default function Page() {
               placeholder="Precio"
               className="flex mx-2 w-[200px] text-[14px] sm:w-full border-y-transparent border-l-transparent border-[#797687] border-r-[1px] focus:ring-0 focus:border-r  focus-visible:border-y-transparent  focus-visible:border-l-transparent "
             />
-          </div>
+          </div> */}
           <Button variant='default' size='lg' className="hidden md:block rounded-[40px]">Buscar</Button>
           <Button variant='default' size='sm' className=" md:hidden rounded-[40px]">Buscar</Button>
         </div>
@@ -248,7 +249,7 @@ export default function Page() {
       <section className="sm:w-[80%] sm:mx-auto ">
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 m-2 sm:hidden">
           {
-            properties?.length ? properties.slice(0, 7).map(prop => {
+            properties?.length ? properties.slice(0, 6).map(prop => {
               return <CardProperty key={prop.propertyId} {...prop} />
             })
               :
@@ -257,7 +258,7 @@ export default function Page() {
         </div>
         <div className="sm:flex sm:flex-col sm:gap-4 sm:items-center md:flex-row md:flex-wrap md:justify-center hidden">
           {
-            properties?.length ? properties.slice(0, 7).map(prop => {
+            properties?.length ? properties.slice(0, 6).map(prop => {
               return <CardProperty key={prop.propertyId} {...prop} />
             })
               :
@@ -274,100 +275,6 @@ export default function Page() {
           </Button>
         </div>
       </section>
-
-      {/* <section>
-        <div className="bg-[#E6E9F5] w-[320px] h[180px] flex flex-col mx-auto my-3 rounded-md ">
-          <div className="flex flex-col p-3 font-bold text-[12px] ">
-            <p className=" ">Recibe las ofertas más recientes,</p>
-            <p>actualizaciones y mucho más.</p>
-          </div>
-          <div className="flex gap-2 mx-auto">
-            <Input
-              type="email"
-              placeholder="Ingresa tu correo"
-              className=" w-[186px] h-[36px] text-[12px] font-semibold "
-            />
-            <Button className=" w-[94px] h-[36px] text-[12px] font-semibold ">
-              {" "}
-              Suscribirse{" "}
-            </Button>
-          </div>
-          <div className="flex flex-col text-[10px] m-3">
-            <p>*Al suscribirte a nuestro newsletter aceptas nuestros </p>
-            <p>
-              <Link href="" className="text-[#3354FF] hover:underline">
-                Términos y condiciones
-              </Link>
-              {"  "}y nuestra
-              <Link href="" className="text-[#3354FF] hover:underline">
-                {" "}
-                Política de privacidad
-              </Link>
-              *
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <div className="relative w-[320px] h-[180px] bg-cardCiudad bg-cover flex flex-col items-center justify-center rounded-md mx-auto my-3 p-2 overflow-hidden">
-          <div className="absolute inset-0 bg-black opacity-[0.99]"></div>
-          <div className="z-10 relative text-[17px] font-bold text-[#F5F5F7]">
-            <p>
-              Las propiedades más populares en todo{" "}
-              <span className="text-[#19BC86]">Argentina</span>
-            </p>
-          </div>
-
-          <div className="z-10 relative flex flex-col text-[9px] font-semibold text-[#F5F5F7]">
-            <p>
-              Desde departamentos hasta locales comerciales, con ___ lo tienes
-              todo al alcance de un click.
-            </p>
-            <p>
-              ¿Qué esperas para encontrar y conectar con tu nuevo hogar? ¡Busca
-              ahora!
-            </p>
-          </div>
-
-          <div className="z-10 relative">carrusel de card propiedades</div>
-        </div>
-      </section>
-
-      <section>
-        <div className=" w-[320px] h-[180px] flex mx-auto">
-          <div className="w-[250px] h-[120px] flex mx-auto items-center ">
-            <Carousel
-              opts={{
-                align: "start",
-              }}
-              className="w-1/2 max-w-sm mx-auto"
-            >
-              <CarouselContent>
-                {Array.from({ length: 5 }).map((_, index) => (
-                  <CarouselItem
-                    key={index}
-                    className=" md:basis-1/2 lg:basis-1/3"
-                  >
-                    <div className="p-1">
-                      <Card>
-                        <CardContent className="flex items-center justify-center p-6">
-                          <span className="text-3xl font-semibold">
-                            {index + 1}
-                          </span>
-                        </CardContent>
-                      </Card>
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselPrevious />
-              <CarouselNext />
-            </Carousel>
-          </div>
-        </div>
-      </section> */}
-
       <Footer />
     </main>
   );

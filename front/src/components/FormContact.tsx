@@ -4,12 +4,13 @@ import * as z from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from './ui/button'
+import { instanceAxios } from '@/lib/axios'
 
 
 
 
 const formSchema = z.object({
-  nombre: z.string({
+  username: z.string({
     required_error: 'El nombre es requerido'
   }).min(3, { message: "Debe tener 3 o más caracteres" }),
   email: z.string().email({
@@ -17,24 +18,37 @@ const formSchema = z.object({
   }).min(1, {
     message: "Campo requerido",
   }),
-  consulta: z.string()
+  phone: z.coerce.number({
+
+    invalid_type_error: 'Se esperaba un número de telefono',
+    required_error: 'Número de telefono requerido'
+  }),
+  message: z.string()
 })
 
 type FormSchema = z.infer<typeof formSchema>
 
 
+interface Props {
+  idProperty: string | null
+}
 
-export default function FormContact() {
+export default function FormContact({ idProperty }: Props) {
 
   const { register, handleSubmit, formState } = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      consulta: "Hola! Vi ésta propiedad en App inmobiliaria. Me interesaría que nos pongamos en contacto."
+      message: "Hola! Vi ésta propiedad en Alquileres Ya! Me interesaría que nos pongamos en contacto."
     }
   })
 
-  const onSubmit = (data: FormSchema) => {
-    console.log(data);
+  const onSubmit = async (data: FormSchema) => {
+    try {
+      const response = await instanceAxios.post(`/contact/${idProperty}`, data)
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -46,13 +60,13 @@ export default function FormContact() {
           <div className="mt-2.5">
             <input
               type="text"
-              {...register("nombre")}
-              id="nombre"
+              {...register("username")}
+              id="username"
               placeholder='Nombre'
               autoComplete="given-name"
               className="block w-full py-[16px] px-[12px] rounded-md border-0   text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             />
-            {formState.errors.nombre && <p className='text-2 text-[#e94a4a]'>{formState.errors.nombre.message}</p>}
+            {formState.errors.username && <p className='text-2 text-[#e94a4a]'>{formState.errors.username.message}</p>}
           </div>
         </div>
         <div className="sm:col-span-2 w-[80%]">
@@ -72,26 +86,27 @@ export default function FormContact() {
           <div className="relative mt-2.5">
             <input
               type="tel"
-              name="phone-number"
-              id="phone-number"
+              {...register("phone")}
+              id="phone"
               placeholder='Numero de telefono'
               autoComplete="tel"
               className="block w-full py-[16px] px-[12px] rounded-md border-0   text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             />
+            {formState.errors.phone && <p className='text-2 text-[#e94a4a]'>{formState.errors.phone.message}</p>}
           </div>
         </div>
         <div className="sm:col-span-2 w-[80%]">
-          <label htmlFor="consulta" className="block text-sm font-semibold leading-6 text-gray-900">
+          <label htmlFor="message " className="block text-sm font-semibold leading-6 text-gray-900">
             Consulta:
           </label>
           <div className="mt-2.5">
             <textarea
-              {...register("consulta")}
-              id="consulta"
+              {...register("message")}
+              id="message "
               rows={4}
               className="block w-full py-[16px] px-[12px] rounded-md border-0   text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             />
-            {formState.errors.consulta && <p className='text-2 text-[#e94a4a]'>{formState.errors.consulta.message}</p>}
+            {formState.errors.message && <p className='text-2 text-[#e94a4a]'>{formState.errors.message.message}</p>}
           </div>
         </div>
       </div>

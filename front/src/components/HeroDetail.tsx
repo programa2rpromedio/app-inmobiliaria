@@ -59,7 +59,9 @@ const HeroDetail = ({ value, addressStreet, addressNumber, city, province, categ
 
         <div className="flex gap-3">
           <Button variant='outline'>Guardar</Button>
-          <Button variant='outline'>Decartar</Button>
+          <Button variant='outline' onClick={() => {
+            window.location.href = '/propiedades'
+          }}>Decartar</Button>
         </div>
       </section>
 

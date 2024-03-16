@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { User } from '@/lib/types'
 import { getUser } from '@/lib/getUser'
 import userDefault from "@/images/userDefault.png";
+import Search from '@/images/search.svg'
 
 
 export default function Header() {
@@ -48,7 +49,7 @@ export default function Header() {
       </div>
 
       <div className='flex gap-5 text-[#3354FF] mb-5'>
-        <Link href='' >Home</Link>
+        <Link href='/' >Home</Link>
         <strong> - </strong>
         <Link href='' >Alquiler</Link>
       </div>
@@ -57,13 +58,13 @@ export default function Header() {
       <div>
         <Link href='' className='mr-[10px] border border-b-0 p-2 rounded-[4px]'>Alquiler</Link>
         <Link href='' className='ml-[10px] border border-b-0 p-2 rounded-[4px]'>Temporal</Link>
-        <div className='mt-3 w-full flex'>
+        <div className='mt-3 w-full flex items-center'>
           <div className='w-[80%]'>
-            <input type="text" placeholder='¿Dónde querés mudarte?' className='bg-transparent outline-none border-none' />
-            <input type="text" placeholder='Tipo de propiedad' className='hidden sm:inline-block sm:w-[150px] md:w-max bg-transparent outline-none border-none' />
-            <input type="text" placeholder='Precio' className='hidden sm:inline-block sm:w-[100px] md:w-max bg-transparent outline-none border-none' />
+            <input type="text" placeholder='¿Dónde querés mudarte?' className='bg-transparent outline-none border-none w-full' />
+            {/* <input type="text" placeholder='Tipo de propiedad' className='hidden sm:inline-block sm:w-[150px] md:w-max bg-transparent outline-none border-none' />
+            <input type="text" placeholder='Precio' className='hidden sm:inline-block sm:w-[100px] md:w-max bg-transparent outline-none border-none' /> */}
           </div>
-          <Button variant='default' size='lg' className='' >🔍</Button>
+          <Button variant='default' size='lg' className='' ><Image src={Search} alt='search' /></Button>
         </div>
       </div>
     </header>
