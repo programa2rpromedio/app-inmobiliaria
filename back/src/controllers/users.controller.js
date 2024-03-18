@@ -107,21 +107,7 @@ class UsersController {
     }
   }
 
-  // static async login(req, res, next) {
-  //   const { email, password } = req.body;
-  //   if (!email || !password)
-  //     return res.status(400).json({ message: "Failed login, invalid data" });
 
-  //   try {
-  //     const user = req.body;
-  //     const { error, message, token } = await UsersService.login(user);
-  //     if (!error) return res.status(500).json(message);
-
-  //     return res.status(200).json(token);
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // }
 }
 
 export default UsersController;
