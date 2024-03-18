@@ -1,5 +1,6 @@
 import Properties from "../models/Property.js";
 import HttpError from "../utils/HttpError.util.js";
+import { deleteImage } from "../utils/cloudinary.utils.js";
 import { FORBIDDEN, NOT_FOUND } from "../utils/constants.util.js";
 
 class PropertiesService {
@@ -75,7 +76,7 @@ class PropertiesService {
       throw new HttpError("Property not found", NOT_FOUND);
     }
     if (JSON.stringify(user._id) !== JSON.stringify(property.user_id)) {
-      throw new HttpError("Only owner can update property", FORBIDDEN);
+      throw new HttpError("Unauthorized: Only owner can update property", FORBIDDEN);
     }
     const newProperty = property;
     //General
@@ -163,6 +164,12 @@ class PropertiesService {
     }
     if (JSON.stringify(user._id) !== JSON.stringify(property.user_id)) {
       throw new HttpError("Only owner can delete property", FORBIDDEN);
+    }
+    if(property.property_pictures && property.property_pictures.length){
+      for(let i = 0; i < property.property_pictures.length; i++){
+        await deleteImage(property.property_pictures[i].public_id)
+      }
+
     }
     const deletedProperty = await Properties.deleteOne({ _id: pid });
     return deletedProperty;

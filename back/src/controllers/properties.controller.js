@@ -35,11 +35,12 @@ class PropertiesController {
     const { userId } = req
     payload.userId = userId
     try {
+      const user = await UsersService.getUserById(userId)
       if (req.files?.length > 0) {
         payload.propertyPictures = [];
         const folderName = `inmobiliaria/propiedades/${userId}`;
         const promises = req.files.map((file) =>
-          uploadPropertyImage(file, folderName)
+        uploadPropertyImage(file, folderName)
         );
         const uploadedUrls = await Promise.all(promises);
         for (let i = 0; i < uploadedUrls.length; i++) {
@@ -53,7 +54,6 @@ class PropertiesController {
       const createPropertyDTO = new CreatePropertyDTO(payload);
       const property = await PropertiesService.createProperty(createPropertyDTO);
       const getPropertyDTO = new GetPropertyDTO(property)
-      const user = await UsersService.getUserById(userId)
       await MailService.newProperty(property, user)
       res.status(201).send(getPropertyDTO);
     } catch (error) {

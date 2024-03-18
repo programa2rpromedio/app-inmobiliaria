@@ -2,7 +2,8 @@ import Properties from "../models/Property.js";
 import Users from "../models/User.js";
 import HttpError from "../utils/HttpError.util.js";
 import { createHash } from "../utils/bcrypt.util.js";
-import { NOT_FOUND } from "../utils/constants.util.js";
+import { deleteImage } from "../utils/cloudinary.utils.js";
+import { FORBIDDEN, NOT_FOUND } from "../utils/constants.util.js";
 
 class UsersService {
   static async getAllUsers() {
@@ -13,6 +14,7 @@ class UsersService {
   static async getUserById(uid) {
     const user = await Users.findById(uid);
     if (!user) {
+      console.log('je');
       throw new HttpError("User not found", NOT_FOUND);
     }
     return user;
@@ -44,16 +46,22 @@ class UsersService {
     if (!user) {
       throw new HttpError("User not found", NOT_FOUND);
     }
-    user.first_name = payload.first_name ?? user.first_name;
-    user.last_name = payload.last_name ?? user.last_name;
-    user.first_name = payload.first_name ?? user.first_name;
-    user.role = payload.role ?? user.role;
-    user.profile_picture = payload.profile_picture ?? user.profile_picture;
-    if (payload.location.city) {
-      user.location.city = payload.location.city;
-    }
-    if (payload.location.address) {
-      user.location.address = payload.location.address;
+    const newUser = user
+
+    //General
+    if (payload.first_name) newUser.first_name = payload.first_name;
+    if (payload.last_name) newUser.last_name = payload.last_name;
+    if (payload.phone) newUser.phone = payload.phone;
+
+    //Location
+    if (payload.location) {
+      const locationKeys = ["city", "address"];
+      for (const key of locationKeys) {
+        if (payload.location[key] !== undefined) {
+          newUser.location = newUser.location || {};
+          newUser.location[key] = payload.location[key];
+        }
+      }
     }
     const userUpdated = await Users.findByIdAndUpdate(uid, user);
     return userUpdated;
@@ -94,11 +102,24 @@ class UsersService {
   }
 
   static async deleteUser(uid) {
-    const user = await Users.deleteOne({ _id: uid });
-    if (!user) {
-      throw new HttpError();
+    const properties = await Properties.find({user_id: uid})
+    for(let i = 0; i < properties.length; i++){
+      if(properties[i].property_pictures && properties[i].property_pictures.length){
+        for(let j = 0; j < properties[i].property_pictures.length; j++){
+          await deleteImage(properties[i].property_pictures[j].public_id)
+        }
+      }
+      await Properties.deleteOne({ _id: properties[i]._id });
     }
-    return user;
+    const user = await Users.findById(uid);
+    if (!user) {
+      throw new HttpError("User not found", NOT_FOUND);
+    }
+    if(user.profile_picture && user.profile_picture.url){
+      await deleteImage(user.profile_picture.public_id)
+    }
+    const deletedUser = await Users.deleteOne({ _id: uid });
+    return deletedUser;
   }
 }
 
