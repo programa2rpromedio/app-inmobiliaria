@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
-import logo from '@/images/logo.svg'
+import logo from '@/images/logoalquileresya.svg'
 import { Button } from './ui/button'
 import Link from 'next/link'
 import { User } from '@/lib/types'
@@ -21,8 +21,7 @@ export default function Header() {
     <header className='py-2 px-4 sm:px-20 bg-[#fff]'>
       <div className='flex flex-col sm:flex-row justify-between  sm:items-center mb-6'>
         <div className='flex justify-between sm:justify-normal items-center gap-2'>
-          <Image src={logo} alt='Logo Alquileres Ya' width={70} />
-          <h1>Alquileres Ya!</h1>
+          <Image src={logo} alt='Logo Alquileres Ya' width={200} height={200} />
         </div>
         <div className='flex justify-between sm:justify-normal items-center gap-4 md:gap-32'>
 

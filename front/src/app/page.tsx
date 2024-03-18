@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import Logo from "@/images/logo.svg";
+import Logo from "@/images/logoalquileresya.svg";
 import Search from "@/images/search.png";
 import Alquilar from "@/images/alquilar.svg";
 import Temporal from "@/images/temporal.svg";
@@ -42,10 +42,9 @@ export default function Page() {
             src={Logo}
             alt="Logo de la App"
             className="sm:ml-2"
-            width={70}
-            height={70}
+            width={200}
+            height={200}
           />
-          <h1 className="text-sm font-bold m-4"> Alquileres Ya!</h1>
         </div>
 
         {
@@ -150,13 +149,14 @@ export default function Page() {
           <Button
             variant={"default"}
             className="relative bg-[#ffffff] text-[#3354FF] w-[75px] h-[20px] text-[11px] font-bold hover:text-[#ffffff] -mt-9 ml-10 p-2"
+            onClick={() => window.location.href = '/propiedades'}
           >
             Ver la lista
           </Button>
         </div>
         <div className=" hidden sm:block bg-bannerDesktop bg-no-repeat sm:w-[80%] w-[60%] sm:h-[40vh] md:h-[45vh] lg:h-[55vh] xl:h-[65vh] mx-auto relative bg-cover md:bg-left bg- mt-10">
-          <Button className="absolute bottom-2 left-10 hidden md:block xl:left-20" size='lg' variant='outline'>Ver Lista</Button>
-          <Button className="absolute sm:bottom-1 sm:left-6 hidden sm:block md:hidden" size='sm' variant='outline'>Ver Lista</Button>
+          <Button className="absolute bottom-2 left-10 hidden md:block xl:left-20" size='lg' variant='outline' onClick={() => window.location.href = '/propiedades'}>Ver Lista</Button>
+          <Button className="absolute sm:bottom-1 sm:left-6 hidden sm:block md:hidden" size='sm' variant='outline' onClick={() => window.location.href = '/propiedades'}>Ver Lista</Button>
         </div>
       </section>
 

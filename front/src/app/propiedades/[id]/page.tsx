@@ -28,7 +28,7 @@ export default function Page() {
 
 
   return (
-    <main className="w-full md:w-8/12 mx-auto border p-4 bg-[#F5F5F7]">
+    <main className="w-full md:w-8/12 mx-auto  p-4 bg-[#F5F5F7]">
       <HeroDetail value={property?.value} addressStreet={property?.addressStreet} addressNumber={property?.addressNumber} city={property?.city} province={property?.province} category={property?.category} propertyPictures={property?.propertyPictures} />
 
       <section className="mt-4 flex flex-wrap md:justify-between sm:justify-center md:gap-8 gap-y-4">
