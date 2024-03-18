@@ -75,6 +75,7 @@ const propertySchema = mongoose.Schema(
       condition: { type: String },
       state: { type: String },
     },
+    favourites: { type: Number, default: 0 },
     status: { type: String, enum: ["active", "rented", "paused"] },
   },
   {

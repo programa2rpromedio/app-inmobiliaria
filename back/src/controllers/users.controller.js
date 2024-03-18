@@ -1,7 +1,9 @@
 import { CreateUserDTO, GetUserDTO, UpdateUserDTO } from "../dtos/user.dto.js";
+import PropertiesService from "../services/properties.service.js";
 import UsersService from "../services/user.service.js";
+import HttpError from "../utils/HttpError.util.js";
 import { deleteImage, uploadProfileImage } from "../utils/cloudinary.utils.js";
-import { CREATED, SUCCESS } from "../utils/constants.util.js";
+import { CREATED, FORBIDDEN, SUCCESS } from "../utils/constants.util.js";
 
 class UsersController {
   static async getAll(req, res, next) {
@@ -42,7 +44,11 @@ class UsersController {
   static async updateOne(req, res, next) {
     const { uid } = req.params;
     const payload = req.body;
+    const { userId } = req
     try {
+      if (uid !== userId) {
+        throw new HttpError("Unauthorized: Credentials do not match the user to be updated.", FORBIDDEN);
+      }
       const userDTO = new UpdateUserDTO(payload);
       const user = await UsersService.updateUser(uid, userDTO);
       res.status(SUCCESS).send(user);
@@ -53,7 +59,11 @@ class UsersController {
 
   static async updateImage(req, res, next) {
     const { uid } = req.params;
+    const { userId } = req
     try {
+      if (uid !== userId) {
+        throw new HttpError("Unauthorized: Credentials do not match the user to be updated.", FORBIDDEN);
+      }
       const user = await UsersService.getUserById(uid);
       if(user.profile_picture.public_id){
         await deleteImage(user.profile_picture.public_id)
@@ -72,11 +82,12 @@ class UsersController {
     }
   }
 
-  static async addFavouriteProperty(req, res, next) {
+  static async toggleFavouriteProperty(req, res, next) {
     const { uid, pid } = req.params;
     try {
-      const user = await UsersService.addFavourite(uid, pid);
-      res.status(SUCCESS).send(user);
+      const favouriteCount = await UsersService.toggleFavourite(uid, pid);
+      const property = await PropertiesService.updateProperty(pid, { favourites: favouriteCount })
+      res.status(SUCCESS).send(property);
     } catch (error) {
       next(error);
     }
@@ -84,7 +95,11 @@ class UsersController {
 
   static async deleteOne(req, res, next) {
     const { uid } = req.params;
+    const { userId } = req
     try {
+      if (uid !== userId) {
+        throw new HttpError("Unauthorized: Credentials do not match the user to be deleted.", FORBIDDEN);
+      }
       const user = await UsersService.deleteUser(uid);
       res.status(SUCCESS).send(user);
     } catch (error) {

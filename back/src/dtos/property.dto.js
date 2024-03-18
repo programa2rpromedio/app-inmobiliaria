@@ -3,12 +3,12 @@ export class GetPropertyDTO {
     this.propertyId = payload._id;
 
     this.userOwner = {};
-    this.userOwner.userId = payload.user_id._id;
-    this.userOwner.firstName = payload.user_id.first_name;
-    this.userOwner.lastName = payload.user_id.last_name;
-    this.userOwner.email = payload.user_id.email;
-    this.userOwner.role = payload.user_id.role;
-    this.userOwner.phone = payload.user_id.phone;
+    this.userOwner.userId = payload.user_id?._id;
+    this.userOwner.firstName = payload.user_id?.first_name;
+    this.userOwner.lastName = payload.user_id?.last_name;
+    this.userOwner.email = payload.user_id?.email;
+    this.userOwner.role = payload.user_id?.role;
+    this.userOwner.phone = payload.user_id?.phone;
 
     this.title = payload.title;
     this.category = payload.category;
@@ -57,6 +57,8 @@ export class GetPropertyDTO {
     this.orientation = payload.characteristics.orientation;
     this.condition = payload.characteristics.condition;
     this.state = payload.characteristics.state;
+
+    this.favourites = payload.favourites
 
     this.status = payload.status;
   }

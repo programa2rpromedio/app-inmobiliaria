@@ -1,5 +1,7 @@
 import { CreatePropertyDTO, GetPropertyDTO } from "../dtos/property.dto.js";
+import MailService from "../services/mail.service.js";
 import PropertiesService from "../services/properties.service.js";
+import UsersService from "../services/user.service.js";
 import { uploadPropertyImage } from "../utils/cloudinary.utils.js";
 
 class PropertiesController {
@@ -30,12 +32,15 @@ class PropertiesController {
 
   static async createOne(req, res, next) {
     const payload = req.body;
+    const { userId } = req
+    payload.userId = userId
     try {
+      const user = await UsersService.getUserById(userId)
       if (req.files?.length > 0) {
         payload.propertyPictures = [];
-        const folderName = `inmobiliaria/propiedades/${payload.userId}`;
+        const folderName = `inmobiliaria/propiedades/${userId}`;
         const promises = req.files.map((file) =>
-          uploadPropertyImage(file, folderName)
+        uploadPropertyImage(file, folderName)
         );
         const uploadedUrls = await Promise.all(promises);
         for (let i = 0; i < uploadedUrls.length; i++) {
@@ -46,11 +51,11 @@ class PropertiesController {
           payload.propertyPictures.push(imageObject);
         }
       }
-      const propertyDTO = new CreatePropertyDTO(payload);
-      // console.log("[propertyDTO]:", propertyDTO);
-
-      const property = await PropertiesService.createProperty(propertyDTO);
-      res.status(201).send(property);
+      const createPropertyDTO = new CreatePropertyDTO(payload);
+      const property = await PropertiesService.createProperty(createPropertyDTO);
+      const getPropertyDTO = new GetPropertyDTO(property)
+      await MailService.newProperty(property, user)
+      res.status(201).send(getPropertyDTO);
     } catch (error) {
       next(error);
     }
@@ -58,11 +63,14 @@ class PropertiesController {
 
   static async updateOne(req, res, next) {
     const { pid } = req.params;
+    const { userId } = req
     const payload = req.body;
     try {
-      const propertyDTO = new CreatePropertyDTO(payload);
-      const property = await PropertiesService.updateProperty(pid, propertyDTO);
-      res.status(200).send(property);
+      const createPropertyDTO = new CreatePropertyDTO(payload);
+      const user = await UsersService.getUserById(userId)
+      const property = await PropertiesService.updateProperty(pid, user, createPropertyDTO);
+      const getPropertyDTO = new GetPropertyDTO(property)
+      res.status(200).send(getPropertyDTO);
     } catch (error) {
       next(error);
     }
@@ -70,8 +78,10 @@ class PropertiesController {
 
   static async deleteOne(req, res, next) {
     const { pid } = req.params;
+    const { userId } = req
     try {
-      const property = await PropertiesService.deleteProperty(pid);
+      const user = await UsersService.getUserById(userId)
+      const property = await PropertiesService.deleteProperty(pid, user);
       res.status(200).send(property);
     } catch (error) {
       next(error);
