@@ -16,7 +16,7 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import imgAvatar from "@/images/juan.svg";
 import Image from "next/image";
 import Logo from "@/images/logo.svg";
@@ -99,21 +99,51 @@ interface ProfileFormProps {
   userData: UserData;
 }
 
-const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      nombre: "",
-      apellido: "",
-      pais: "",
-      ciudad: "",
-      direccion: "",
-      email: "",
-      telefono: "",
-    },
-  });
+interface User {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  profilePicture: any;
+  role: string;
+  city: string;
+  address: string;
+  phone: string;
+  favourites: any[];
+  token: string;
+}
 
+const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
   const [isEditing, setEditing] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const storedUser = sessionStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
+  const [form, setForm] = useState();
+
+  useEffect(() => {
+    if (user) {
+      setForm(
+        useForm<z.infer<typeof formSchema>>({
+          resolver: zodResolver(formSchema),
+          defaultValues: {
+            nombre: user.firstName,
+            apellido: user.lastName,
+            pais: user.firstName,
+            ciudad: user.city,
+            direccion: user.address,
+            email: user.email,
+            telefono: user.phone,
+          },
+        })
+      );
+    }
+  }, [user]);
 
   const [formData, setFormData] = useState<UserData>({
     nombre: userData.nombre || "",
@@ -125,14 +155,10 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
     telefono: userData.telefono || "",
   });
 
-
-
   function onSubmit(values: z.infer<typeof formSchema>) {
-
     // instanceAxios.put(`/users/${id}}`, values)
     //   .then(res => console.log(res))
     //   .catch(err => console.log(err))
-
   }
 
   return (
@@ -251,19 +277,20 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
               onSubmit={form.handleSubmit(onSubmit)}
               className="grid grid-cols-2 gap-x-4 gap-y-6 w-[330px]"
             >
-              <FormField
-                control={form.control}
-                name="nombre"
-                render={({ field }) => (
-                  <FormItem className="">
-                    <FormLabel className="">Nombre</FormLabel>
-                    <FormControl>
-                      <Input {...field} disabled />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              {user && (
+                <FormField
+                  control={form.control}
+                  name="nombre"
+                  render={({ field }) => (
+                    <FormItem className="">
+                      <FormControl>
+                        <Input {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
               <FormField
                 control={form.control}
                 name="apellido"

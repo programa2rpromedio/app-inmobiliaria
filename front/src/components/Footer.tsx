@@ -1,5 +1,5 @@
 import React from "react";
-import Logo from "@/images/logo.svg";
+import Logo from "@/images/logoalquileresya.svg";
 import Facebook from "@/images/facebook.svg";
 import Twitter from "@/images/twitter.svg";
 import Instagram from "@/images/instagram.svg";
@@ -97,18 +97,18 @@ export default function Footer() {
         </Select>
       </div>
       <hr className=" mt-4 border-[#C2C0C7]" />
-      <div className="flex p-4 md:py-10 md:px-24">
+      <div className="flex p-4 md:py-4 md:px-24 items-center">
         <div className="flex items-center">
           <div className=" ">
             <Image
               src={Logo}
               alt="Logo de la App"
-              className="md:w-[72px] md:h-[72px]"
-              width={25}
-              height={25}
+              className="md:w-[140px] md:h-[120px]"
+              width={65}
+              height={35}
             />
           </div>
-          <div className="text-[8px] mx-2 md:text-[16px] ">
+          <div className="text-[8px] mx-4 md:text-[16px] ">
             <p>2024 Alquileres Ya!</p>
             <p>Todos los derechos reservados</p>
           </div>
