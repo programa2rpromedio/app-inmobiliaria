@@ -114,7 +114,7 @@ export default function Register() {
       <h1 className="font-bold text-[2rem]">Crear cuenta</h1>
       <Progress value={(step / 2) * 100} className="w-[346px] mb-4" />
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-2 items-center justify-between gap-x-4 gap-y-8 sm:w-[350px]  md:w-[460px] xl:w-[40vw] xl:h-[50vh]">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-2 items-center justify-between gap-x-4 gap-y-8 sm:w-[350px]  md:w-[460px] xl:w-[40vw] sm:h-min ">
           {step === 1 && (
             <>
               <FormField
