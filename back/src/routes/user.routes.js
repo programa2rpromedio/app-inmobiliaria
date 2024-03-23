@@ -9,7 +9,7 @@ const upload = multer({ storage: storage})
 
 router.get("/", UsersController.getAll);
 router.get("/:uid", UsersController.getById);
-router.post("/", UsersController.createOne);
+// router.post("/", UsersController.createOne);
 router.put("/:uid", verifyToken, UsersController.updateOne);
 router.patch("/:uid/update-image", verifyToken, upload.single("image"), UsersController.updateImage);
 router.patch("/:uid/favourites/:pid", verifyToken, UsersController.toggleFavouriteProperty);

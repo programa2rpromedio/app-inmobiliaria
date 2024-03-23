@@ -1,0 +1,288 @@
+paths:
+  /api/users:
+    get:
+      summary: Get all users
+      tags: 
+        - Users
+      responses:
+        "200":
+          description: "Users successfully obtained"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/User'
+        "500":
+          description: "Internal server error"
+  /api/users/{uid}:
+    get:
+      summary: Get user by id
+      tags: 
+        - Users
+      parameters: 
+      - name: uid
+        id: path
+        required: true
+        description: User id to search
+        schema:
+          $type: String
+      responses:
+        "200":
+          description: "User successfully obtained"
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#components/schemas/User'
+        "404":
+          description: "User not found"
+        "500":
+          description: "Internal server error"
+    put:
+      summary: Update user basic information
+      tags: 
+        - Users
+      parameters: 
+      - name: uid
+        in: path
+        required: true
+        description: User id to update
+        schema:
+          $type: String
+      - name: Authorization
+        in: header
+        required: true
+        description: Bearer token for authorization
+        schema:
+          type: string
+          format: string
+          example: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/requestBodies/UpdateUser'
+      responses:
+        "200":
+          description: "Success: User successfully updated"
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#components/schemas/User'
+        "401":
+          description: "Not Authorized: Login is required"
+        "403":
+          description: "Forbidden: The logged in user does not have access to update this user's information"
+        "404":
+          description: "Not Found: User not found"
+        "500":
+          description: "Internal server error"
+    delete:
+      summary: Delete user by id
+      tags: 
+        - Users
+      parameters: 
+      - name: uid
+        in: path
+        required: true
+        description: User id to delete
+        schema:
+          $type: String
+      - name: Authorization
+        in: header
+        required: true
+        description: Bearer token for authorization
+        schema:
+          type: string
+          format: string
+          example: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+      responses:
+        "200":
+          description: "Success: User successfully deleted"
+        "401":
+          description: "Not Authorized: Login is required"
+        "403":
+          description: "Forbidden: The logged in user does not have access to delete this user"
+        "404":
+          description: "Not Found: User not found"
+        "500":
+          description: "Internal server error"    
+  /api/users/{uid}/update-image:
+    patch:
+      summary: Change user's profile picture
+      tags: 
+        - Users
+      parameters: 
+      - name: uid
+        in: path
+        required: true
+        description: User id to update
+        schema:
+          $type: String
+      - name: Authorization
+        in: header
+        required: true
+        description: Bearer token for authorization
+        schema:
+          type: string
+          format: string
+          example: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+      requestBody:
+        required: true
+        content:
+          multipart/forma-data:
+            schema:
+              $ref: '#components/requestBodies/ProfilePicture'
+      responses:
+        "200":
+          description: "Success: User successfully updated"
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#components/schemas/User'
+        "401":
+          description: "Not Authorized: Login is required"
+        "403":
+          description: "Forbidden: The logged in user does not have access to update this user's information"
+        "404":
+          description: "Not Found: User not found"
+        "500":
+          description: "Internal server error"
+  /api/users/{uid}/favourites/{pid}:
+    patch:
+      summary: Toggle user's property favourite reaction
+      tags: 
+        - Users
+      parameters: 
+      - name: uid
+        in: path
+        required: true
+        description: User id
+        schema:
+          $type: String
+      - name: pid
+        in: path
+        required: true
+        description: Property id to react
+        schema:
+          $type: String
+      - name: Authorization
+        in: header
+        required: true
+        description: Bearer token for authorization
+        schema:
+          type: string
+          format: string
+          example: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+      responses:
+        "200":
+          description: "Success: User successfully reacted"
+        "401":
+          description: "Not Authorized: Login is required"
+        "403":
+          description: "Forbidden: The logged in user does not have access to update this user's favourites"
+        "404":
+          description: "Not Found: User or property not found"
+        "500":
+          description: "Internal server error"
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        _id: 
+          type: ObjectId
+          description: Autogenerated mongo Id. Unique field
+        firstName: 
+          type: String
+          description: User first name
+        lastName:
+          type: String
+          description: User last name
+        email:
+          type: String
+          description: User email. Unique field
+        password: 
+          type: String,
+          description: User hashed password
+        profilePicture:
+          type: object
+          properties:
+            url:
+              type: string
+              description: URL of the user's profile picture stored in Cloudinary
+            public_id:
+              type: string
+              description: Public ID of the user's profile picture assigned by Cloudinary
+          description: Object representing the user's profile picture
+        role:
+          type: string
+          enum:
+            - admin
+            - tenant
+            - owner
+          default: tenant
+          description: Role of the user. Allowed values are admin, tenant or  owner
+          city:
+            type: string
+            description: City of the user's location
+          address:
+            type: string
+            description: Address of the user's location
+        phone:
+          type: string
+          unique: true
+          description: Phone number of the user
+        favourites:
+          type: array
+          items:
+            type: ObjectId
+            description: References to the properties that the user has favorited
+          description: Array of references to the properties favorited by the user
+      example:
+        _id: ObjectId(abcdefg12345)
+        firstName: Aureliano
+        lastName: Buendía
+        email: aureliano@email.com
+        password: 1212nkjenfkj3n2kjnf
+        profilePicture:
+          url: pictureurl.cloudinary.com
+          public_id: '323232323'
+        role: tenant
+        city: Macondo
+        address: Bananas 123
+        phone: '+549 1234567890'
+        favourites:
+          - ObjectId(123)
+          - ObjectId(321)
+  requestBodies:
+    UpdateUser:
+      type: object
+      properties:
+        firstName: 
+          type: string
+          description: User first name
+        lastName:
+          type: string
+          description: User last name
+        address:
+          type: string
+          description: Address of the user's location
+        city:
+          type: string
+          description: City of the user's location
+        phone:
+          type: string
+          unique: true
+          description: Phone number of the user
+    ProfilePicture:
+      type: object
+      properties:
+        image:
+          type: string
+          format: binary
+          description: Image file for user's profile picture
