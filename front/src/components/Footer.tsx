@@ -108,9 +108,11 @@ export default function Footer() {
               height={35}
             />
           </div>
-          <div className="text-[8px] mx-4 md:text-[16px] ">
+          <div className="text-[8px] mx-4 md:text-[12px] ">
             <p>2024 Alquileres Ya!</p>
             <p>Todos los derechos reservados</p>
+            <p>Realizado dentro del programa Emulaciones - Programador Promedio</p>
+            <p>No realice ninguna operación sin antes constatar la información de la propiedad y/o propietario</p>
           </div>
         </div>
 
@@ -122,13 +124,15 @@ export default function Footer() {
             width={24}
             height={24}
           />
-          <Image
-            src={Instagram}
-            alt="Icono Facebook"
-            className="md:w-[64px] md:h-[64px]"
-            width={24}
-            height={24}
-          />
+          <Link href='https://www.instagram.com/programadorpromedio_/' target="_blank" className="w-8 sm:w-max">
+            <Image
+              src={Instagram}
+              alt="Icono Facebook"
+              className=" md:w-[64px] md:h-[64px]"
+              width={24}
+              height={24}
+            />
+          </Link>
           <Image
             src={Twitter}
             alt="Icono Facebook"
