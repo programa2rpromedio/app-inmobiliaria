@@ -87,14 +87,96 @@ paths:
       summary: Get property by id.
       tags: 
         - Properties
+      parameters: 
+      - name: pid
+        id: path
+        required: true
+        description: Property id to search
+        schema:
+          $type: String
+      responses:
+        "200":
+          description: "Success: Property successfully obtained"
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#components/schemas/Property'
+        "404":
+          description: "Not found: Property not found"
+        "500":
+          description: "Internal server error"
     put:
       summary: Update property by id.
       tags: 
         - Properties
+      parameters: 
+      - name: pid
+        in: path
+        required: true
+        description: Property id to update
+        schema:
+          $type: String
+      - name: Authorization
+        in: header
+        required: true
+        description: Bearer token for authorization
+        schema:
+          type: string
+          format: string
+          example: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/requestBodies/UpdateProperty'
+      responses:
+        "200":
+          description: "Success: User successfully updated"
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#components/schemas/Property'
+        "401":
+          description: "Not Authorized: Login is required"
+        "403":
+          description: "Forbidden: The logged in user does not have access to update this property's information"
+        "404":
+          description: "Not Found: Property not found"
+        "500":
+          description: "Internal server error"
     delete: 
       summary: Delete property by id.
       tags: 
-        - Properties  
+        - Properties 
+      parameters: 
+        - name: pid
+          in: path
+          required: true
+          description: Property id to delete
+          schema:
+            $type: String
+        - name: Authorization
+          in: header
+          required: true
+          description: Bearer token for authorization
+          schema:
+            type: string
+            format: string
+            example: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+      responses:
+        "200":
+          description: "Success: Property successfully deleted"
+        "401":
+          description: "Not Authorized: Login is required"
+        "403":
+          description: "Forbidden: The logged in user does not have access to delete this property"
+        "404":
+          description: "Not Found: Property not found"
+        "500":
+          description: "Internal server error"  
 components:
   schemas:
     Property:
@@ -373,6 +455,150 @@ components:
           type: string
           format: binary
           description: Image files for property's pictures
+        value:
+          type: integer
+          description: property value expressed in the currency defined in currency field.
+        currency:
+          type: string
+          description: Currency of the property's price
+          enum:
+            - ARS
+            - USD
+          default: ARS
+        province:
+          type: string
+          description: property's province location
+        city:
+          type: string
+          description: property's city location
+        addressStreet:
+          type: string
+          description: property's address street
+        addressNumber:
+          type: string
+          description: property's address number
+        lat:
+          type: integer
+          description: property's geographical latitud value
+        lon:
+          type: integer
+          description: property's geographical longitude value
+        totalArea:
+          type: integer
+          description: property's total area in square meters.
+        coveredArea:
+          type: integer
+          description: property's covered area in square meters.
+        rooms:
+          type: integer
+          description: property's total amount of rooms.
+        bedrooms:
+          type: integer
+          description: property's total amount of bedrooms.
+        bathrooms:
+          type: integer
+          description: property's total amount of bathrooms.
+        wifi:
+          type: boolean
+          description: property wifi availability
+        tv:
+          type: boolean
+          description: property tv availability
+        kitchen:
+          type: boolean
+          description: property kitchen availability
+        ac:
+          type: boolean
+          description: property ac availability
+        freeParking:
+          type: boolean
+          description: property freeParking availability
+        paidParking:
+          type: boolean
+          description: property paidParking availability
+        washingMachine:
+          type: boolean
+          description: property washingMachine availability
+        wokspace:
+          type: boolean
+          description: property wokspace availability
+        pool:
+          type: boolean
+          description: property pool availability
+        jacuzzi:
+          type: boolean
+          description: property jacuzzi availability
+        gym:
+          type: boolean
+          description: property gym availability
+        bbq:
+          type: boolean
+          description: property bbq availability
+        backyard:
+          type: boolean
+          description: property backyard availability
+        garden:
+          type: boolean
+          description: property garden availability
+        soccerField:
+          type: boolean
+          description: property soccerField availability
+        terrace:
+          type: boolean
+          description: property terrace availability
+        pets:
+          type: boolean
+          description: property pet permit
+        age:
+          type: integer
+          description: property age
+        disposition:
+          type: string
+          description: property disposition
+        orientation:
+          type: string
+          description: property orientation
+        condition:
+          type: string
+          description: property condition
+        state:
+          type: string
+          description: property state
+        status:
+          type: string
+          description: property status
+          enum: 
+            - active
+            - rented
+            - paused
+    UpdateProperty:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Property publication title
+        category:
+          type: string
+          description: Property category
+          enum:
+            - house
+            - apartment
+            - cabin
+            - hotel
+            - country-house
+            - camping
+        type:
+          type: string
+          description: Type of property contract.
+          enum:
+            - permanent
+            - temporary
+        availabilityDate:
+          type: date
+          description: date from which the property is available. By default is stored as publication date.
+        description:
+          type: string
+          description: detailed description of properties main characteristics.
         value:
           type: integer
           description: property value expressed in the currency defined in currency field.

@@ -6,7 +6,7 @@ paths:
         - Users
       responses:
         "200":
-          description: "Users successfully obtained"
+          description: "Success: Users successfully obtained"
           content:
             application/json:
               schema:
@@ -29,14 +29,14 @@ paths:
           $type: String
       responses:
         "200":
-          description: "User successfully obtained"
+          description: "Success: User successfully obtained"
           content:
             application/json:
               schema:
                 type: object
                 $ref: '#components/schemas/User'
         "404":
-          description: "User not found"
+          description: "Not found: User not found"
         "500":
           description: "Internal server error"
     put:
