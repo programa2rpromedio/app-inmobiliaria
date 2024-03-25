@@ -1,5 +1,5 @@
 import React from 'react'
-import VectorLivingRoom from '@/images/living-room.png'
+import VectorLivingRoom from '@/images/living-room.svg'
 import Image from 'next/image'
 import { Button } from '../ui/button'
 

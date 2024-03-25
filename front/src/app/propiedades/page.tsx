@@ -3,6 +3,7 @@ import ContainerProperties from "@/components/ContainerProperties";
 import Header from "@/components/Header";
 import { instanceAxios } from "@/lib/axios";
 import { PropertyCard } from "@/lib/types";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Page() {
@@ -26,12 +27,23 @@ export default function Page() {
     }
   }
 
+  const searchParams = useSearchParams();
+  const city = searchParams.get("city");
+  console.log(city);
+
+
 
   useEffect(() => {
-    instanceAxios.get('/properties')
-      .then(res => setProperties(res.data))
-      .catch(err => console.log(err))
-  }, [])
+    if (city === null) {
+      instanceAxios.get(`/properties`)
+        .then(res => setProperties(res.data))
+        .catch(err => console.log(err))
+    } else {
+      instanceAxios.get(`/properties/?city=${city}`)
+        .then(res => setProperties(res.data))
+        .catch(err => console.log(err))
+    }
+  }, [city])
 
 
   return (

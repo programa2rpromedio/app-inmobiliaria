@@ -1,12 +1,12 @@
 // import React from 'react'
 import Step from './Step'
 import Image from 'next/image'
-import Casa from '@/images/casa.png'
-import Cabin from '@/images/cabaña.png'
-import Departamento from '@/images/departamento.png'
-import Hotel from '@/images/hotel.png'
-import Camping from '@/images/camping.png'
-import Quinta from '@/images/quinta.png'
+import Casa from '@/images/casa.svg'
+import Cabin from '@/images/cabania.svg'
+import Departamento from '@/images/departamento.svg'
+import Hotel from '@/images/hotel.svg'
+import Camping from '@/images/camping.svg'
+import Quinta from '@/images/quinta.svg'
 import { Button } from '../ui/button'
 import React, { useRef, useEffect, useState } from 'react';
 import { useMapsLibrary } from '@vis.gl/react-google-maps';

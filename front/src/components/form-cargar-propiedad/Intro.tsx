@@ -1,5 +1,5 @@
 import Image from "next/image";
-import VectorInteriorCasa from '@/images/vector_interior_casa.png'
+import VectorInteriorCasa from '@/images/interior_casa.svg'
 import { Button } from "@/components/ui/button";
 import { StepContext } from "@/lib/ContextFormProp";
 import { useContext } from "react";
@@ -23,8 +23,8 @@ export default function Intro() {
           <h4 className="font-[600] sm:text-[1.5rem]">Cuentanos un poco de tu propiedad</h4>
           <p className="text-pretty">Para poder subir tu oferta de inmueble exitosamente con nosotros, necesitaremos saber las características de tu alojamiento, desde servicios y ubicación, hasta otras comodidades que se incluyen para tus posibles inquilinos</p>
         </div>
-        <Image src={VectorInteriorCasa.src} width={357} height={259} alt="vector interior casa" className="sm:hidden" />
-        <Image src={VectorInteriorCasa.src} width={600} height={600} alt="vector interior casa" className="hidden sm:block" />
+        <Image src={VectorInteriorCasa.src} width={600} height={600} alt="vector interior casa" className=" hidden lg:block" />
+        <Image src={VectorInteriorCasa.src} width={400} height={400} alt="vector interior casa" className=" lg:hidden" />
         <div className="flex flex-col gap-2 mt-8 sm:hidden">
           <Button variant="default" size="lg" onClick={handleNextStep} >Comenzar</Button>
           <Button variant="outline" size="lg" >Salir</Button>

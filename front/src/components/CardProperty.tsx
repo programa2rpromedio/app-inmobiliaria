@@ -45,7 +45,6 @@ export default function CardProperty(prop: PropertyCard) {
         </div>
       </div>
       <div className='px-4 py-2 w-full'>
-        {/* TODO */}
         <Link href={`/propiedades/[id]?id=${propertyId}`} className='bg-primary text-primary-foreground hover:bg-primary/90 w-full block h-11 rounded-md px-8 text-center py-[10px]'> Ver más </Link>
       </div>
     </div>

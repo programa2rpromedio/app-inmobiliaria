@@ -81,7 +81,8 @@ export default function FourthStep(props: FourthStepProps) {
 
     formData.append('userId', user?._id)
     try {
-      const response = await instanceAxios.post('/properties', formData)
+      //TODO revisar token
+      const response = await instanceAxios.post('/properties', formData, { headers: { 'Authorization': user.token } })
       if (response.status === 201) {
         setIsFinishUpload(true)
       }
@@ -113,19 +114,19 @@ export default function FourthStep(props: FourthStepProps) {
 
           <div className='mt-5'>
             <h2 className='text-[#000000]'>Descripción</h2>
-            <Textarea id="description" placeholder="Describe brevemente tu propiedad." required rows={4}  {...register('description')} onChange={handleChange} />
+            <Textarea id="description" placeholder="Describe brevemente tu propiedad." className='bg-transparent' required rows={4}  {...register('description')} onChange={handleChange} />
             {formState.errors.description && <p className='text-2 text-[#e94a4a] mt-2'>{formState.errors.description?.message}</p>}
           </div>
 
           <div className='mt-5'>
             <h2 className='text-[#000000] mb-4'>Agregar fotos</h2>
             <p>Agrega hasta 5 fotos para mostrar tu propiedad.</p>
-            <FileInput id="images" multiple className='mt-5' name='images' required ref={refForm} />
+            <FileInput id="images" multiple className='mt-5 bg-transparent' name='images' required ref={refForm} />
           </div>
 
           <div className='mt-5'>
             <h2 className='text-[#000000] mb-4'>Tipo de operación</h2>
-            <Select id="type" required {...register('type')} onChange={handleChange} >
+            <Select id="type" required {...register('type')} onChange={handleChange} className='bg-transparent'>
               <option>{ }</option>
               <option value='permanent'>Permanente</option>
               <option value='temporary'>Temporario</option>

@@ -11,7 +11,6 @@ import BuscaDescubre from "@/images/buscaDescubre.svg";
 import Conecta from "@/images/conectaCasa.svg";
 import Presentacion from "@/images/presentacion.svg";
 import userDefault from "@/images/userDefault.png";
-import PropiedadCard from "@/components/PropiedadCard";
 import Footer from "@/components/Footer";
 import CardProperty from "@/components/CardProperty";
 import { useEffect, useState } from "react";
@@ -23,6 +22,7 @@ export default function Page() {
 
   const [user, setUser] = useState<User | undefined>()
   const [properties, setProperties] = useState<PropertyCard[] | undefined>()
+  const [city, setCity] = useState<string | undefined>()
 
 
   useEffect(() => {
@@ -33,6 +33,15 @@ export default function Page() {
   }, [])
 
 
+  const handleFilterByCity = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    window.location.href = `/propiedades/?city=${city}`
+  }
+
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCity(e.target.value)
+  }
 
   return (
     <main className=" mx-auto ">
@@ -101,7 +110,7 @@ export default function Page() {
       </section>
 
       <section className=" w-[324px] flex mt-5 mx-auto justify-center sm:w-[50%]">
-        <div className="bg-[#ffffff] flex justify-around   p-1 w-full sm:rounded-[4rem]">
+        <form className="bg-[#ffffff] flex justify-around   p-1 w-full sm:rounded-[4rem]" onSubmit={(e) => handleFilterByCity(e)}>
           <div className="flex items-center w-full px-1">
             <Image
               src={Search}
@@ -114,6 +123,7 @@ export default function Page() {
               type="text"
               placeholder="¿Dónde querés mudarte?"
               className="flex mx-2 w-full sm:w-full text-[14px] border-y-transparent border-l-transparent border-[#797687] border-r-[1px] focus:ring-0 focus:border-r  focus-visible:border-y-transparent  focus-visible:border-l-transparent"
+              onChange={(e) => handleChange(e)}
             />
           </div>
           {/* <div className="hidden md:flex items-center">
@@ -134,7 +144,7 @@ export default function Page() {
           </div> */}
           <Button variant='default' size='lg' className="hidden md:block rounded-[40px]">Buscar</Button>
           <Button variant='default' size='sm' className=" md:hidden rounded-[40px]">Buscar</Button>
-        </div>
+        </form>
       </section>
 
       <section >
