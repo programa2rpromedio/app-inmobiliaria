@@ -24,7 +24,7 @@ class PropertiesService {
         Object.assign(filter, { status: options.status });
       }
       if (opt === "city") {
-        Object.assign(filter, { "location.city": options.city });
+        Object.assign(filter, { "location.city": { $regex: new RegExp(options.city, "i") } });
       }
       if (opt === "neighborhood") {
         Object.assign(filter, {
@@ -151,7 +151,7 @@ class PropertiesService {
           newProperty.characteristics[key] = payload.characteristics[key];
         }
       }
-    } 
+    }
 
     const updatedProperty = await Properties.findByIdAndUpdate(pid, { $set: newProperty }, { new: true });
     return updatedProperty;
@@ -165,8 +165,8 @@ class PropertiesService {
     if (JSON.stringify(user._id) !== JSON.stringify(property.user_id)) {
       throw new HttpError("Only owner can delete property", FORBIDDEN);
     }
-    if(property.property_pictures && property.property_pictures.length){
-      for(let i = 0; i < property.property_pictures.length; i++){
+    if (property.property_pictures && property.property_pictures.length) {
+      for (let i = 0; i < property.property_pictures.length; i++) {
         await deleteImage(property.property_pictures[i].public_id)
       }
 
