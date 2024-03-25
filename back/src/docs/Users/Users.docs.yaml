@@ -227,12 +227,12 @@ components:
             - owner
           default: tenant
           description: Role of the user. Allowed values are admin, tenant or  owner
-          city:
-            type: string
-            description: City of the user's location
-          address:
-            type: string
-            description: Address of the user's location
+        city:
+          type: string
+          description: City of the user's location
+        address:
+          type: string
+          description: Address of the user's location
         phone:
           type: string
           unique: true
