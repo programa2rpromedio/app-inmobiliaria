@@ -3,7 +3,7 @@ import Users from "../models/User.js";
 import HttpError from "../utils/HttpError.util.js";
 import { createHash } from "../utils/bcrypt.util.js";
 import { deleteImage } from "../utils/cloudinary.utils.js";
-import { FORBIDDEN, NOT_FOUND } from "../utils/constants.util.js";
+import { BAD_REQUEST, FORBIDDEN, NOT_FOUND } from "../utils/constants.util.js";
 
 class UsersService {
   static async getAllUsers() {
@@ -29,6 +29,10 @@ class UsersService {
   }
 
   static async createUser(userDTO) {
+    const existingUser = await Users.findOne({ email: userDTO.email }).lean()
+    if(existingUser){
+      throw new HttpError("Email addess already in use", BAD_REQUEST);
+    }
     const newPass = createHash(userDTO.password);
     const newUser = {
       ...userDTO,

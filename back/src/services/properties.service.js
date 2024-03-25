@@ -26,24 +26,9 @@ class PropertiesService {
       if (opt === "city") {
         Object.assign(filter, { "location.city": { $regex: new RegExp(options.city, "i") } });
       }
-      if (opt === "neighborhood") {
-        Object.assign(filter, {
-          "location.neighborhood": options.neighborhood,
-        });
-      }
       if (opt === "rooms") {
         Object.assign(filter, {
           "features.rooms": +options.rooms,
-        });
-      }
-      if (opt === "bedrooms") {
-        Object.assign(filter, {
-          "features.bedrooms": +options.bedrooms,
-        });
-      }
-      if (opt === "bathrooms") {
-        Object.assign(filter, {
-          "features.bathrooms": +options.bathrooms,
         });
       }
     });
