@@ -124,36 +124,41 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
     }
   }, []);
 
-  const [form, setForm] = useState();
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      nombre: "",
+      apellido: "",
+      pais: "",
+      ciudad: "",
+      direccion: "",
+      email: "",
+      telefono: "",
+    },
+  });
 
   useEffect(() => {
     if (user) {
-      setForm(
-        useForm<z.infer<typeof formSchema>>({
-          resolver: zodResolver(formSchema),
-          defaultValues: {
-            nombre: user.firstName,
-            apellido: user.lastName,
-            pais: user.firstName,
-            ciudad: user.city,
-            direccion: user.address,
-            email: user.email,
-            telefono: user.phone,
-          },
-        })
-      );
+      form.setValue("nombre", user.firstName);
+      form.setValue("apellido", user.lastName);
+      //En el User del sessionStorage no se almacena el país
+      form.setValue("pais", user.city);
+      form.setValue("ciudad", user.city);
+      form.setValue("direccion", user.address);
+      form.setValue("email", user.email);
+      form.setValue("telefono", user.phone);
     }
-  }, [user]);
+  }, [user, form]);
 
-  const [formData, setFormData] = useState<UserData>({
-    nombre: userData.nombre || "",
-    apellido: userData.apellido || "",
-    ciudad: userData.ciudad || "",
-    pais: userData.pais || "",
-    direccion: userData.direccion || "",
-    email: userData.email || "",
-    telefono: userData.telefono || "",
-  });
+  // const [formData, setFormData] = useState<UserData>({
+  //   nombre: userData.nombre || "",
+  //   apellido: userData.apellido || "",
+  //   ciudad: userData.ciudad || "",
+  //   pais: userData.pais || "",
+  //   direccion: userData.direccion || "",
+  //   email: userData.email || "",
+  //   telefono: userData.telefono || "",
+  // });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     // instanceAxios.put(`/users/${id}}`, values)
@@ -296,20 +301,6 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
                 name="apellido"
                 render={({ field }) => (
                   <FormItem className="">
-                    <FormLabel className="">Apellido</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="pais"
-                render={({ field }) => (
-                  <FormItem className="">
-                    <FormLabel className="">Pais</FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
@@ -322,7 +313,18 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
                 name="ciudad"
                 render={({ field }) => (
                   <FormItem className="">
-                    <FormLabel className="">Ciudad</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="ciudad"
+                render={({ field }) => (
+                  <FormItem className="">
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
@@ -334,8 +336,7 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
                 control={form.control}
                 name="direccion"
                 render={({ field }) => (
-                  <FormItem className="col-span-2 mt-1">
-                    <FormLabel className="">Dirección</FormLabel>
+                  <FormItem className="">
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
@@ -349,8 +350,7 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
                 control={form.control}
                 name="email"
                 render={({ field }) => (
-                  <FormItem className="col-span-2 mt-2">
-                    <FormLabel className="">Correo Electrónico</FormLabel>
+                  <FormItem className="">
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
@@ -362,8 +362,7 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
                 control={form.control}
                 name="telefono"
                 render={({ field }) => (
-                  <FormItem className="col-span-2">
-                    <FormLabel className="">Teléfono</FormLabel>
+                  <FormItem className="">
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
