@@ -9,7 +9,6 @@ import { APIProvider, Map, Marker } from "@vis.gl/react-google-maps";
 import { useEffect, useState } from "react";
 import { instanceAxios } from "@/lib/axios";
 import { PropertyCard } from "@/lib/types";
-import GoogleMapReact from "google-map-react";
 
 const mapsApiKey = "AIzaSyC5Imp84G-XJszq7Iep7djj0kI035RcbJk";
 
