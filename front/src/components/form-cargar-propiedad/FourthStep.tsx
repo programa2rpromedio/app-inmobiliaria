@@ -80,23 +80,16 @@ export default function FourthStep(props: FourthStepProps) {
     }
 
     formData.append('userId', user?._id)
+
     try {
-      //TODO revisar token
       const response = await instanceAxios.post('/properties', formData, { headers: { 'Authorization': user.token } })
+      console.log(response);
       if (response.status === 201) {
         setIsFinishUpload(true)
       }
     } catch (error) {
       setIsFinishUpload(false)
     }
-
-    // fetch('http://localhost:8080/api/properties', {
-    //   method: 'POST',
-    //   body: formData
-    // }).then(res => res.json()).then(data => setIsFinishUpload(true))
-    //   .catch(err => setIsFinishUpload(false)
-    //   )
-    // handleNextStep()
   }
 
 

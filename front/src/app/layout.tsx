@@ -6,6 +6,10 @@ import { Poppins } from "next/font/google";
 export const metadata: Metadata = {
   title: "Alquileres Ya!",
   description: "Alquileres Ya!",
+  icons: {
+    icon: '/logoalquileresya.svg',
+    shortcut: '/logoalquileresya.svg',
+  }
 };
 
 const poppins = Poppins({

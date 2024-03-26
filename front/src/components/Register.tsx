@@ -99,8 +99,12 @@ export default function Register() {
   }
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+
+    console.log(values);
+
     try {
       const response = await instanceAxios.post('/auth/register', values)
+      console.log(response)
       if (response.status === 201) window.location.href = `http://localhost:3000/iniciar-sesion`
 
     } catch (error) {

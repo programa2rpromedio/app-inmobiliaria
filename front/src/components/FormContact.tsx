@@ -44,7 +44,8 @@ export default function FormContact({ idProperty }: Props) {
 
   const onSubmit = async (data: FormSchema) => {
     try {
-      const response = await instanceAxios.post(`/contact/${idProperty}`, data)
+      const response = await instanceAxios.post(`mail/contact/${idProperty}`, data)
+      //Todo mostart salida ok
       console.log(response);
     } catch (error) {
       console.log(error);
