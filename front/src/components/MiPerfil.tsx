@@ -19,7 +19,8 @@ import { z } from "zod";
 import { useState, useEffect } from "react";
 import imgAvatar from "@/images/juan.svg";
 import Image from "next/image";
-import Logo from "@/images/logo.svg";
+
+import Logo from "@/images/logoalquileresya.svg";
 import Notificacion from "@/images/notificacion.svg";
 import Configuracion from "@/images/configuracion.svg";
 import agregarFoto from "@/images/agregarFoto.svg";
@@ -150,16 +151,18 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
     }
   }, [user, form]);
 
-  // const [formData, setFormData] = useState<UserData>({
-  //   nombre: userData.nombre || "",
-  //   apellido: userData.apellido || "",
-  //   ciudad: userData.ciudad || "",
-  //   pais: userData.pais || "",
-  //   direccion: userData.direccion || "",
-  //   email: userData.email || "",
-  //   telefono: userData.telefono || "",
-  // });
+  function traducirRol(rol: string) {
+    switch (rol) {
+      case "tenant":
+        return "Inquilino";
+      case "owner":
+        return "Propietario";
+      default:
+        return rol;
+    }
+  }
 
+  // Mandar la actualizacion de los campos al back
   function onSubmit(values: z.infer<typeof formSchema>) {
     // instanceAxios.put(`/users/${id}}`, values)
     //   .then(res => console.log(res))
@@ -181,10 +184,9 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
                 src={Logo}
                 alt="Logo de la App"
                 className="flex"
-                width={72}
-                height={72}
+                width={220}
+                height={52}
               />
-              <p className="text-[17px] font-semibold m-4"> Alquileres Ya!</p>
             </div>
           </div>
           <div className="flex justify-between items-center gap-12 ">
@@ -230,15 +232,18 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
               width={72}
               height={72}
             />
-
-            <div className="flex flex-col gap-4 items-center ">
-              <h2 className="font-semibold text-[20px] text-[#08367D]">
-                Juan Perez
-              </h2>
-              <p className="bg-[#6ABAA3] text-center p-[3px] rounded-[22px] w-[86px] h-[22px] text-[12px] text-[#F6F6F6] ">
-                Inquilino
-              </p>
-            </div>
+            {user ? (
+              <div className="flex flex-col gap-4 items-center ">
+                <h2 className="font-semibold text-[20px] text-[#08367D]">
+                  {user.firstName + " " + user.lastName}
+                </h2>
+                <p className="bg-[#6ABAA3] text-center p-[3px] rounded-[22px] w-[86px] h-[22px] text-[12px] text-[#F6F6F6] ">
+                  {traducirRol(user.role)}
+                </p>
+              </div>
+            ) : (
+              <p>No hay usuario</p>
+            )}
           </div>
         </div>
 
@@ -262,14 +267,18 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
                 />
               </div>
             </div>
-            <div className="flex flex-col gap-4 items-center mb-8">
-              <h2 className="font-bold text-[32px] text-[#242633]">
-                Juan Perez
-              </h2>
-              <p className="bg-[#6ABAA3] text-center p-[3px] rounded-[22px] w-[186px] h-[46px] text-[25px] text-[#F6F6F6] ">
-                Inquilino
-              </p>
-            </div>
+            {user ? (
+              <div className="flex flex-col gap-4 items-center mb-8">
+                <h2 className="font-bold text-[32px] text-[#242633]">
+                  {user.firstName + " " + user.lastName}
+                </h2>
+                <p className="bg-[#6ABAA3] text-center p-[3px] rounded-[22px] w-[186px] h-[46px] text-[25px] text-[#F6F6F6] ">
+                  {traducirRol(user.role)}
+                </p>
+              </div>
+            ) : (
+              <p>No hay usuario</p>
+            )}
           </div>
         </aside>
 
@@ -336,7 +345,7 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
                 control={form.control}
                 name="direccion"
                 render={({ field }) => (
-                  <FormItem className="">
+                  <FormItem className="col-span-2 mt-1">
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
@@ -350,7 +359,7 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
                 control={form.control}
                 name="email"
                 render={({ field }) => (
-                  <FormItem className="">
+                  <FormItem className="col-span-2 mt-2">
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
@@ -362,7 +371,7 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
                 control={form.control}
                 name="telefono"
                 render={({ field }) => (
-                  <FormItem className="">
+                  <FormItem className="col-span-2 mt-2">
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
@@ -372,30 +381,34 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
               />
             </form>
 
-            <div className="grid grid-cols-2 gap-x-4 gap-y-6 w-[330px]">
-              <Button
-                className="mt-6 justify-self-start w-[156px] text-[14px] font-semibold"
-                variant="outline"
-                size="lg"
-              >
-                Editar Perfil
-              </Button>
+            <div className="grid grid-cols-2 gap-x-4 gap-y-6 w-[330px] mt-4">
+              {user ? (
+                <Button
+                  className="justify-center w-[330px] text-[14px] font-semibold"
+                  variant="default"
+                  size="lg"
+                >
+                  Editar Perfil
+                </Button>
+              ) : (
+                <>
+                  <Button
+                    className="mt-6 justify-self-start w-[156px] text-[14px] font-semibold"
+                    variant="outline"
+                    size="lg"
+                  >
+                    Editar Perfil
+                  </Button>
 
-              <Button
-                className="mt-6 justify-self-end w-[156px] text-[14px] font-semibold"
-                variant="default"
-                size="lg"
-              >
-                Guardar cambios
-              </Button>
-
-              <Button
-                className=" justify-center w-[330px] text-[14px] font-semibold"
-                variant="default"
-                size="lg"
-              >
-                Editar Perfil
-              </Button>
+                  <Button
+                    className="mt-6 justify-self-end w-[156px] text-[14px] font-semibold"
+                    variant="default"
+                    size="lg"
+                  >
+                    Guardar cambios
+                  </Button>
+                </>
+              )}
             </div>
           </Form>
         </main>
