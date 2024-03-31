@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -16,19 +15,21 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import imgAvatar from "@/images/juan.svg";
 import Image from "next/image";
-
+import { FileInput } from 'flowbite-react';
 import Logo from "@/images/logoalquileresya.svg";
 import Notificacion from "@/images/notificacion.svg";
 import Configuracion from "@/images/configuracion.svg";
 import agregarFoto from "@/images/agregarFoto.svg";
 import { Separator } from "@/components/ui/separator";
 import { instanceAxios } from "@/lib/axios";
+import userDefault from "@/images/userDefault.png";
+
 
 const formSchema = z.object({
-  nombre: z
+  firtName: z
     .string({
       required_error: "Campo requerido",
     })
@@ -36,7 +37,7 @@ const formSchema = z.object({
       message: "El nombre debe tener al menos 2 caracteres",
     })
     .max(50),
-  apellido: z
+  lastName: z
     .string({
       required_error: "Campo requerido",
     })
@@ -44,15 +45,7 @@ const formSchema = z.object({
       message: "El apellido debe tener al menos 2 caracteres",
     })
     .max(50),
-  pais: z
-    .string({
-      required_error: "Campo requerido",
-    })
-    .min(2, {
-      message: "El país debe tener al menos 2 caracteres",
-    })
-    .max(50),
-  ciudad: z
+  city: z
     .string({
       required_error: "Campo requerido",
     })
@@ -60,7 +53,7 @@ const formSchema = z.object({
       message: "La ciudad debe tener al menos 2 caracteres",
     })
     .max(50),
-  direccion: z
+  address: z
     .string({
       required_error: "Campo requerido",
     })
@@ -76,7 +69,7 @@ const formSchema = z.object({
     .min(1, {
       message: "Campo requerido",
     }),
-  telefono: z
+  phone: z
     .string({
       required_error: "Campo requerido",
     })
@@ -87,13 +80,12 @@ const formSchema = z.object({
 });
 
 type UserData = {
-  nombre: string;
-  apellido: string;
-  ciudad: string;
-  pais: string;
-  direccion: string;
+  firtName: string;
+  lastName: string;
+  city: string;
+  address: string;
   email: string;
-  telefono: string;
+  phone: string;
 };
 
 interface ProfileFormProps {
@@ -110,14 +102,47 @@ interface User {
   city: string;
   address: string;
   phone: string;
-  favourites: any[];
+  favourites?: any[];
   token: string;
 }
 
-const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
-  const [isEditing, setEditing] = useState(false);
-  const [user, setUser] = useState<User | null>(null);
 
+const ModalNoUser = () => {
+
+  const refModal = useRef(null)
+
+  const closeModal = () => {
+    if (refModal.current == null) return
+    window.location.href = '/propiedades'
+  }
+
+
+  return (
+    <div ref={refModal} onClick={closeModal} className='z-30 min-h-[100vh] h-full w-[100vw] bg-[#2222223c] absolute left-0 top-0 flex justify-center items-center'>
+      <div className='bg-[#fff]  w-[90%] sm:w-[50%] rounded-[1rem]'>
+        <div className='p-2 cursor-pointer' onClick={closeModal}>X</div>
+        <div className='p-4 flex flex-col items-center gap-5'>
+          <>
+            <strong>❌</strong>
+            <h2 className='font-bold text-[#d94242] text-[1.2rem]'>¡No iniciaste sesion! </h2>
+            <h3>Vuelva a intentarlo.</h3>
+            <Button variant='default' size='lg' className='bg-[#d94242] hover:bg-[#d94242d1]' >Iniciar Sesion</Button>
+          </>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+
+
+
+const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
+
+  const [isEditing, setEditing] = useState(false);
+  const [user, setUser] = useState<User>();
+  const refFormImage = useRef(null)
+  const formData = new FormData()
   useEffect(() => {
     const storedUser = sessionStorage.getItem("user");
     if (storedUser) {
@@ -127,27 +152,16 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      nombre: "",
-      apellido: "",
-      pais: "",
-      ciudad: "",
-      direccion: "",
-      email: "",
-      telefono: "",
-    },
   });
 
   useEffect(() => {
     if (user) {
-      form.setValue("nombre", user.firstName);
-      form.setValue("apellido", user.lastName);
-      //En el User del sessionStorage no se almacena el país
-      form.setValue("pais", user.city);
-      form.setValue("ciudad", user.city);
-      form.setValue("direccion", user.address);
+      form.setValue("firtName", user.firstName);
+      form.setValue("lastName", user.lastName);
+      form.setValue("city", user.city);
+      form.setValue("address", user.address);
       form.setValue("email", user.email);
-      form.setValue("telefono", user.phone);
+      form.setValue("phone", user.phone);
     }
   }, [user, form]);
 
@@ -162,11 +176,55 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
     }
   }
 
+
+
   // Mandar la actualizacion de los campos al back
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // instanceAxios.put(`/users/${id}}`, values)
-    //   .then(res => console.log(res))
-    //   .catch(err => console.log(err))
+
+    instanceAxios.put(`/users/${user?._id}`, values, { headers: { 'Authorization': user?.token } })
+      .then(res => {
+        if (res.data) {
+          setUser((prev) => ({
+            _id: res.data._id as string,
+            firstName: res.data.first_name as string,
+            lastName: res.data.last_name as string,
+            email: res.data.email as string,
+            profilePicture: res.data.profile_picture as any,
+            role: res.data.role as string,
+            city: res.data.location.city as string,
+            address: res.data.location.address as string,
+            phone: res.data.phone as string,
+            token: prev?.token as string || ''
+          }))
+        }
+      })
+      .catch(err => console.log(err))
+
+    if (refFormImage.current) {
+      let file = refFormImage.current as HTMLFormElement
+      formData.append('image', file.files[0]);
+      instanceAxios.patch(`/users/${user?._id}/update-image`, formData, { headers: { 'Authorization': user?.token } })
+        .then(res => {
+          if (res.data) {
+            setUser((prev) => ({
+              _id: res.data._id as string,
+              firstName: res.data.first_name as string,
+              lastName: res.data.last_name as string,
+              email: res.data.email as string,
+              profilePicture: res.data.profile_picture as any,
+              role: res.data.role as string,
+              city: res.data.location.city as string,
+              address: res.data.location.address as string,
+              phone: res.data.phone as string,
+              token: prev?.token as string || ''
+            }))
+          }
+        })
+        .catch(err => console.log(err))
+    }
+
+
+
   }
 
   return (
@@ -211,7 +269,7 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
               />
             </div>
             <Image
-              src={imgAvatar}
+              src={user?.profilePicture?.url ?? userDefault.src}
               alt="Avatar del Usuario"
               className="rounded-[100%] shadow-xl"
               width={76}
@@ -226,7 +284,7 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
           <h1 className="font-bold text-[16px] mt-8 text-center">Mi Perfil</h1>
           <div className="flex justify-center gap-6 items-center mt-5">
             <Image
-              src={imgAvatar}
+              src={user?.profilePicture?.url ?? userDefault.src}
               alt="Avatar del Usuario"
               className="rounded-[100%] shadow-xl"
               width={72}
@@ -242,7 +300,7 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
                 </p>
               </div>
             ) : (
-              <p>No hay usuario</p>
+              <ModalNoUser />
             )}
           </div>
         </div>
@@ -251,7 +309,7 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
           <div className="flex flex-col  mx-auto gap-5 items-center mt-10">
             <div className="flex   ">
               <Image
-                src={imgAvatar}
+                src={user?.profilePicture?.url ?? userDefault.src}
                 alt="Avatar del Usuario"
                 className="rounded-[100%] shadow-xl"
                 width={235}
@@ -265,6 +323,7 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
                   width={38}
                   height={38}
                 />
+
               </div>
             </div>
             {user ? (
@@ -277,7 +336,7 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
                 </p>
               </div>
             ) : (
-              <p>No hay usuario</p>
+              <ModalNoUser />
             )}
           </div>
         </aside>
@@ -286,19 +345,19 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
           <h1 className="font-bold text-4xl mb-3 hidden sm:flex">Mi Perfil</h1>
           <h2 className="font-bold text-2xl mb-6">Datos Personales</h2>
 
-          <Form {...form}>
+          <Form {...form} >
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="grid grid-cols-2 gap-x-4 gap-y-6 w-[330px]"
+              className="flex flex-wrap  gap-x-4 gap-y-6 "
             >
               {user && (
                 <FormField
                   control={form.control}
-                  name="nombre"
+                  name="firtName"
                   render={({ field }) => (
-                    <FormItem className="">
+                    <FormItem className="w-1/3">
                       <FormControl>
-                        <Input {...field} />
+                        <Input {...field} disabled={!isEditing ? true : false} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -307,11 +366,11 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
               )}
               <FormField
                 control={form.control}
-                name="apellido"
+                name="lastName"
                 render={({ field }) => (
-                  <FormItem className="">
+                  <FormItem className="w-1/3">
                     <FormControl>
-                      <Input {...field} />
+                      <Input {...field} disabled={!isEditing ? true : false} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -319,11 +378,11 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
               />
               <FormField
                 control={form.control}
-                name="ciudad"
+                name="city"
                 render={({ field }) => (
-                  <FormItem className="">
+                  <FormItem className="w-1/3">
                     <FormControl>
-                      <Input {...field} />
+                      <Input {...field} disabled={!isEditing ? true : false} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -331,37 +390,27 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
               />
               <FormField
                 control={form.control}
-                name="ciudad"
+                name="address"
                 render={({ field }) => (
-                  <FormItem className="">
+                  <FormItem className=" w-1/3">
                     <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="direccion"
-                render={({ field }) => (
-                  <FormItem className="col-span-2 mt-1">
-                    <FormControl>
-                      <Input {...field} />
+                      <Input {...field} disabled={!isEditing ? true : false} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
 
-              <h2 className="font-bold text-2xl ">Datos de Contacto</h2>
+              <div className="w-full">
+                <h2 className="font-bold text-2xl ">Datos de Contacto</h2>
+              </div>
               <FormField
                 control={form.control}
                 name="email"
                 render={({ field }) => (
-                  <FormItem className="col-span-2 mt-2">
+                  <FormItem className="w-1/3">
                     <FormControl>
-                      <Input {...field} />
+                      <Input {...field} disabled={!isEditing ? true : false} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -369,26 +418,47 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
               />
               <FormField
                 control={form.control}
-                name="telefono"
+                name="phone"
                 render={({ field }) => (
-                  <FormItem className="col-span-2 mt-2">
+                  <FormItem className="w-1/3">
                     <FormControl>
-                      <Input {...field} />
+                      <Input {...field} disabled={!isEditing ? true : false} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
+              <div className="w-full">
+                <label htmlFor="">
+                  Foto de perfil
+                </label>
+                <FileInput id="imageProfile" className='w-1/3' name='image' ref={refFormImage} disabled={!isEditing ? true : false} />
+              </div>
+
+              {
+                isEditing ?
+                  <Button
+                    className="mt-6  w-1/3 text-[14px] font-semibold"
+                    variant="outline"
+                    size="lg"
+                    type="submit"
+                  >
+                    Guardar cambios
+                  </Button>
+                  : null
+              }
             </form>
 
-            <div className="grid grid-cols-2 gap-x-4 gap-y-6 w-[330px] mt-4">
+            <div className=" gap-x-4 gap-y-6 w-full mt-4">
               {user ? (
                 <Button
-                  className="justify-center w-[330px] text-[14px] font-semibold"
+                  className="justify-center w-1/3 text-[14px] font-semibold"
                   variant="default"
                   size="lg"
+                  onClick={() => setEditing(!isEditing)}
                 >
-                  Editar Perfil
+                  {isEditing ? 'Dejar de Editar' : 'Editar Perfil'}
+
                 </Button>
               ) : (
                 <>
@@ -396,19 +466,13 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
                     className="mt-6 justify-self-start w-[156px] text-[14px] font-semibold"
                     variant="outline"
                     size="lg"
+                    onClick={() => setEditing(!isEditing)}
                   >
                     Editar Perfil
                   </Button>
-
-                  <Button
-                    className="mt-6 justify-self-end w-[156px] text-[14px] font-semibold"
-                    variant="default"
-                    size="lg"
-                  >
-                    Guardar cambios
-                  </Button>
                 </>
               )}
+
             </div>
           </Form>
         </main>
