@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { useState, useEffect } from "react";
 import imgUserDefault from "@/images/userDefault.svg";
 import Image from "next/image";
+import arrowLeft from "@/images/arrowLeft.svg";
 
 import Logo from "@/images/logoalquileresya.svg";
 import Notificacion from "@/images/notificacion.svg";
@@ -28,7 +29,7 @@ interface User {
   token: string;
 }
 
-export default function Favoritos() {
+export default function MisPropiedades() {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
@@ -40,55 +41,75 @@ export default function Favoritos() {
 
   return (
     <div className="flex flex-col h-screen ">
-      <div className="bg-[#3354FF] text-[#3354FF] h-[43px] flex-block sm:hidden ">
-        {" "}
-        -
-      </div>
-
-      <header className=" bg-[#8E8E8E]/15  h-[152px] hidden sm:flex shadow-lg">
-        <div className="flex items-center w-full h-[152px] mx-24 justify-between  ">
-          <div className="flex items-center   ">
-            <div className="flex items-center">
-              <Image
-                src={Logo}
-                alt="Logo de la App"
-                className="flex"
-                width={200}
-                height={48}
-              />
-            </div>
-          </div>
-          <div className="flex justify-between items-center gap-12 ">
-            <div className="flex items-center gap-4">
-              <Image
-                src={Notificacion}
-                alt="Icono Notificacion"
-                className="flex"
-                width={40}
-                height={40}
-              />
-              <Separator
-                orientation="vertical"
-                className="h-[42px] mx-4  border-[#C2C0C7] border-[1px] "
-              />
-              <Image
-                src={Configuracion}
-                alt="Icono Configuracion"
-                className="flex"
-                width={40}
-                height={40}
-              />
-            </div>
+      <header className=" bg-[#8E8E8E]/15  h-[90px] flex flex-col shadow-lg">
+        <div className="flex h-[152px] mx-[20px] justify-between items-center  ">
+          <div className="flex ">
             <Image
-              src={user?.profilePicture || imgUserDefault}
+              src={Logo}
+              alt="Logo de la App"
+              className="flex"
+              width={120}
+              height={20}
+            />
+          </div>
+
+          <div className="flex h-[32px]  ">
+            <Image
+              src={imgUserDefault}
               alt="Avatar del Usuario"
               className="rounded-[100%] shadow-xl"
-              width={76}
-              height={76}
+              width={32}
+              height={32}
             />
           </div>
         </div>
+        <div className="flex items-center gap-1 ml-2">
+          <Image
+            src={arrowLeft}
+            alt="icono volver a la pagina anterior"
+            className=""
+            width={24}
+            height={24}
+          />
+          <p className="text-[14px]">Mis Favoritos</p>
+        </div>
       </header>
+
+      <section className="border rounded-[10px] shadow-3 m-3 py-4 px-2 mt-8 flex flex-col gap-5">
+        <div>
+          <p className="text-[14px] font-bold">
+            Tienes 4 propiedades Guardadas
+          </p>
+          <p className="text-[12px] font-semibold">3 en alquiler, 1 temporal</p>
+        </div>
+        <div className="flex flex-col gap-4">
+          <input
+            type="text"
+            className="rounded-[8px] text-[12px] font-semibold"
+            placeholder="Busca una propiedad"
+          />
+          <select
+            name=""
+            id=""
+            className="rounded-[8px] text-[12px] font-semibold"
+          ></select>
+        </div>
+      </section>
+
+      <section>
+        <div className="grid grid-cols-2 m-3 py-4 px-2 mt-8">
+          acá van tarjetas de las propiedades favoritas
+        </div>
+      </section>
+
+      <section className="flex flex-col mx-auto">
+        <p className="text-[12px] font-semibold text-center">
+          ¿Necesitas organizarte?
+        </p>
+        <p className="text-[12px] font-semibold text-center underline text-[#19BC86]">
+          Ver calendario
+        </p>
+      </section>
     </div>
   );
 }
