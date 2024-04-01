@@ -6,8 +6,6 @@ export default function CardFavorite(prop: PropertyCard) {
 
   const { title, value, city, province, coveredArea, rooms, pets, bedrooms, propertyPictures, propertyId } = prop
 
-  console.log(rooms);
-
   const handleClick = () => {
     const response = confirm('¿Seguro que desea eliminar la propiedad?')
     if (response === true) {
