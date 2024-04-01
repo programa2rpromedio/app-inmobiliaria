@@ -28,7 +28,7 @@ import Link from "next/link";
 
 
 const formSchema = z.object({
-  firtName: z
+  firstName: z
     .string({
       required_error: "Campo requerido",
     })
@@ -79,7 +79,7 @@ const formSchema = z.object({
 });
 
 type UserData = {
-  firtName: string;
+  firstName: string;
   lastName: string;
   city: string;
   address: string;
@@ -163,7 +163,7 @@ export default function Page() {
 
   useEffect(() => {
     if (user) {
-      form.setValue("firtName", user.firstName);
+      form.setValue("firstName", user.firstName);
       form.setValue("lastName", user.lastName);
       form.setValue("city", user.city);
       form.setValue("address", user.address);
@@ -368,7 +368,7 @@ export default function Page() {
               {user && (
                 <FormField
                   control={form.control}
-                  name="firtName"
+                  name="firstName"
                   render={({ field }) => (
                     <FormItem className="w-1/3">
                       <FormControl>

@@ -70,7 +70,7 @@ export default function Header({ getProperties }: Props) {
                 </Link>
               </div>
               :
-              <Link href='iniciar-sesion' className="bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2">Iniciar sesión</Link>
+              <Link href='/iniciar-sesion' className="bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2">Iniciar sesión</Link>
 
           }
         </div>

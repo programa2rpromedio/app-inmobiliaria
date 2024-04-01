@@ -24,6 +24,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { isDirty, z } from "zod"
 import { baseURL, instanceAxios } from "@/lib/axios";
+import Image from "next/image";
+import Logo from '@/images/logoalquileresya.svg'
 
 
 const formSchema = z.object({
@@ -115,6 +117,7 @@ export default function Register() {
   return (
 
     <div className="flex flex-col justify-center items-center gap-y-6 p-8 pb-0 sm:pb-8">
+      <Image src={Logo.src} alt="Logo Alquileres Ya" width={200} height={200} />
       <h1 className="font-bold text-[2rem]">Crear cuenta</h1>
       <Progress value={(step / 2) * 100} className="w-[346px] mb-4" />
       <Form {...form}>
