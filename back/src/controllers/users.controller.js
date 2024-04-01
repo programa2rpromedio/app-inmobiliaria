@@ -44,6 +44,7 @@ class UsersController {
   static async updateOne(req, res, next) {
     const { uid } = req.params;
     const payload = req.body;
+    console.log(payload);
     const { userId } = req
     try {
       if (uid !== userId) {
@@ -65,7 +66,7 @@ class UsersController {
         throw new HttpError("Unauthorized: Credentials do not match the user to be updated.", FORBIDDEN);
       }
       const user = await UsersService.getUserById(uid);
-      if(user.profile_picture.public_id){
+      if (user.profile_picture.public_id) {
         await deleteImage(user.profile_picture.public_id)
       }
       const folderName = `inmobiliaria/perfil`;

@@ -47,7 +47,6 @@ export default function IniciarSesion() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       const response = await instanceAxios.post('/auth/login', values)
-      console.log(response);
       if (response.status === 200) {
         sessionStorage.setItem('user', JSON.stringify({ ...response.data[0], token: response.data[1] }))
         window.location.href = 'http://localhost:3000/'
