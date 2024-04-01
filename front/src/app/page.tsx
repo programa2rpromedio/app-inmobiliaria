@@ -65,8 +65,10 @@ export default function Page() {
                   :
                   null
               }
-              <Image src={user.profilePicture?.url ?? userDefault.src} alt="user picture" width={70}
-                height={70} className=" sm:order-2" />
+              <Link href='/perfil'>
+                <Image src={user.profilePicture?.url ?? userDefault.src} alt="user picture" width={70}
+                  height={70} className=" sm:order-2" />
+              </Link>
             </div>
             :
             <Link href='iniciar-sesion' className="bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2">Iniciar sesión</Link>

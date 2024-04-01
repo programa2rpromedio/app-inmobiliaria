@@ -2,6 +2,7 @@ import Properties from "../models/Property.js";
 import HttpError from "../utils/HttpError.util.js";
 import { deleteImage } from "../utils/cloudinary.utils.js";
 import { FORBIDDEN, NOT_FOUND } from "../utils/constants.util.js";
+import { mongoose } from 'mongoose'
 
 class PropertiesService {
   static async getAllProperties(options) {
@@ -18,7 +19,8 @@ class PropertiesService {
         Object.assign(filter, { "price.value": { $gte: +options.min } });
       }
       if (opt === "user") {
-        Object.assign(filter, { user_id: options.user });
+        const objectId = new mongoose.Types.ObjectId(options.user);
+        Object.assign(filter, { user_id: objectId });
       }
       if (opt === "status") {
         Object.assign(filter, { status: options.status });

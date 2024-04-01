@@ -2,10 +2,13 @@ import { Button } from "@/components/ui/button"
 import { Grid } from '@radix-ui/themes'
 import Image from 'next/image'
 import placeHolder from '@/images/placeholder.jpg'
+import { useEffect, useState } from "react"
+import { instanceAxios } from "@/lib/axios"
 
 
 
 interface Props {
+  propertyId: string | null
   value: number | undefined
   addressStreet: string | undefined
   addressNumber: string | undefined
@@ -19,8 +22,33 @@ interface Props {
   }[] | undefined
 }
 
+interface User {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  profilePicture: any;
+  role: string;
+  city: string;
+  address: string;
+  phone: string;
+  favourites?: any[];
+  token: string;
+}
 
-const HeroDetail = ({ value, addressStreet, addressNumber, city, province, category, propertyPictures }: Props) => {
+
+
+const HeroDetail = ({ value, addressStreet, addressNumber, city, province, category, propertyPictures, propertyId }: Props) => {
+
+  const [user, setUser] = useState<User>();
+
+  useEffect(() => {
+    const storedUser = sessionStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
 
   let categoryName = ''
 
@@ -49,6 +77,14 @@ const HeroDetail = ({ value, addressStreet, addressNumber, city, province, categ
   }
 
 
+  const handleAddFavorite = () => {
+    // if (user) {
+    //   instanceAxios.patch(`/users/${user._id}/favourites/${propertyId}`, { headers: { 'Authorization': user.token } })
+    //     .then(res => console.log(res))
+    //     .catch(err => console.log(err))
+    // }
+  }
+
   return (
     <>
       <section className="w-full flex flex-col md:flex-row md:justify-between gap-y-2 mb-4">
@@ -58,7 +94,7 @@ const HeroDetail = ({ value, addressStreet, addressNumber, city, province, categ
         </div>
 
         <div className="flex gap-3">
-          <Button variant='outline'>Guardar</Button>
+          <Button variant='outline' disabled={user ? false : true} onClick={handleAddFavorite}>Guardar</Button>
           <Button variant='outline' onClick={() => {
             window.location.href = '/propiedades'
           }}>Decartar</Button>

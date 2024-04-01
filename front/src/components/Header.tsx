@@ -50,33 +50,26 @@ export default function Header({ getProperties }: Props) {
         <div className="flex justify-between sm:justify-normal items-center gap-2">
           <Image src={logo} alt="Logo Alquileres Ya" width={200} height={200} />
         </div>
-        <div className="flex justify-between sm:justify-normal items-center gap-4 md:gap-32">
-          {user ? (
-            <div className="flex justify-between gap-4 w-full items-center sm:gap-8 md:gap-16 sm:justify-normal sm:px-2">
-              {user.role === "owner" ? (
-                <Link
-                  href="cargar-propiedad"
-                  className="order-2 sm:order-1 border border-primary text-primary hover:bg-muted h-10 px-4 py-2"
-                >
-                  Publicar propiedad
+        <div className='flex justify-between sm:justify-normal items-center gap-4 md:gap-32'>
+
+          {
+            user ?
+              <div className="flex justify-between gap-4 w-full items-center sm:gap-8 md:gap-16 sm:justify-normal sm:px-2">
+                {
+                  user.role === 'owner' ?
+                    <Link href='cargar-propiedad' className="order-2 sm:order-1 border border-primary text-primary hover:bg-muted h-10 px-4 py-2">Publicar propiedad</Link>
+                    :
+                    null
+                }
+                <Link href='/perfil'>
+                  <Image src={user.profilePicture?.url ?? userDefault.src} alt="user picture" width={70}
+                    height={70} className=" sm:order-2" />
                 </Link>
-              ) : null}
-              <Image
-                src={user.profilePicture?.url ?? userDefault.src}
-                alt="user picture"
-                width={70}
-                height={70}
-                className=" sm:order-2"
-              />
-            </div>
-          ) : (
-            <Link
-              href="iniciar-sesion"
-              className="bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
-            >
-              Iniciar sesión
-            </Link>
-          )}
+              </div>
+              :
+              <Link href='iniciar-sesion' className="bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2">Iniciar sesión</Link>
+
+          }
         </div>
       </div>
 
@@ -88,11 +81,7 @@ export default function Header({ getProperties }: Props) {
       <hr className="w-[50%] mb-[20px]  border-[#CAC4D0]" />
 
       <div>
-        <Link
-          href=""
-          className={`mr-[10px] border border-b-0 p-2 rounded-[4px] ${
-            viewType === "Alquiler" ? "border-b-[3px] border-primary " : null
-          }`}
+        <Link href='' className={`mr-[10px] border border-b-0 p-2 rounded-[4px] ${viewType === 'Alquiler' ? 'border-b-[3px] border-primary ' : null}`}
           onClick={(e) => {
             handleClick(e);
             getProperties("");
@@ -100,11 +89,7 @@ export default function Header({ getProperties }: Props) {
         >
           Alquiler
         </Link>
-        <Link
-          href=""
-          className={`mr-[10px] border border-b-0 p-2 rounded-[4px] ${
-            viewType === "Temporal" ? "border-b-[3px] border-primary " : null
-          }`}
+        <Link href='' className={`mr-[10px] border border-b-0 p-2 rounded-[4px] ${viewType === 'Temporal' ? 'border-b-[3px] border-primary ' : null}`}
           onClick={(e) => {
             handleClick(e);
             getProperties("");

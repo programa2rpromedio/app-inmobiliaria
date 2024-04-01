@@ -15,8 +15,7 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useState, useEffect } from "react";
-import imgAvatar from "@/images/juan.svg";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { FileInput } from "flowbite-react";
 import Logo from "@/images/logoalquileresya.svg";
@@ -26,6 +25,8 @@ import agregarFoto from "@/images/agregarFoto.svg";
 import { Separator } from "@/components/ui/separator";
 import { instanceAxios } from "@/lib/axios";
 import userDefault from "@/images/userDefault.png";
+import Link from "next/link";
+
 
 const formSchema = z.object({
   firtName: z
@@ -244,13 +245,15 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
         <div className="flex items-center w-full h-[152px] mx-24 justify-between  ">
           <div className="flex items-center   ">
             <div className="flex items-center">
-              <Image
-                src={Logo}
-                alt="Logo de la App"
-                className="flex"
-                width={200}
-                height={48}
-              />
+              <Link href='/'>
+                <Image
+                  src={Logo}
+                  alt="Logo de la App"
+                  className="flex"
+                  width={220}
+                  height={52}
+                />
+              </Link>
             </div>
           </div>
           <div className="flex justify-between items-center gap-12 ">
@@ -275,7 +278,7 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
               />
             </div>
             <Image
-              src={imgAvatar}
+              src={userDefault}
               alt="Avatar del Usuario"
               className="rounded-[100%] shadow-xl"
               width={76}
@@ -290,7 +293,7 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
           <h1 className="font-bold text-[16px] mt-8 text-center">Mi Perfil</h1>
           <div className="flex justify-center gap-6 items-center mt-5">
             <Image
-              src={imgAvatar}
+              src={userDefault}
               alt="Avatar del Usuario"
               className="rounded-[100%] shadow-xl"
               width={72}
@@ -315,7 +318,7 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
           <div className="flex flex-col  mx-auto gap-5 items-center mt-10">
             <div className="flex   ">
               <Image
-                src={imgAvatar}
+                src={userDefault}
                 alt="Avatar del Usuario"
                 className="rounded-[100%] shadow-xl"
                 width={235}
@@ -339,6 +342,12 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
                 <p className="bg-[#6ABAA3] text-center p-[3px] rounded-[22px] w-[186px] h-[46px] text-[25px] text-[#F6F6F6] ">
                   {traducirRol(user.role)}
                 </p>
+                {user.role === 'tenant' ?
+                  <Link href='perfil/favoritos' className="border-2 border-primary text-primary bg-background hover:bg-muted h-10 px-4 py-2 rounded-[22px]">Ver favoritos</Link>
+                  :
+                  <Link href='perfil/mispropiedades' className="border-2 border-primary text-primary bg-background hover:bg-muted h-10 px-4 py-2 rounded-[22px]">Mis Propiedades</Link>
+
+                }
               </div>
             ) : (
               <ModalNoUser />
