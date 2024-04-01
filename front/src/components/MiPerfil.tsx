@@ -17,7 +17,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { FileInput } from 'flowbite-react';
+import { FileInput } from "flowbite-react";
 import Logo from "@/images/logoalquileresya.svg";
 import Notificacion from "@/images/notificacion.svg";
 import Configuracion from "@/images/configuracion.svg";
@@ -106,43 +106,50 @@ interface User {
   token: string;
 }
 
-
 const ModalNoUser = () => {
-
-  const refModal = useRef(null)
+  const refModal = useRef(null);
 
   const closeModal = () => {
-    if (refModal.current == null) return
-    window.location.href = '/propiedades'
-  }
-
+    if (refModal.current == null) return;
+    window.location.href = "/propiedades";
+  };
 
   return (
-    <div ref={refModal} onClick={closeModal} className='z-30 min-h-[100vh] h-full w-[100vw] bg-[#2222223c] absolute left-0 top-0 flex justify-center items-center'>
-      <div className='bg-[#fff]  w-[90%] sm:w-[50%] rounded-[1rem]'>
-        <div className='p-2 cursor-pointer' onClick={closeModal}>X</div>
-        <div className='p-4 flex flex-col items-center gap-5'>
+    <div
+      ref={refModal}
+      onClick={closeModal}
+      className="z-30 min-h-[100vh] h-full w-[100vw] bg-[#2222223c] absolute left-0 top-0 flex justify-center items-center"
+    >
+      <div className="bg-[#fff]  w-[90%] sm:w-[50%] rounded-[1rem]">
+        <div className="p-2 cursor-pointer" onClick={closeModal}>
+          X
+        </div>
+        <div className="p-4 flex flex-col items-center gap-5">
           <>
             <strong>❌</strong>
-            <h2 className='font-bold text-[#d94242] text-[1.2rem]'>¡No iniciaste sesion! </h2>
+            <h2 className="font-bold text-[#d94242] text-[1.2rem]">
+              ¡No iniciaste sesion!{" "}
+            </h2>
             <h3>Vuelva a intentarlo.</h3>
-            <Button variant='default' size='lg' className='bg-[#d94242] hover:bg-[#d94242d1]' >Iniciar Sesion</Button>
+            <Button
+              variant="default"
+              size="lg"
+              className="bg-[#d94242] hover:bg-[#d94242d1]"
+            >
+              Iniciar Sesion
+            </Button>
           </>
         </div>
       </div>
     </div>
-  )
-}
-
-
-
+  );
+};
 
 const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
-
   const [isEditing, setEditing] = useState(false);
   const [user, setUser] = useState<User>();
-  const refFormImage = useRef(null)
-  const formData = new FormData()
+  const refFormImage = useRef(null);
+  const formData = new FormData();
   useEffect(() => {
     const storedUser = sessionStorage.getItem("user");
     if (storedUser) {
@@ -176,13 +183,13 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
     }
   }
 
-
-
   // Mandar la actualizacion de los campos al back
   function onSubmit(values: z.infer<typeof formSchema>) {
-
-    instanceAxios.put(`/users/${user?._id}`, values, { headers: { 'Authorization': user?.token } })
-      .then(res => {
+    instanceAxios
+      .put(`/users/${user?._id}`, values, {
+        headers: { Authorization: user?.token },
+      })
+      .then((res) => {
         if (res.data) {
           setUser((prev) => ({
             _id: res.data._id as string,
@@ -194,17 +201,20 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
             city: res.data.location.city as string,
             address: res.data.location.address as string,
             phone: res.data.phone as string,
-            token: prev?.token as string || ''
-          }))
+            token: (prev?.token as string) || "",
+          }));
         }
       })
-      .catch(err => console.log(err))
+      .catch((err) => console.log(err));
 
     if (refFormImage.current) {
-      let file = refFormImage.current as HTMLFormElement
-      formData.append('image', file.files[0]);
-      instanceAxios.patch(`/users/${user?._id}/update-image`, formData, { headers: { 'Authorization': user?.token } })
-        .then(res => {
+      let file = refFormImage.current as HTMLFormElement;
+      formData.append("image", file.files[0]);
+      instanceAxios
+        .patch(`/users/${user?._id}/update-image`, formData, {
+          headers: { Authorization: user?.token },
+        })
+        .then((res) => {
           if (res.data) {
             setUser((prev) => ({
               _id: res.data._id as string,
@@ -216,15 +226,12 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
               city: res.data.location.city as string,
               address: res.data.location.address as string,
               phone: res.data.phone as string,
-              token: prev?.token as string || ''
-            }))
+              token: (prev?.token as string) || "",
+            }));
           }
         })
-        .catch(err => console.log(err))
+        .catch((err) => console.log(err));
     }
-
-
-
   }
 
   return (
@@ -271,7 +278,7 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
               />
             </div>
             <Image
-              src={user?.profilePicture?.url ?? userDefault.src}
+              src={imgAvatar}
               alt="Avatar del Usuario"
               className="rounded-[100%] shadow-xl"
               width={76}
@@ -286,7 +293,7 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
           <h1 className="font-bold text-[16px] mt-8 text-center">Mi Perfil</h1>
           <div className="flex justify-center gap-6 items-center mt-5">
             <Image
-              src={user?.profilePicture?.url ?? userDefault.src}
+              src={imgAvatar}
               alt="Avatar del Usuario"
               className="rounded-[100%] shadow-xl"
               width={72}
@@ -311,7 +318,7 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
           <div className="flex flex-col  mx-auto gap-5 items-center mt-10">
             <div className="flex   ">
               <Image
-                src={user?.profilePicture?.url ?? userDefault.src}
+                src={imgAvatar}
                 alt="Avatar del Usuario"
                 className="rounded-[100%] shadow-xl"
                 width={235}
@@ -325,7 +332,6 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
                   width={38}
                   height={38}
                 />
-
               </div>
             </div>
             {user ? (
@@ -353,7 +359,7 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
           <h1 className="font-bold text-4xl mb-3 hidden sm:flex">Mi Perfil</h1>
           <h2 className="font-bold text-2xl mb-6">Datos Personales</h2>
 
-          <Form {...form} >
+          <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
               className="flex flex-wrap  gap-x-4 gap-y-6 "
@@ -365,7 +371,10 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
                   render={({ field }) => (
                     <FormItem className="w-1/3">
                       <FormControl>
-                        <Input {...field} disabled={!isEditing ? true : false} />
+                        <Input
+                          {...field}
+                          disabled={!isEditing ? true : false}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -437,24 +446,26 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
                 )}
               />
               <div className="w-full">
-                <label htmlFor="">
-                  Foto de perfil
-                </label>
-                <FileInput id="imageProfile" className='w-1/3' name='image' ref={refFormImage} disabled={!isEditing ? true : false} />
+                <label htmlFor="">Foto de perfil</label>
+                <FileInput
+                  id="imageProfile"
+                  className="w-1/3"
+                  name="image"
+                  ref={refFormImage}
+                  disabled={!isEditing ? true : false}
+                />
               </div>
 
-              {
-                isEditing ?
-                  <Button
-                    className="mt-6  w-1/3 text-[14px] font-semibold"
-                    variant="outline"
-                    size="lg"
-                    type="submit"
-                  >
-                    Guardar cambios
-                  </Button>
-                  : null
-              }
+              {isEditing ? (
+                <Button
+                  className="mt-6  w-1/3 text-[14px] font-semibold"
+                  variant="outline"
+                  size="lg"
+                  type="submit"
+                >
+                  Guardar cambios
+                </Button>
+              ) : null}
             </form>
 
             <div className=" gap-x-4 gap-y-6 w-full mt-4">
@@ -465,8 +476,7 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
                   size="lg"
                   onClick={() => setEditing(!isEditing)}
                 >
-                  {isEditing ? 'Dejar de Editar' : 'Editar Perfil'}
-
+                  {isEditing ? "Dejar de Editar" : "Editar Perfil"}
                 </Button>
               ) : (
                 <>
@@ -480,7 +490,6 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
                   </Button>
                 </>
               )}
-
             </div>
           </Form>
         </main>
