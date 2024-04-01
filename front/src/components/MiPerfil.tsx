@@ -16,7 +16,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useState, useEffect, useRef } from "react";
-import imgAvatar from "@/images/juan.svg";
 import Image from "next/image";
 import { FileInput } from 'flowbite-react';
 import Logo from "@/images/logoalquileresya.svg";
@@ -26,6 +25,7 @@ import agregarFoto from "@/images/agregarFoto.svg";
 import { Separator } from "@/components/ui/separator";
 import { instanceAxios } from "@/lib/axios";
 import userDefault from "@/images/userDefault.png";
+import Link from "next/link";
 
 
 const formSchema = z.object({
@@ -238,13 +238,15 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
         <div className="flex items-center w-full h-[152px] mx-24 justify-between  ">
           <div className="flex items-center   ">
             <div className="flex items-center">
-              <Image
-                src={Logo}
-                alt="Logo de la App"
-                className="flex"
-                width={220}
-                height={52}
-              />
+              <Link href='/'>
+                <Image
+                  src={Logo}
+                  alt="Logo de la App"
+                  className="flex"
+                  width={220}
+                  height={52}
+                />
+              </Link>
             </div>
           </div>
           <div className="flex justify-between items-center gap-12 ">
@@ -334,6 +336,12 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
                 <p className="bg-[#6ABAA3] text-center p-[3px] rounded-[22px] w-[186px] h-[46px] text-[25px] text-[#F6F6F6] ">
                   {traducirRol(user.role)}
                 </p>
+                {user.role === 'tenant' ?
+                  <Link href='perfil/favoritos' className="border-2 border-primary text-primary bg-background hover:bg-muted h-10 px-4 py-2 rounded-[22px]">Ver favoritos</Link>
+                  :
+                  <Link href='perfil/mispropiedades' className="border-2 border-primary text-primary bg-background hover:bg-muted h-10 px-4 py-2 rounded-[22px]">Mis Propiedades</Link>
+
+                }
               </div>
             ) : (
               <ModalNoUser />

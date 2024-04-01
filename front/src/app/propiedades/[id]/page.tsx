@@ -35,6 +35,7 @@ export default function Page() {
         province={property?.province}
         category={property?.category}
         propertyPictures={property?.propertyPictures}
+        propertyId={id}
       />
 
       <section className="mt-4 flex flex-wrap md:justify-between sm:justify-center md:gap-8 gap-y-4">
