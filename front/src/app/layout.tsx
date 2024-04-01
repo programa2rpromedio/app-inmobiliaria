@@ -5,7 +5,7 @@ import { Poppins } from "next/font/google";
 
 export const metadata: Metadata = {
   title: "Alquileres Ya!",
-  description: "Alquileres Ya!",
+  description: "Alquileres Ya! Encontra tu hogar ideal en un solo click. Publica tu propiedad sin comisiones.",
   icons: {
     icon: '/logoalquileresya.svg',
     shortcut: '/logoalquileresya.svg',
