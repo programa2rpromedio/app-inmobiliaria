@@ -29,7 +29,6 @@ export default function Page() {
 
   const searchParams = useSearchParams();
   const city = searchParams.get("city");
-  console.log(city);
 
 
 

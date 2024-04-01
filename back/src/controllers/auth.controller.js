@@ -10,7 +10,7 @@ class AuthController {
   static async register(req, res, next) {
     const payload = req.body;
     try {
-      if(req.file){
+      if (req.file) {
         const folderName = `inmobiliaria/perfil`;
         const uploadedUrl = await uploadProfileImage(req.file, folderName)
         const imageObject = {
@@ -33,7 +33,7 @@ class AuthController {
   static async login(req, res, next) {
     const payload = req.body;
     try {
-      if(!payload.password || password.email){
+      if (!payload.password || !payload.email) {
         throw new HttpError("Missing credentials", 400);
       }
       const user = await UsersService.getUserByEmail(payload.email);

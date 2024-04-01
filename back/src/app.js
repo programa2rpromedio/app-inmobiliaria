@@ -3,6 +3,7 @@ import apiRouter from "./routes/app.router.js";
 import { PORT } from "./config/env.config.js";
 import { connect } from "./config/db.config.js";
 import { specs } from "./config/swagger.config.js";
+import cors from 'cors'
 import swaggerUiExpress from 'swagger-ui-express'
 
 const app = express();
@@ -11,10 +12,7 @@ const app = express();
 
 //Middlewares
 app.use('/api/docs', swaggerUiExpress.serve, swaggerUiExpress.setup(specs))
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  next()
-})
+app.use(cors({ origin: '*' }))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

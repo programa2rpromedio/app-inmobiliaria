@@ -206,8 +206,9 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
       })
       .catch((err) => console.log(err));
 
-    if (refFormImage.current) {
-      let file = refFormImage.current as HTMLFormElement;
+    let file = refFormImage.current ? refFormImage.current as HTMLFormElement : undefined
+
+    if (file?.files[0] !== undefined) {
       formData.append("image", file.files[0]);
       instanceAxios
         .patch(`/users/${user?._id}/update-image`, formData, {

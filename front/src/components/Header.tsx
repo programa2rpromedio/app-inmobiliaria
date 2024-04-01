@@ -9,7 +9,7 @@ import { getUser } from "@/lib/getUser";
 import userDefault from "@/images/userDefault.png";
 
 interface Props {
-  getProperties: (p: string) => Promise<void>;
+  getProperties?: (p: string) => Promise<void>;
 }
 
 export default function Header({ getProperties }: Props) {
@@ -36,7 +36,10 @@ export default function Header({ getProperties }: Props) {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (filter === undefined) return;
-    getProperties(filter);
+    if (getProperties) {
+      getProperties(filter);
+    }
+
   };
 
   const handleChangge = (e: ChangeEvent<HTMLInputElement>) => {
@@ -84,7 +87,9 @@ export default function Header({ getProperties }: Props) {
         <Link href='' className={`mr-[10px] border border-b-0 p-2 rounded-[4px] ${viewType === 'Alquiler' ? 'border-b-[3px] border-primary ' : null}`}
           onClick={(e) => {
             handleClick(e);
-            getProperties("");
+            if (getProperties) {
+              getProperties("");
+            }
           }}
         >
           Alquiler
@@ -92,7 +97,9 @@ export default function Header({ getProperties }: Props) {
         <Link href='' className={`mr-[10px] border border-b-0 p-2 rounded-[4px] ${viewType === 'Temporal' ? 'border-b-[3px] border-primary ' : null}`}
           onClick={(e) => {
             handleClick(e);
-            getProperties("");
+            if (getProperties) {
+              getProperties("");
+            };
           }}
         >
           Temporal
