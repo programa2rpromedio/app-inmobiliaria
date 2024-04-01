@@ -278,7 +278,7 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
               />
             </div>
             <Image
-              src={imgAvatar}
+              src={userDefault}
               alt="Avatar del Usuario"
               className="rounded-[100%] shadow-xl"
               width={76}
@@ -293,7 +293,7 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
           <h1 className="font-bold text-[16px] mt-8 text-center">Mi Perfil</h1>
           <div className="flex justify-center gap-6 items-center mt-5">
             <Image
-              src={imgAvatar}
+              src={userDefault}
               alt="Avatar del Usuario"
               className="rounded-[100%] shadow-xl"
               width={72}
@@ -318,7 +318,7 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
           <div className="flex flex-col  mx-auto gap-5 items-center mt-10">
             <div className="flex   ">
               <Image
-                src={imgAvatar}
+                src={userDefault}
                 alt="Avatar del Usuario"
                 className="rounded-[100%] shadow-xl"
                 width={235}
