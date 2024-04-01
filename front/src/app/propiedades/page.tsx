@@ -32,6 +32,7 @@ export default function Page() {
 
 
 
+
   useEffect(() => {
     if (city === null) {
       instanceAxios.get(`/properties`)

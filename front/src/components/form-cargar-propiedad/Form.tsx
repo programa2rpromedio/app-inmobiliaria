@@ -23,7 +23,7 @@ const initialState: Property = {
   addressStreet: '',
   addressNumber: '',
   lat: 0,
-  lng: 0,
+  lon: 0,
   totalArea: 0, // Optional property
   coveredArea: 0, // Optional property
   bathrooms: 0,

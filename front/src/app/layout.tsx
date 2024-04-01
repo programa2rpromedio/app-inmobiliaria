@@ -9,7 +9,6 @@ export const metadata: Metadata = {
   icons: {
     icon: '/logoalquileresya.svg',
     shortcut: '/logoalquileresya.svg',
-    apple: '/logoalquileresya.svg'
   }
 };
 

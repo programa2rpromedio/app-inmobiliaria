@@ -144,7 +144,8 @@ const ModalNoUser = () => {
   );
 };
 
-const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
+// const MiPerfil: React.FC<ProfileFormProps> = () => {
+export default function Page() {
   const [isEditing, setEditing] = useState(false);
   const [user, setUser] = useState<User>();
   const refFormImage = useRef(null);
@@ -498,4 +499,3 @@ const MiPerfil: React.FC<ProfileFormProps> = ({ userData = {} }) => {
   );
 };
 
-export default MiPerfil;
