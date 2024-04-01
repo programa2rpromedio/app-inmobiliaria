@@ -24,7 +24,7 @@ class AuthController {
       const getUserDTO = new GetUserDTO(user)
       await MailService.sendWelcome(user)
       const token = generateAccessToken(getUserDTO._id);
-      res.status(200).json([getUserDTO, token]);
+      res.status(201).json([getUserDTO, token]);
     } catch (error) {
       next(error);
     }
@@ -33,6 +33,9 @@ class AuthController {
   static async login(req, res, next) {
     const payload = req.body;
     try {
+      if(!payload.password || password.email){
+        throw new HttpError("Missing credentials", 400);
+      }
       const user = await UsersService.getUserByEmail(payload.email);
       if (!isValidPassword(user, payload.password)) {
         throw new HttpError("User or password wrong", 401);

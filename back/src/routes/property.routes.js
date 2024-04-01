@@ -13,4 +13,4 @@ router.post("/", verifyToken, upload.array("images", 10), PropertiesController.c
 router.put("/:pid", verifyToken, PropertiesController.updateOne);
 router.delete("/:pid", verifyToken, PropertiesController.deleteOne);
 
-export default router;
+export default router
