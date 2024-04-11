@@ -1,18 +1,25 @@
 import React from 'react'
 import VectorLivingRoom from '@/images/living-room.svg'
 import Image from 'next/image'
+import { StepContext } from "@/lib/ContextFormProp";
+import { useContext } from "react";
 import { Button } from '../ui/button'
 
-interface IntroProps {
-  handleNextStep?: () => void;  // Optional prop
-  // Other props as needed
-}
 
 
-export default function IntroSecondPart({ handleNextStep }: IntroProps) {
+export default function IntroSecondPart() {
+
+  const { dispatch } = useContext(StepContext)
+
+  const handleNextStep = () => {
+    dispatch({
+      type: 'next'
+    })
+  }
+
   return (
     <>
-      <div className="hidden sm:flex sm:h-[80vh] sm:items-center sm:justify-center">
+      <div className=" sm:flex sm:h-[80vh] sm:items-center sm:justify-center">
         <div className="flex flex-col gap-4 mb-8  sm:w-[50%]">
           <h3 className="text-primary sm:text-[1.5rem]">Paso 2</h3>
           <h4 className="font-[600] sm:text-[1.5rem]">¡Descríbenos cómo es tu propiedad y publícala!</h4>
