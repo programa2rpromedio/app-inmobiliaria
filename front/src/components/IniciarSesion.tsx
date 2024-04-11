@@ -43,7 +43,7 @@ export default function IniciarSesion() {
       const response = await instanceAxios.post('/auth/login', values)
       if (response.status === 200) {
         sessionStorage.setItem('user', JSON.stringify({ ...response.data[0], token: response.data[1] }))
-        window.location.href = 'http://localhost:3000/'
+        window.location.href = 'https://alquileresya.vercel.app/'
       }
     } catch (error) {
       console.log(error);

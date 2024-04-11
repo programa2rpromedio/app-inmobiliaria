@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "../app/globals.css";
 import '@radix-ui/themes/styles.css';
 import { Poppins } from "next/font/google";
+import Script from 'next/script'
 
 export const metadata: Metadata = {
   title: "Alquileres Ya!",
@@ -25,6 +26,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className={`${poppins.variable} font-sans`}>
+      <head>
+        {/* <!-- Google tag (gtag.js) --> */}
+        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-VJCQ6CQYGK"></Script>
+        <Script id="google-analytics">
+          {
+            `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-VJCQ6CQYGK');
+          `
+          }
+        </Script>
+      </head>
       <body >{children}</body>
     </html>
   );

@@ -107,7 +107,7 @@ export default function Register() {
     try {
       const response = await instanceAxios.post('/auth/register', values)
       console.log(response)
-      if (response.status === 201) window.location.href = `http://localhost:3000/iniciar-sesion`
+      if (response.status === 201) window.location.href = `https://alquileresya.vercel.app/iniciar-sesion`
 
     } catch (error) {
       console.log(error);
