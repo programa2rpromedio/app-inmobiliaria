@@ -65,8 +65,6 @@ export default function Page() {
                     :
                     null
                 }
-                <Link href='cargar-propiedad' className="order-2 sm:order-1 border border-primary text-primary hover:bg-muted h-10 px-1 sm:px-4 py-2 text-[13px] text-nowrap ">Publicar propiedad</Link>
-
                 <Link href='/perfil'>
                   <Image src={user.profilePicture?.url ?? userDefault.src} alt="user picture" width={60}
                     height={60} className=" sm:order-2" />
