@@ -49,7 +49,7 @@ export default function Header({ getProperties }: Props) {
 
   return (
     <header className="py-2 px-4 sm:px-20 bg-[#fff]">
-      <div className="flex flex-col sm:flex-row justify-between  sm:items-center mb-6">
+      <div className="flex gap-2 sm:flex-row justify-between  sm:items-center mb-6">
         <div className="flex justify-between sm:justify-normal items-center gap-2">
           <Image src={logo} alt="Logo Alquileres Ya" width={200} height={200} />
         </div>
@@ -57,20 +57,20 @@ export default function Header({ getProperties }: Props) {
 
           {
             user ?
-              <div className="flex justify-between gap-4 w-full items-center sm:gap-8 md:gap-16 sm:justify-normal sm:px-2">
+              <div className="flex justify-between gap-2 w-full items-center sm:gap-8 md:gap-16 sm:justify-normal sm:px-2">
                 {
                   user.role === 'owner' ?
-                    <Link href='cargar-propiedad' className="order-2 sm:order-1 border border-primary text-primary hover:bg-muted h-10 px-4 py-2">Publicar propiedad</Link>
+                    <Link href='cargar-propiedad' className="order-2 sm:order-1 border border-primary text-primary hover:bg-muted h-10 px-1 sm:px-4 py-2 text-[13px] text-nowrap ">Publicar propiedad</Link>
                     :
                     null
                 }
                 <Link href='/perfil'>
-                  <Image src={user.profilePicture?.url ?? userDefault.src} alt="user picture" width={70}
-                    height={70} className=" sm:order-2" />
+                  <Image src={user.profilePicture?.url ?? userDefault.src} alt="user picture" width={60}
+                    height={60} className=" sm:order-2" />
                 </Link>
               </div>
               :
-              <Link href='/iniciar-sesion' className="bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2">Iniciar sesión</Link>
+              <Link href='/iniciar-sesion' className="bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 text-nowrap">Iniciar sesión</Link>
 
           }
         </div>

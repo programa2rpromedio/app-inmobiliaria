@@ -18,7 +18,7 @@ import Image from "next/image";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#EDEEF2] mt-4 pt-5">
+    <footer className="bg-[#EDEEF2] mt-4 pt-5 overflow-hidden">
       <div className="flex justify-between px-4 md:ml-20 md:justify-start  md:gap-12">
         <div>
           <p className="text-[10px] md:text-[18px] font-bold">Acerca de</p>
@@ -116,7 +116,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="flex ml-auto gap-4">
+        <div className="flex justify-end  gap-4 w-full">
           <Image
             src={Facebook}
             alt="Icono Facebook"
@@ -124,7 +124,7 @@ export default function Footer() {
             width={24}
             height={24}
           />
-          <Link href='https://www.instagram.com/programadorpromedio_/' target="_blank" className="w-8 sm:w-max">
+          <Link href='https://www.instagram.com/programadorpromedio_/' target="_blank" className=" w-max h-[24px] md:w-[64px] md:h-[64px]">
             <Image
               src={Instagram}
               alt="Icono Facebook"
@@ -135,13 +135,6 @@ export default function Footer() {
           </Link>
           <Image
             src={Twitter}
-            alt="Icono Facebook"
-            className="md:w-[64px] md:h-[64px]"
-            width={24}
-            height={24}
-          />
-          <Image
-            src={Youtube}
             alt="Icono Facebook"
             className="md:w-[64px] md:h-[64px]"
             width={24}

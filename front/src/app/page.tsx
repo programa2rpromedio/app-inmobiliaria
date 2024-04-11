@@ -49,31 +49,33 @@ export default function Page() {
         <div className="flex items-center ">
           <Image
             src={Logo}
-            alt="Logo de la App"
+            alt="Logo Alquileres Ya"
             className="sm:ml-2"
             width={200}
             height={200}
           />
         </div>
+        <div className='flex justify-between sm:justify-normal items-center gap-4 md:gap-32'>
+          {
+            user ?
+              <div className="flex  gap-2 w-full items-center sm:gap-8 md:gap-16 sm:justify-normal sm:px-2">
+                {
+                  user.role === 'owner' ?
+                    <Link href='cargar-propiedad' className="order-2 sm:order-1 border border-primary text-primary hover:bg-muted h-10 px-1 sm:px-4 py-2 text-[13px] text-nowrap ">Publicar propiedad</Link>
+                    :
+                    null
+                }
+                <Link href='cargar-propiedad' className="order-2 sm:order-1 border border-primary text-primary hover:bg-muted h-10 px-1 sm:px-4 py-2 text-[13px] text-nowrap ">Publicar propiedad</Link>
 
-        {
-          user ?
-            <div className="flex justify-between gap-4 w-full items-center sm:gap-8 md:gap-16 sm:w-1/2 sm:justify-end sm:px-2">
-              {
-                user.role === 'owner' ?
-                  <Link href='cargar-propiedad' className="order-2 sm:order-1 border border-primary text-primary hover:bg-muted h-10 px-4 py-2">Publicar propiedad</Link>
-                  :
-                  null
-              }
-              <Link href='/perfil'>
-                <Image src={user.profilePicture?.url ?? userDefault.src} alt="user picture" width={70}
-                  height={70} className=" sm:order-2" />
-              </Link>
-            </div>
-            :
-            <Link href='iniciar-sesion' className="bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2">Iniciar sesión</Link>
-
-        }
+                <Link href='/perfil'>
+                  <Image src={user.profilePicture?.url ?? userDefault.src} alt="user picture" width={60}
+                    height={60} className=" sm:order-2" />
+                </Link>
+              </div>
+              :
+              <Link href='/iniciar-sesion' className="bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2">Iniciar sesión</Link>
+          }
+        </div>
 
       </div>
 
@@ -150,7 +152,7 @@ export default function Page() {
       </section>
 
       <section >
-        <div className="flex flex-col mx-auto justify-center mt-10 sm:hidden">
+        <div className="flex flex-col mx-auto justify-center mt-10 sm:hidden relative w-max">
           <Image
             src={Presentacion}
             alt="Logo de la App"
@@ -160,7 +162,7 @@ export default function Page() {
           />
           <Button
             variant={"default"}
-            className="relative bg-[#ffffff] text-[#3354FF] w-[75px] h-[20px] text-[11px] font-bold hover:text-[#ffffff] -mt-9 ml-10 p-2"
+            className="absolute bg-[#ffffff] text-[#3354FF] w-[75px] h-[20px] text-[11px] font-bold hover:text-[#ffffff] bottom-2 left-4 p-2"
             onClick={() => window.location.href = '/propiedades'}
           >
             Ver la lista
