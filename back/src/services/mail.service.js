@@ -102,13 +102,13 @@ class MailService {
                     </body>
                 </html>
             `,
-                attachments: [
-                    {
-                        filename: 'logo.png',
-                        path: './assets/images/logo.png',
-                        cid: 'logo'
-                    }
-                ],
+                // attachments: [
+                //     {
+                //         filename: 'logo.png',
+                //         path: './assets/images/logo.png',
+                //         cid: 'logo'
+                //     }
+                // ],
             });
         } catch (error) {
             console.error(error);
@@ -346,23 +346,23 @@ class MailService {
                 </div>
             </body>
             </html>`,
-            attachments: [
-                {
-                    filename: 'logo.png',
-                    path: './assets/images/logo.png',
-                    cid: 'logo'
-                },
-                {
-                    filename: 'rooms.png',
-                    path: './assets/images/rooms.png',
-                    cid: 'rooms'
-                },
-                {
-                    filename: property_pictures[0]?.public_id,
-                    path: property_pictures[0]?.url,
-                    cid: 'propertyPicture'
-                }
-            ],
+            // attachments: [
+            //     {
+            //         filename: 'logo.png',
+            //         path: './assets/images/logo.png',
+            //         cid: 'logo'
+            //     },
+            //     {
+            //         filename: 'rooms.png',
+            //         path: './assets/images/rooms.png',
+            //         cid: 'rooms'
+            //     },
+            //     {
+            //         filename: property_pictures[0]?.public_id,
+            //         path: property_pictures[0]?.url,
+            //         cid: 'propertyPicture'
+            //     }
+            // ],
         })
     }
 
@@ -586,23 +586,23 @@ class MailService {
                 </div>
             </body>
             </html>`,
-            attachments: [
-                {
-                    filename: 'logo.png',
-                    path: './assets/images/logo.png',
-                    cid: 'logo'
-                },
-                {
-                    filename: 'rooms.png',
-                    path: './assets/images/rooms.png',
-                    cid: 'rooms'
-                },
-                {
-                    filename: property_pictures[0]?.public_id,
-                    path: property_pictures[0]?.url,
-                    cid: 'propertyPicture'
-                }
-            ],
+            // attachments: [
+            //     {
+            //         filename: 'logo.png',
+            //         path: './assets/images/logo.png',
+            //         cid: 'logo'
+            //     },
+            //     {
+            //         filename: 'rooms.png',
+            //         path: './assets/images/rooms.png',
+            //         cid: 'rooms'
+            //     },
+            //     {
+            //         filename: property_pictures[0]?.public_id,
+            //         path: property_pictures[0]?.url,
+            //         cid: 'propertyPicture'
+            //     }
+            // ],
         })
     }
 }
