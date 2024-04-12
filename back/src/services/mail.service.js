@@ -105,7 +105,7 @@ class MailService {
                 attachments: [
                     {
                         filename: 'logo.png',
-                        path: '/back/assets/images/logo.png',
+                        path: './assets/images/logo.png',
                         cid: 'logo'
                     }
                 ],
@@ -349,12 +349,12 @@ class MailService {
             attachments: [
                 {
                     filename: 'logo.png',
-                    path: '/back/assets/images/logo.png',
+                    path: './assets/images/logo.png',
                     cid: 'logo'
                 },
                 {
                     filename: 'rooms.png',
-                    path: '/back/assets/images/rooms.png',
+                    path: './assets/images/rooms.png',
                     cid: 'rooms'
                 },
                 {
@@ -589,12 +589,12 @@ class MailService {
             attachments: [
                 {
                     filename: 'logo.png',
-                    path: '/back/assets/images/logo.png',
+                    path: './assets/images/logo.png',
                     cid: 'logo'
                 },
                 {
                     filename: 'rooms.png',
-                    path: '/back/assets/images/rooms.png',
+                    path: './assets/images/rooms.png',
                     cid: 'rooms'
                 },
                 {
