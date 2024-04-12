@@ -1,15 +1,23 @@
 import { instanceAxios } from '@/lib/axios';
-import { PropertyCard } from '@/lib/types'
+import { getUser } from '@/lib/getUser';
+import { PropertyCard, User } from '@/lib/types'
 import Link from 'next/link'
+import { useEffect, useState } from 'react';
 
 export default function CardFavorite(prop: PropertyCard) {
+
+  const [user, setUser] = useState<User | undefined>()
+
+  useEffect(() => {
+    setUser(getUser())
+  }, [])
 
   const { title, value, city, province, coveredArea, rooms, pets, bedrooms, propertyPictures, propertyId } = prop
 
   const handleClick = () => {
     const response = confirm('¿Seguro que desea eliminar la propiedad?')
     if (response === true) {
-      instanceAxios.delete(`/properties/${propertyId}`)
+      instanceAxios.delete(`/properties/${propertyId}`, { headers: { 'Authorization': user?.token } })
         .then((res) => console.log(res))
         .catch(err => console.log(err))
     }
