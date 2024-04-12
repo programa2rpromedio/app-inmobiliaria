@@ -3,12 +3,12 @@ import gmailTransport from "../config/mail.config.js";
 
 class MailService {
     static async sendWelcome({ first_name, email }) {
-    try {
-        await gmailTransport.sendMail({
-            from: `Alquileres Ya <${EMAIL}>`,
-            to: email,
-            subject: 'Nueva cuenta en Alquileres Ya!',
-            html: `
+        try {
+            await gmailTransport.sendMail({
+                from: `Alquileres Ya <${EMAIL}>`,
+                to: email,
+                subject: 'Nueva cuenta en Alquileres Ya!',
+                html: `
                 <html lang="en">
                     <head>
                         <meta charset="UTF-8">
@@ -102,26 +102,26 @@ class MailService {
                     </body>
                 </html>
             `,
-            attachments: [
-                {
-                    filename: 'logo.png',
-                    path: 'assets/images/logo.png',
-                    cid: 'logo'
-                }
-            ],
-        });
-    } catch (error) {
-        console.error(error);
-    }
+                attachments: [
+                    {
+                        filename: 'logo.png',
+                        path: '/back/assets/images/logo.png',
+                        cid: 'logo'
+                    }
+                ],
+            });
+        } catch (error) {
+            console.error(error);
+        }
     }
 
-    static async sendContact(property, payload){
+    static async sendContact(property, payload) {
         const { title, user_id: user, price, property_pictures, _id } = property
         const { username, email, phone, message } = payload
         await gmailTransport.sendMail({
             from: `Alquileres Ya <${EMAIL}>`,
             to: user.email,
-            subject: `Has recibido un mensaje de ${username}` ,
+            subject: `Has recibido un mensaje de ${username}`,
             html: `<html lang="en">
             <head>
                 <meta charset="UTF-8">
@@ -313,12 +313,12 @@ class MailService {
                         <h1>¡Hola, ${user.first_name}!</h1>
                         <h2>Has recibido una nueva consulta sobre tu propiedad.</h2>
                         <div class="property-info">
-                            ${ property_pictures.length ?
-                                `<div class="property-img-container">
+                            ${property_pictures.length ?
+                    `<div class="property-img-container">
                                     <img src="cid:propertyPicture" alt="" class="property-img">
                                 </div>`
-                                : '      '
-                            }
+                    : '      '
+                }
                             <div class="property-data">
                                 <h3>${title}</h3>
                                 <h4>departamento en alquiler</h4>
@@ -349,12 +349,12 @@ class MailService {
             attachments: [
                 {
                     filename: 'logo.png',
-                    path: 'assets/images/logo.png',
+                    path: '/back/assets/images/logo.png',
                     cid: 'logo'
                 },
                 {
                     filename: 'rooms.png',
-                    path: 'assets/images/rooms.png',
+                    path: '/back/assets/images/rooms.png',
                     cid: 'rooms'
                 },
                 {
@@ -364,14 +364,14 @@ class MailService {
                 }
             ],
         })
-    }   
+    }
 
-    static async newProperty(property, user){
+    static async newProperty(property, user) {
         const { title, price, property_pictures, _id } = property
         await gmailTransport.sendMail({
             from: `Alquileres Ya <${EMAIL}>`,
             to: user.email,
-            subject: `Has creado una nueva propiedad` ,
+            subject: `Has creado una nueva propiedad`,
             html: `<html lang="en">
             <head>
                 <meta charset="UTF-8">
@@ -559,12 +559,12 @@ class MailService {
                         <h1>¡Hola, ${user.first_name}!</h1>
                         <h2>Has agregado una nueva propiedad a tus ofertas de alquiler.</h2>
                         <div class="property-info">
-                            ${ property_pictures.length ?
-                                `<div class="property-img-container">
+                            ${property_pictures.length ?
+                    `<div class="property-img-container">
                                     <img src="cid:propertyPicture" alt="" class="property-img">
                                 </div>`
-                                : ''
-                            }
+                    : ''
+                }
                             <div class="property-data">
                                 <h3>${title}</h3>
                                 <h4>departamento en alquiler</h4>
@@ -589,12 +589,12 @@ class MailService {
             attachments: [
                 {
                     filename: 'logo.png',
-                    path: 'assets/images/logo.png',
+                    path: '/back/assets/images/logo.png',
                     cid: 'logo'
                 },
                 {
                     filename: 'rooms.png',
-                    path: 'assets/images/rooms.png',
+                    path: '/back/assets/images/rooms.png',
                     cid: 'rooms'
                 },
                 {
