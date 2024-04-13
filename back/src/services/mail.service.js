@@ -577,7 +577,7 @@ class MailService {
                         </div>
                         <p class="contact-detail">¡Mantente alerta a las novedades!</p>
                         <div class="btn-container">
-                            <a href="${FRONT_URL}/propiedad/${_id}" class="link-anchor">
+                            <a href="${FRONT_URL}/propiedad/[id]?id=${_id}" class="link-anchor">
                                 <button class="link-button see-property-btn">Ver propiedad</button>
                             </a>
                         </div>
