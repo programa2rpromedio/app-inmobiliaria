@@ -16,9 +16,15 @@ export default function CardProperty(prop: PropertyCard) {
 
   return (
     <div className='flex flex-col items-center  justify-between bg-[#FFFFFF] max-w-[350px] w-full rounded-[12px] min-h-[430px]  sm:h-[480px] '>
-      <div className='w-full p-1 sm:p-4 '>
-        <Image src={propertyPictures[0]?.url} className=' rounded-[12px] object-contain hidden media375:block' alt={title} width={350} height={270} />
-        <Image src={propertyPictures[0]?.url} className=' rounded-[12px] object-contain media375:hidden' alt={title} width={310} height={270} />
+      <div className='relative w-full h-[270px] p-1 sm:p-4  overflow-hidden'>
+        <Image src={propertyPictures[0]?.url}
+          className=' rounded-[12px]   p-1 '
+          alt={title}
+          layout="fill" // Esto ajusta la imagen para que llene el contenedor
+          objectFit="cover" // Esto asegura que la imagen cubra el área del contenedor
+        />
+
+
       </div>
       <div className='w-full px-4 py-2'>
         <div>

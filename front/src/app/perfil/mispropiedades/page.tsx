@@ -39,6 +39,8 @@ export default function Page() {
   }, []);
 
   useEffect(() => {
+    console.log(user?._id);
+
     if (user) {
       instanceAxios.get(`/properties/?user=${user?._id}`)
         .then(res => setProps(res.data))

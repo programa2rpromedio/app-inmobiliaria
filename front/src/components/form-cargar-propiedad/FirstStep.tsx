@@ -63,6 +63,7 @@ export default function FirstStep(props: PropsFormCargarPropiedad) {
     lat: 0,
     lon: 0
   })
+
   const [placeAutocomplete, setPlaceAutocomplete] =
     useState<google.maps.places.Autocomplete | null>(null);
 

@@ -107,7 +107,7 @@ export default function Register() {
     try {
       const response = await instanceAxios.post('/auth/register', values)
       console.log(response)
-      if (response.status === 201) window.location.href = `https://alquileresya.vercel.app/iniciar-sesion`
+      if (response.status === 201) window.location.href = `http://localhost:3000/iniciar-sesion`
 
     } catch (error) {
       console.log(error);
@@ -286,8 +286,8 @@ export default function Register() {
         </form>
       </Form>
       <div className="flex flex-col justify-center items-center text-sm">
-        <p>¿Ya tienes una cuenta?</p>
-        <p className="font-semibold hover:text-primary transition-colors"><Link href="/iniciar-sesion">Inicia sesión</Link></p>
+        {/* <p>¿Ya tienes una cuenta?</p>
+        <p className="font-semibold hover:text-primary transition-colors"><Link href="/iniciar-sesion">Inicia sesión</Link></p> */}
       </div>
     </div>
   )
